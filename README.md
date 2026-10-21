@@ -8,8 +8,11 @@
 
 <br/>
 
-[![Website](https://img.shields.io/badge/Website-ailwb.com-1F6FEB?style=for-the-badge&logo=googlechrome&logoColor=white)](https://ailwb.com/)
-[![English](https://img.shields.io/badge/README-English-24292F?style=for-the-badge)](README_EN.md)
+<a href="https://ailwb.com/"><img src="https://img.shields.io/badge/%E6%88%91%E7%9A%84%E7%BD%91%E7%AB%99-1F6FEB?style=for-the-badge" alt="我的网站" /></a>
+&nbsp;&nbsp;&nbsp;
+<a href="README.md"><img src="https://img.shields.io/badge/%E4%B8%AD%E6%96%87-24292F?style=for-the-badge" alt="中文" /></a>
+&nbsp;&nbsp;&nbsp;
+<a href="README_EN.md"><img src="https://img.shields.io/badge/%E8%8B%B1%E6%96%87-24292F?style=for-the-badge" alt="英文" /></a>
 
 <br/>
 
