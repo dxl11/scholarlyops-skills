@@ -10,18 +10,12 @@
 
 <br/>
 
-<p>
-  <a href="https://ailwb.com/">
-    <img src="https://img.shields.io/badge/%E6%88%91%E7%9A%84%E7%BD%91%E7%AB%99-1B2A4A?style=for-the-badge&logo=googlechrome&logoColor=white" alt="我的网站" />
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="README.md">
-    <img src="https://img.shields.io/badge/%E4%B8%AD%E6%96%87-EAECEF?style=for-the-badge&labelColor=EAECEF&color=8B949E" alt="中文" />
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="README_EN.md">
-    <img src="https://img.shields.io/badge/%E8%8B%B1%E6%96%87-1F4D3A?style=for-the-badge&logoColor=white" alt="英文" />
-  </a>
+<p style="font-size: 1.35em; line-height: 1.8;">
+  <a href="https://ailwb.com/"><b><u>网站</u></b></a>
+  &nbsp;·&nbsp;
+  <a href="README.md"><b><u>中文</u></b></a>
+  &nbsp;·&nbsp;
+  <a href="README_EN.md"><b><u>English</u></b></a>
 </p>
 
 <br/>

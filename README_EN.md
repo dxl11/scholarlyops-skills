@@ -10,18 +10,12 @@ Academic Research Workflow Skills — an extensible set of evidence-grounded AI 
 
 <br/>
 
-<p>
-  <a href="https://ailwb.com/">
-    <img src="https://img.shields.io/badge/My%20Website-1B2A4A?style=for-the-badge&logo=googlechrome&logoColor=white" alt="My Website" />
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="README.md">
-    <img src="https://img.shields.io/badge/%E4%B8%AD%E6%96%87-1F4D3A?style=for-the-badge&logoColor=white" alt="中文" />
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="README_EN.md">
-    <img src="https://img.shields.io/badge/English-EAECEF?style=for-the-badge&labelColor=EAECEF&color=8B949E" alt="English" />
-  </a>
+<p style="font-size: 1.35em; line-height: 1.8;">
+  <a href="https://ailwb.com/"><b><u>Website</u></b></a>
+  &nbsp;·&nbsp;
+  <a href="README.md"><b><u>中文</u></b></a>
+  &nbsp;·&nbsp;
+  <a href="README_EN.md"><b><u>English</u></b></a>
 </p>
 
 <br/>
