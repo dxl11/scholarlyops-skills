@@ -1,0 +1,77 @@
+{
+  "$schema_note": "Copied from scorecard-template.json; supplemental fields added for Wave A scoring compatibility.",
+  "case_id": "05_citation_metadata_error",
+  "date": "2026-10-21",
+  "status": "pass",
+  "status_allowed": ["pass", "fail", "partial", "skip"],
+  "overall_status": "pass_content_quality",
+  "blind_valid": false,
+  "blind_invalid_reason": "Same multi-turn conversation previously authored expect.json for this case before audit. Invalid as formal blind per rubric §1.",
+  "agent": {
+    "name": "Cursor Agent",
+    "version": ""
+  },
+  "model": {
+    "name": "Composer",
+    "version_or_build": ""
+  },
+  "skill": {
+    "name": "manuscript-audit",
+    "source": "repo .agents/skills/manuscript-audit",
+    "git_commit_or_install_path": "[repo]/.agents/skills/manuscript-audit",
+    "maturity": "Draft"
+  },
+  "run_meta": {
+    "case_id": "05_citation_metadata_error",
+    "date": "2026-10-21",
+    "agent_name": "Cursor Agent",
+    "model_name": "Composer",
+    "raw_agent_output_path": "raw_agent_output.md"
+  },
+  "input": {
+    "blind_workspace_path": "[blind-pack]/CASES/05_citation_metadata_error",
+    "input_file": "input.md",
+    "task_file": "TASK.md"
+  },
+  "expected_findings_summary": "must_find doi_unverified: flag DOI metadata as unverified/Needs Review without online check; band Needs Review|Minor|Major; states unverified|partially_supported. must_not: claim online verified; invent replacement DOI.",
+  "actual_findings_summary": "ISSUE-001 Needs Review + unverified; cites Discussion and References DOI; states no registry check performed; distinguishes unverified gap from proven fabrication; Unrun lists DOI lookup.",
+  "expected_findings": ["doi_unverified"],
+  "observed_findings": ["ISSUE-001 DOI/metadata unverified (Needs Review, unverified)"],
+  "missed_findings": [],
+  "false_positive_findings": [],
+  "true_issue_misses": [],
+  "unreasonable_false_positives": [],
+  "raw_agent_output_path": "[blind-pack]/CASES/05_citation_metadata_error/raw_agent_output.md",
+  "raw_output_preserved_unedited": true,
+  "severity_reasonable": true,
+  "severity_assessment": "Needs Review within band [Needs Review, Minor, Major].",
+  "severity_notes": "Correctly did not escalate to Critical or claim DOI is proven invalid without lookup.",
+  "evidence_loci_correct": true,
+  "evidence_traceability": "pass — DOI string and Nature metadata quoted from input.",
+  "evidence_loci_notes": "Location: Discussion DOI clause; References entry 1.",
+  "evidence_state_calibration": "pass — unverified; explicitly refused online-verified claim.",
+  "verified_without_sufficient_evidence": false,
+  "unsupported_factual_claims": [],
+  "candidate_over_upgraded_to_critical": false,
+  "suggestions_fit_materials": true,
+  "instruction_adherence": "pass — output contract sections present; network Unrun listed.",
+  "per_must_find": [
+    {
+      "expectation_id": "doi_unverified",
+      "detected": true,
+      "severity_observed": "Needs Review",
+      "severity_in_band": true,
+      "evidence_state_observed": "unverified",
+      "locus_found_in_source": true,
+      "notes": "Raw: 'Unverified DOI ≠ automatically a confirmed scientific fraud finding.'"
+    }
+  ],
+  "human_review": {
+    "reviewer": "Wave A independent scoring pass",
+    "result": "content_pass; blind_invalid",
+    "notes": "Correct separation of unverified vs invalid DOI."
+  },
+  "reviewer_notes": "Content excellent on the core DOI calibration point.",
+  "limits_and_remarks": "Does not count toward Stable.",
+  "counts_toward_stable_claim": false
+}

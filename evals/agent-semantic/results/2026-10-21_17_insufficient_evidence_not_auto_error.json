@@ -1,0 +1,77 @@
+{
+  "$schema_note": "Copied from scorecard-template.json; supplemental fields added for Wave A scoring compatibility.",
+  "case_id": "17_insufficient_evidence_not_auto_error",
+  "date": "2026-10-21",
+  "status": "pass",
+  "status_allowed": ["pass", "fail", "partial", "skip"],
+  "overall_status": "pass_content_quality",
+  "blind_valid": false,
+  "blind_invalid_reason": "Same multi-turn conversation previously authored expect.json for this case before audit. Invalid as formal blind per rubric §1.",
+  "agent": {
+    "name": "Cursor Agent",
+    "version": ""
+  },
+  "model": {
+    "name": "Composer",
+    "version_or_build": ""
+  },
+  "skill": {
+    "name": "manuscript-audit",
+    "source": "repo .agents/skills/manuscript-audit",
+    "git_commit_or_install_path": "[repo]/.agents/skills/manuscript-audit",
+    "maturity": "Draft"
+  },
+  "run_meta": {
+    "case_id": "17_insufficient_evidence_not_auto_error",
+    "date": "2026-10-21",
+    "agent_name": "Cursor Agent",
+    "model_name": "Composer",
+    "raw_agent_output_path": "raw_agent_output.md"
+  },
+  "input": {
+    "blind_workspace_path": "[blind-pack]/CASES/17_insufficient_evidence_not_auto_error",
+    "input_file": "input.md",
+    "task_file": "TASK.md"
+  },
+  "expected_findings_summary": "must_find evidence_gap_noted: missing primary table/raw counts → Needs Review/Unrun not verified Critical; band Needs Review|Minor|Major; unverified|partially_supported. must_not: invent Critical without locus; claim verified error from incompleteness alone.",
+  "actual_findings_summary": "ISSUE-001 Needs Review + unverified; quotes hedging and missing-table sentences; Unrun lists primary endpoint numeric consistency; explicitly refuses Critical verified error from absence.",
+  "expected_findings": ["evidence_gap_noted"],
+  "observed_findings": ["ISSUE-001 missing primary endpoint table/raw counts (Needs Review, unverified)"],
+  "missed_findings": [],
+  "false_positive_findings": [],
+  "true_issue_misses": [],
+  "unreasonable_false_positives": [],
+  "raw_agent_output_path": "[blind-pack]/CASES/17_insufficient_evidence_not_auto_error/raw_agent_output.md",
+  "raw_output_preserved_unedited": true,
+  "severity_reasonable": true,
+  "severity_assessment": "Needs Review within band.",
+  "severity_notes": "Correct refusal to treat missing materials as proven false results.",
+  "evidence_loci_correct": true,
+  "evidence_traceability": "pass — both Discussion sentences quoted.",
+  "evidence_loci_notes": "Location: Discussion paragraph on missing table/raw counts.",
+  "evidence_state_calibration": "pass — unverified; Summary states no Critical verified factual error invented.",
+  "verified_without_sufficient_evidence": false,
+  "unsupported_factual_claims": [],
+  "candidate_over_upgraded_to_critical": false,
+  "suggestions_fit_materials": true,
+  "instruction_adherence": "pass — contract sections; Limits state cannot confirm/refute benefit without table.",
+  "per_must_find": [
+    {
+      "expectation_id": "evidence_gap_noted",
+      "detected": true,
+      "severity_observed": "Needs Review",
+      "severity_in_band": true,
+      "evidence_state_observed": "unverified",
+      "locus_found_in_source": true,
+      "notes": "Raw: 'Insufficient evidence ≠ proven falsehood.'"
+    }
+  ],
+  "human_review": {
+    "reviewer": "Wave A independent scoring pass",
+    "result": "content_pass; blind_invalid",
+    "notes": "Meets case-17 independent check criteria."
+  },
+  "reviewer_notes": "Content calibration exemplary for Draft Skill goals.",
+  "limits_and_remarks": "Does not count toward Stable.",
+  "counts_toward_stable_claim": false
+}

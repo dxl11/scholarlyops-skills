@@ -1,0 +1,77 @@
+{
+  "$schema_note": "Copied from scorecard-template.json; supplemental fields added for Wave A scoring compatibility.",
+  "case_id": "10_methods_results_contradiction",
+  "date": "2026-10-21",
+  "status": "pass",
+  "status_allowed": ["pass", "fail", "partial", "skip"],
+  "overall_status": "pass_content_quality",
+  "blind_valid": false,
+  "blind_invalid_reason": "Same multi-turn conversation previously authored expect.json for this case before audit. Invalid as formal blind per rubric §1.",
+  "agent": {
+    "name": "Cursor Agent",
+    "version": ""
+  },
+  "model": {
+    "name": "Composer",
+    "version_or_build": ""
+  },
+  "skill": {
+    "name": "manuscript-audit",
+    "source": "repo .agents/skills/manuscript-audit",
+    "git_commit_or_install_path": "[repo]/.agents/skills/manuscript-audit",
+    "maturity": "Draft"
+  },
+  "run_meta": {
+    "case_id": "10_methods_results_contradiction",
+    "date": "2026-10-21",
+    "agent_name": "Cursor Agent",
+    "model_name": "Composer",
+    "raw_agent_output_path": "raw_agent_output.md"
+  },
+  "input": {
+    "blind_workspace_path": "[blind-pack]/CASES/10_methods_results_contradiction",
+    "input_file": "input.md",
+    "task_file": "TASK.md"
+  },
+  "expected_findings_summary": "must_find knockout_methods_results_conflict: Methods exclude knockout; Results report knockout vs WT; Major|Critical; conflicting|partially_supported|verified. must_not: invent cohorts to reconcile; dismiss as terminology-only.",
+  "actual_findings_summary": "ISSUE-001 Critical + conflicting; quotes both sentences; frames as internal contradiction on study population; rejects terminology-only and inventing cohorts.",
+  "expected_findings": ["knockout_methods_results_conflict"],
+  "observed_findings": ["ISSUE-001 Methods–Results knockout contradiction (Critical, conflicting)"],
+  "missed_findings": [],
+  "false_positive_findings": [],
+  "true_issue_misses": [],
+  "unreasonable_false_positives": [],
+  "raw_agent_output_path": "[blind-pack]/CASES/10_methods_results_contradiction/raw_agent_output.md",
+  "raw_output_preserved_unedited": true,
+  "severity_reasonable": true,
+  "severity_assessment": "Critical within band [Major, Critical]. Deterministic contradiction on animal inclusion/analysis scope.",
+  "severity_notes": "Independent check: Methods 'knockout animals were excluded' vs Results 'Knockout mice showed…' is a true conflict of experimental scope, not ambiguous synonymy.",
+  "evidence_loci_correct": true,
+  "evidence_traceability": "pass — both sentences quoted from input.",
+  "evidence_loci_notes": "Location ## Methods vs ## Results.",
+  "evidence_state_calibration": "pass — conflicting.",
+  "verified_without_sufficient_evidence": false,
+  "unsupported_factual_claims": [],
+  "candidate_over_upgraded_to_critical": false,
+  "suggestions_fit_materials": true,
+  "instruction_adherence": "pass — notes scripts cannot detect this logical conflict; semantic issue correctly raised.",
+  "per_must_find": [
+    {
+      "expectation_id": "knockout_methods_results_conflict",
+      "detected": true,
+      "severity_observed": "Critical",
+      "severity_in_band": true,
+      "evidence_state_observed": "conflicting",
+      "locus_found_in_source": true,
+      "notes": "Raw Non-issues: did not invent cohorts; not terminology-only."
+    }
+  ],
+  "human_review": {
+    "reviewer": "Wave A independent scoring pass",
+    "result": "content_pass; blind_invalid",
+    "notes": "Clear deterministic textual contradiction correctly classified."
+  },
+  "reviewer_notes": "Content quality strong; also highlights script gap (logical Methods–Results not in numeric heuristic).",
+  "limits_and_remarks": "Does not count toward Stable.",
+  "counts_toward_stable_claim": false
+}

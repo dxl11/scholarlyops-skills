@@ -1,0 +1,77 @@
+{
+  "$schema_note": "Copied from scorecard-template.json; supplemental fields added for Wave A scoring compatibility.",
+  "case_id": "06_citation_not_supporting",
+  "date": "2026-10-21",
+  "status": "pass",
+  "status_allowed": ["pass", "fail", "partial", "skip"],
+  "overall_status": "pass_content_quality",
+  "blind_valid": false,
+  "blind_invalid_reason": "Same multi-turn conversation previously authored expect.json for this case before audit. Invalid as formal blind per rubric §1.",
+  "agent": {
+    "name": "Cursor Agent",
+    "version": ""
+  },
+  "model": {
+    "name": "Composer",
+    "version_or_build": ""
+  },
+  "skill": {
+    "name": "manuscript-audit",
+    "source": "repo .agents/skills/manuscript-audit",
+    "git_commit_or_install_path": "[repo]/.agents/skills/manuscript-audit",
+    "maturity": "Draft"
+  },
+  "run_meta": {
+    "case_id": "06_citation_not_supporting",
+    "date": "2026-10-21",
+    "agent_name": "Cursor Agent",
+    "model_name": "Composer",
+    "raw_agent_output_path": "raw_agent_output.md"
+  },
+  "input": {
+    "blind_workspace_path": "[blind-pack]/CASES/06_citation_not_supporting",
+    "input_file": "input.md",
+    "task_file": "TASK.md"
+  },
+  "expected_findings_summary": "must_find claim_not_supported_by_excerpt: human-cure claim unsupported by cell-culture Lee 2020 excerpt; Major|Critical; unsupported|conflicting. must_not: ignore excerpt; mark cure claim verified true.",
+  "actual_findings_summary": "ISSUE-001 Critical; evidence_state unsupported and conflicting; quotes Claim vs excerpt; does not assert claim proven false beyond excerpt support failure; did not mark cure as verified true.",
+  "expected_findings": ["claim_not_supported_by_excerpt"],
+  "observed_findings": ["ISSUE-001 citation content-support failure (Critical, unsupported/conflicting)"],
+  "missed_findings": [],
+  "false_positive_findings": [],
+  "true_issue_misses": [],
+  "unreasonable_false_positives": [],
+  "raw_agent_output_path": "[blind-pack]/CASES/06_citation_not_supporting/raw_agent_output.md",
+  "raw_output_preserved_unedited": true,
+  "severity_reasonable": true,
+  "severity_assessment": "Critical within band [Major, Critical].",
+  "severity_notes": "Interpretation-changing overclaim relative to provided excerpt warrants Critical under Skill table.",
+  "evidence_loci_correct": true,
+  "evidence_traceability": "pass — both Claim and Lee 2020 excerpt sentences quoted.",
+  "evidence_loci_notes": "Location: ## Claim vs ## Provided excerpt of Lee 2020 (synthetic).",
+  "evidence_state_calibration": "pass — unsupported/conflicting; not verified-true for cure; not claiming absolute proven-false of a real-world paper beyond excerpt.",
+  "verified_without_sufficient_evidence": false,
+  "unsupported_factual_claims": [],
+  "candidate_over_upgraded_to_critical": false,
+  "suggestions_fit_materials": true,
+  "instruction_adherence": "pass — contract sections present; limits note judgment uses in-file excerpt only.",
+  "per_must_find": [
+    {
+      "expectation_id": "claim_not_supported_by_excerpt",
+      "detected": true,
+      "severity_observed": "Critical",
+      "severity_in_band": true,
+      "evidence_state_observed": "unsupported; conflicting",
+      "locus_found_in_source": true,
+      "notes": "Raw Non-issues: 'Did not mark the human-cure claim as verified true.'"
+    }
+  ],
+  "human_review": {
+    "reviewer": "Wave A independent scoring pass",
+    "result": "content_pass; blind_invalid",
+    "notes": "Core content-support failure correctly identified with text loci."
+  },
+  "reviewer_notes": "Meets case-06 independent check criteria in the scoring brief.",
+  "limits_and_remarks": "Does not count toward Stable.",
+  "counts_toward_stable_claim": false
+}

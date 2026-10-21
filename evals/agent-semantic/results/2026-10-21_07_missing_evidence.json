@@ -1,0 +1,90 @@
+{
+  "$schema_note": "Copied from scorecard-template.json; supplemental fields added for Wave A scoring compatibility.",
+  "case_id": "07_missing_evidence",
+  "date": "2026-10-21",
+  "status": "pass",
+  "status_allowed": ["pass", "fail", "partial", "skip"],
+  "overall_status": "pass_content_quality",
+  "blind_valid": false,
+  "blind_invalid_reason": "Same multi-turn conversation previously authored expect.json for this case before audit. Invalid as formal blind per rubric §1.",
+  "agent": {
+    "name": "Cursor Agent",
+    "version": ""
+  },
+  "model": {
+    "name": "Composer",
+    "version_or_build": ""
+  },
+  "skill": {
+    "name": "manuscript-audit",
+    "source": "repo .agents/skills/manuscript-audit",
+    "git_commit_or_install_path": "[repo]/.agents/skills/manuscript-audit",
+    "maturity": "Draft"
+  },
+  "run_meta": {
+    "case_id": "07_missing_evidence",
+    "date": "2026-10-21",
+    "agent_name": "Cursor Agent",
+    "model_name": "Composer",
+    "raw_agent_output_path": "raw_agent_output.md"
+  },
+  "input": {
+    "blind_workspace_path": "[blind-pack]/CASES/07_missing_evidence",
+    "input_file": "input.md",
+    "task_file": "TASK.md"
+  },
+  "expected_findings_summary": "must_find: (1) missing_rct_methods — Conclusion RCT claim vs absent Methods detail; Major|Needs Review; unverified|partially_supported|unsupported. (2) list_unrun_or_missing. must_not: fabricate methods; Critical proven-false from absence alone.",
+  "actual_findings_summary": "ISSUE-001 Major + partially_supported; explicitly 'Missing Methods ≠ proof that randomization never occurred'. ISSUE-002 Needs Review + unverified for Unrun/missing. Unrun section lists randomization/blinding/sample size. No fabricated methods; no Critical verified falsehood.",
+  "expected_findings": ["missing_rct_methods", "list_unrun_or_missing"],
+  "observed_findings": [
+    "ISSUE-001 RCT claim vs missing Methods (Major, partially_supported)",
+    "ISSUE-002 Unrun/missing design checks (Needs Review, unverified)",
+    "Unrun checks section with design items"
+  ],
+  "missed_findings": [],
+  "false_positive_findings": [],
+  "true_issue_misses": [],
+  "unreasonable_false_positives": [],
+  "raw_agent_output_path": "[blind-pack]/CASES/07_missing_evidence/raw_agent_output.md",
+  "raw_output_preserved_unedited": true,
+  "severity_reasonable": true,
+  "severity_assessment": "Major and Needs Review both within respective bands.",
+  "severity_notes": "Avoided Critical 'verified false trial' — aligned with expect scoring_notes and scoring brief §案例07.",
+  "evidence_loci_correct": true,
+  "evidence_traceability": "pass — Conclusion and Methods placeholder quoted.",
+  "evidence_loci_notes": "Location ## Conclusion vs ## Methods; Unrun lists design gaps.",
+  "evidence_state_calibration": "pass — partially_supported / unverified; not verified error from missing text alone.",
+  "verified_without_sufficient_evidence": false,
+  "unsupported_factual_claims": [],
+  "candidate_over_upgraded_to_critical": false,
+  "suggestions_fit_materials": true,
+  "instruction_adherence": "pass — contract sections; Non-issues document anti-fabrication.",
+  "per_must_find": [
+    {
+      "expectation_id": "missing_rct_methods",
+      "detected": true,
+      "severity_observed": "Major",
+      "severity_in_band": true,
+      "evidence_state_observed": "partially_supported",
+      "locus_found_in_source": true,
+      "notes": "Raw: gap framed as incomplete reporting, not proven non-existence of design."
+    },
+    {
+      "expectation_id": "list_unrun_or_missing",
+      "detected": true,
+      "severity_observed": "Needs Review",
+      "severity_in_band": true,
+      "evidence_state_observed": "unverified",
+      "locus_found_in_source": true,
+      "notes": "ISSUE-002 + Unrun checks enumerate randomization/blinding/sample size."
+    }
+  ],
+  "human_review": {
+    "reviewer": "Wave A independent scoring pass",
+    "result": "content_pass; blind_invalid",
+    "notes": "Meets missing-evidence vs proven-false distinction."
+  },
+  "reviewer_notes": "Strong calibration on insufficient evidence ≠ verified falsehood.",
+  "limits_and_remarks": "Does not count toward Stable.",
+  "counts_toward_stable_claim": false
+}

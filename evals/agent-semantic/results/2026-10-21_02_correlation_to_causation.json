@@ -1,0 +1,93 @@
+{
+  "$schema_note": "Copied from scorecard-template.json; supplemental fields added for Wave A scoring compatibility.",
+  "case_id": "02_correlation_to_causation",
+  "date": "2026-10-21",
+  "status": "pass",
+  "status_allowed": ["pass", "fail", "partial", "skip"],
+  "overall_status": "pass_content_quality",
+  "blind_valid": false,
+  "blind_invalid_reason": "Same multi-turn Agent conversation previously authored this case's expect.json before the audit turn. Audit turn did not re-open expect files, but rubric §1 treats same-session prior answer exposure as invalid blind. Content scored for practice quality only.",
+  "agent": {
+    "name": "Cursor Agent",
+    "version": ""
+  },
+  "model": {
+    "name": "Composer",
+    "version_or_build": ""
+  },
+  "skill": {
+    "name": "manuscript-audit",
+    "source": "repo .agents/skills/manuscript-audit (global install path missing at run time)",
+    "git_commit_or_install_path": "[repo]/.agents/skills/manuscript-audit",
+    "maturity": "Draft"
+  },
+  "run_meta": {
+    "case_id": "02_correlation_to_causation",
+    "date": "2026-10-21",
+    "agent_name": "Cursor Agent",
+    "model_name": "Composer",
+    "raw_agent_output_path": "raw_agent_output.md",
+    "notes": "From case run_meta.json; absolute paths redacted in this scorecard."
+  },
+  "input": {
+    "blind_workspace_path": "[blind-pack]/CASES/02_correlation_to_causation",
+    "input_file": "input.md",
+    "task_file": "TASK.md"
+  },
+  "expected_findings_summary": "must_find: (1) causal_from_correlation — Discussion 'caused' from Results correlation r=0.42; severity Major|Critical; states partially_supported|verified|conflicting. (2) unsupported_clinical_efficacy — 'proves clinical efficacy' unsupported; Major|Critical|Needs Review; unsupported|partially_supported|unverified. must_not: alter r=0.42; Critical without loci.",
+  "actual_findings_summary": "ISSUE-001 Critical + verified: correlation→causation with Results/Discussion quotes and loci. ISSUE-002 Major + unsupported: clinical efficacy claim without clinical evidence in excerpt; notes missing evidence ≠ proof no study elsewhere. r=0.42 preserved.",
+  "expected_findings": [
+    "causal_from_correlation",
+    "unsupported_clinical_efficacy"
+  ],
+  "observed_findings": [
+    "ISSUE-001 causal inflation (Critical, verified)",
+    "ISSUE-002 unsupported clinical efficacy (Major, unsupported)"
+  ],
+  "missed_findings": [],
+  "false_positive_findings": [],
+  "true_issue_misses": [],
+  "unreasonable_false_positives": [],
+  "raw_agent_output_path": "[blind-pack]/CASES/02_correlation_to_causation/raw_agent_output.md",
+  "raw_output_preserved_unedited": true,
+  "severity_reasonable": true,
+  "severity_assessment": "ISSUE-001 Critical within band [Major, Critical]. ISSUE-002 Major within band [Major, Critical, Needs Review].",
+  "severity_notes": "Causal Critical justified by Skill definition (interpretation-changing causal sit-solidification) with clear loci; not an over-upgrade of a script candidate (scripts had 0 candidates).",
+  "evidence_loci_correct": true,
+  "evidence_traceability": "pass — Results and Discussion quotes match input.md verbatim.",
+  "evidence_loci_notes": "Location cites ## Results / ## Discussion; evidence bullets quote r=0.42 and 'caused' / clinical efficacy clauses.",
+  "evidence_state_calibration": "pass — causal issue 'verified' allowed by expect; clinical claim 'unsupported' allowed; did not mark clinical claim verified-false.",
+  "verified_without_sufficient_evidence": false,
+  "unsupported_factual_claims": [],
+  "candidate_over_upgraded_to_critical": false,
+  "suggestions_fit_materials": true,
+  "instruction_adherence": "pass — Summary/Deterministic checks/Issues/Unrun/Limits present; scripts executed; no inventing of missing sections.",
+  "per_must_find": [
+    {
+      "expectation_id": "causal_from_correlation",
+      "detected": true,
+      "severity_observed": "Critical",
+      "severity_in_band": true,
+      "evidence_state_observed": "verified",
+      "locus_found_in_source": true,
+      "notes": "Raw ISSUE-001 quotes correlation sentence and causal Discussion; Keep r=0.42 stated."
+    },
+    {
+      "expectation_id": "unsupported_clinical_efficacy",
+      "detected": true,
+      "severity_observed": "Major",
+      "severity_in_band": true,
+      "evidence_state_observed": "unsupported",
+      "locus_found_in_source": true,
+      "notes": "Raw ISSUE-002; explicitly distinguishes unsupported-by-excerpt vs proving absence of any clinical study."
+    }
+  ],
+  "human_review": {
+    "reviewer": "independent Wave A scoring pass (same Cursor session as protocol author; not a fresh blind scorer identity)",
+    "result": "content_pass; blind_invalid",
+    "notes": "All must_find detected; no must_not violations. Does not count toward Stable."
+  },
+  "reviewer_notes": "Strong content alignment with expect.json. Blind validity fails rubric §1 due to prior expect authorship in conversation history.",
+  "limits_and_remarks": "counts_toward_stable_claim remains false.",
+  "counts_toward_stable_claim": false
+}

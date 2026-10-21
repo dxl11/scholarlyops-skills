@@ -90,8 +90,11 @@ evals/runs/
 # Local Agent blind workspaces / raw outputs (keep scorecards intentional)
 evals/agent-semantic/workspaces/
 **/scholarlyops-blind/
-evals/agent-semantic/results/*.json
+# Allow committed Wave scorecards; ignore other ad-hoc JSON dumps if added later
+evals/agent-semantic/results/*
 !evals/agent-semantic/results/README.md
+!evals/agent-semantic/results/wave-a-summary.md
+!evals/agent-semantic/results/2026-10-21_*.json
 
 # NOTE: Do NOT ignore .agents/skills/, docs/, evals/cases/, evals/expected/,
 # evals/results/ samples, tools/, tests/, README*, CONTRIBUTING.md,

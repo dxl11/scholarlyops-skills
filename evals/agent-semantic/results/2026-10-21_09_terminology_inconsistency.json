@@ -1,0 +1,77 @@
+{
+  "$schema_note": "Copied from scorecard-template.json; supplemental fields added for Wave A scoring compatibility.",
+  "case_id": "09_terminology_inconsistency",
+  "date": "2026-10-21",
+  "status": "pass",
+  "status_allowed": ["pass", "fail", "partial", "skip"],
+  "overall_status": "pass_content_quality_with_severity_note",
+  "blind_valid": false,
+  "blind_invalid_reason": "Same multi-turn conversation previously authored expect.json for this case before audit. Invalid as formal blind per rubric §1.",
+  "agent": {
+    "name": "Cursor Agent",
+    "version": ""
+  },
+  "model": {
+    "name": "Composer",
+    "version_or_build": ""
+  },
+  "skill": {
+    "name": "manuscript-audit",
+    "source": "repo .agents/skills/manuscript-audit",
+    "git_commit_or_install_path": "[repo]/.agents/skills/manuscript-audit",
+    "maturity": "Draft"
+  },
+  "run_meta": {
+    "case_id": "09_terminology_inconsistency",
+    "date": "2026-10-21",
+    "agent_name": "Cursor Agent",
+    "model_name": "Composer",
+    "raw_agent_output_path": "raw_agent_output.md"
+  },
+  "input": {
+    "blind_workspace_path": "[blind-pack]/CASES/09_terminology_inconsistency",
+    "input_file": "input.md",
+    "task_file": "TASK.md"
+  },
+  "expected_findings_summary": "must_find endpoint_term_drift across overall response / objective response / overall remission with ORR and 50%; band Minor|Major|Needs Review. must_not: invent numeric conflict; require Critical for synonym-only.",
+  "actual_findings_summary": "ISSUE-001 Minor + partially_supported; quotes all three expanded terms; notes remission vs response can be clinically distinct; keeps 50% identical; no Critical; no invented numeric conflict. Acknowledges could be Major if different estimands intended but definition absent.",
+  "expected_findings": ["endpoint_term_drift"],
+  "observed_findings": ["ISSUE-001 endpoint terminology drift (Minor, partially_supported)"],
+  "missed_findings": [],
+  "false_positive_findings": [],
+  "true_issue_misses": [],
+  "unreasonable_false_positives": [],
+  "raw_agent_output_path": "[blind-pack]/CASES/09_terminology_inconsistency/raw_agent_output.md",
+  "raw_output_preserved_unedited": true,
+  "severity_reasonable": true,
+  "severity_assessment": "Minor is inside expect band [Minor, Major, Needs Review]. Not auto-accepted blindly: independent review of input shows (a) overall vs objective response often treated as near-synonyms for ORR, (b) 'overall remission rate' can imply a different clinical estimand. Agent noted (b) but stayed Minor because no endpoint definition was provided — that conservatism is acceptable under expect scoring_notes. A Major would also have been in-band and arguably stronger given remission wording; neither required uniquely.",
+  "severity_notes": "Dispute level: low. Reviewer would accept Minor or Major. Not marked needs_review for status because band compliance + detection are clear; severity choice documented.",
+  "evidence_loci_correct": true,
+  "evidence_traceability": "pass — Methods/Results/Discussion phrases quoted.",
+  "evidence_loci_notes": "All three endpoint strings match input.md.",
+  "evidence_state_calibration": "pass — partially_supported; not verified that remission is a different endpoint without definition.",
+  "verified_without_sufficient_evidence": false,
+  "unsupported_factual_claims": [],
+  "candidate_over_upgraded_to_critical": false,
+  "suggestions_fit_materials": true,
+  "instruction_adherence": "pass — contract sections; Limits note missing formal definition.",
+  "per_must_find": [
+    {
+      "expectation_id": "endpoint_term_drift",
+      "detected": true,
+      "severity_observed": "Minor",
+      "severity_in_band": true,
+      "evidence_state_observed": "partially_supported",
+      "locus_found_in_source": true,
+      "notes": "Detected response/objective/remission drift; numeric 50% not conflicted."
+    }
+  ],
+  "human_review": {
+    "reviewer": "Wave A independent scoring pass",
+    "result": "content_pass; blind_invalid; severity_acceptable_with_note",
+    "notes": "Per scoring brief: did not rubber-stamp Minor; evaluated scientific meaning. Remission term is the main risk; Agent flagged it. Status pass on content."
+  },
+  "reviewer_notes": "Suggested future expect refinement: optionally prefer Needs Review|Major when 'remission' appears without definition, while still allowing Minor.",
+  "limits_and_remarks": "Does not count toward Stable. Optional controversy recorded in severity_notes only.",
+  "counts_toward_stable_claim": false
+}
