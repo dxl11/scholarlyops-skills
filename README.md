@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/scholarlyops-logo.jpg" alt="ScholarlyOps" width="280" />
+
 # ScholarlyOps
 
 ### 让科研写作更严谨，让关键结论有据可查。
@@ -8,11 +10,19 @@
 
 <br/>
 
-<a href="https://ailwb.com/"><img src="https://img.shields.io/badge/%E6%88%91%E7%9A%84%E7%BD%91%E7%AB%99-1F6FEB?style=for-the-badge" alt="我的网站" /></a>
-&nbsp;&nbsp;&nbsp;
-<a href="README.md"><img src="https://img.shields.io/badge/%E4%B8%AD%E6%96%87-24292F?style=for-the-badge" alt="中文" /></a>
-&nbsp;&nbsp;&nbsp;
-<a href="README_EN.md"><img src="https://img.shields.io/badge/%E8%8B%B1%E6%96%87-24292F?style=for-the-badge" alt="英文" /></a>
+<p>
+  <a href="https://ailwb.com/">
+    <img src="https://img.shields.io/badge/%E6%88%91%E7%9A%84%E7%BD%91%E7%AB%99-1B2A4A?style=for-the-badge&logo=googlechrome&logoColor=white" alt="我的网站" />
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="README.md">
+    <img src="https://img.shields.io/badge/%E4%B8%AD%E6%96%87-EAECEF?style=for-the-badge&labelColor=EAECEF&color=8B949E" alt="中文" />
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="README_EN.md">
+    <img src="https://img.shields.io/badge/%E8%8B%B1%E6%96%87-1F4D3A?style=for-the-badge&logoColor=white" alt="英文" />
+  </a>
+</p>
 
 <br/>
 
