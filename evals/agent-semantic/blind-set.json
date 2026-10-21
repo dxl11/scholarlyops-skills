@@ -1,0 +1,77 @@
+{
+  "skill": "manuscript-audit",
+  "version_note": "Reuses the existing 24 eval cases; no duplicate synthetic manuscripts.",
+  "policy": {
+    "blind_inputs_only": true,
+    "forbid_expect_in_agent_workspace": true,
+    "unrun_is_skip_not_pass": true,
+    "do_not_fabricate_results": true,
+    "maturity_remains": "Draft"
+  },
+  "coverage_requirements": [
+    {
+      "id": "same_metric_conflict",
+      "description": "Same metric / same analysis frame with conflicting numbers",
+      "case_ids": ["23_true_numeric_conflict_candidate", "01_numeric_unit_mismatch", "03_abstract_body_mismatch"]
+    },
+    {
+      "id": "legitimate_group_time_n",
+      "description": "Legitimate treatment/control, timepoint, or enrollment vs analyzed-n differences",
+      "case_ids": ["18_treatment_control_ok", "19_baseline_vs_analyzed_n_ok", "20_timepoints_ok"]
+    },
+    {
+      "id": "rounding_and_format",
+      "description": "Rounding tolerance and format-only differences",
+      "case_ids": ["12_rounding_tolerance", "16_format_only_not_error"]
+    },
+    {
+      "id": "correlation_to_causation",
+      "description": "Correlation miswritten as causation",
+      "case_ids": ["02_correlation_to_causation"]
+    },
+    {
+      "id": "citation_not_supporting",
+      "description": "Citation present but does not support the claim",
+      "case_ids": ["06_citation_not_supporting"]
+    },
+    {
+      "id": "insufficient_evidence",
+      "description": "Insufficient evidence / cannot verify",
+      "case_ids": ["07_missing_evidence", "17_insufficient_evidence_not_auto_error", "05_citation_metadata_error"]
+    },
+    {
+      "id": "clean_control",
+      "description": "Clean control with no substantive error-level findings",
+      "case_ids": ["11_clean_control"]
+    }
+  ],
+  "waves": {
+    "wave_a_semantic_core": {
+      "description": "Primary Agent semantic blind set (local runner skips these).",
+      "case_ids": [
+        "02_correlation_to_causation",
+        "05_citation_metadata_error",
+        "06_citation_not_supporting",
+        "07_missing_evidence",
+        "09_terminology_inconsistency",
+        "10_methods_results_contradiction",
+        "17_insufficient_evidence_not_auto_error"
+      ]
+    },
+    "wave_b_agent_plus_scripts": {
+      "description": "Optional dual-track: Agent must not over-upgrade script candidates; use after Wave A.",
+      "case_ids": [
+        "11_clean_control",
+        "12_rounding_tolerance",
+        "16_format_only_not_error",
+        "18_treatment_control_ok",
+        "19_baseline_vs_analyzed_n_ok",
+        "20_timepoints_ok",
+        "23_true_numeric_conflict_candidate",
+        "01_numeric_unit_mismatch"
+      ]
+    }
+  },
+  "executed_agent_runs": [],
+  "note": "executed_agent_runs stays empty until a real blind run is scored. Do not invent entries."
+}

@@ -5,8 +5,26 @@
     "units": { "max_findings": 0 }
   },
   "agent_expectations": {
-    "evidence_states": ["unsupported", "conflicting"],
-    "claim": "cures metastatic disease in humans"
+    "must_find": [
+      {
+        "id": "claim_not_supported_by_excerpt",
+        "description": "Claim that prior work showed compound X cures metastatic disease in humans is not supported by the provided Lee 2020 excerpt (cell culture only).",
+        "severity_band": ["Major", "Critical"],
+        "evidence_state_allowed": ["unsupported", "conflicting"],
+        "locus_hint": "Claim sentence vs Provided excerpt of Lee 2020"
+      }
+    ],
+    "must_not": [
+      {
+        "id": "ignore_provided_excerpt",
+        "description": "Must not score as if the excerpt were unavailable when it is in the input."
+      },
+      {
+        "id": "mark_verified_cure",
+        "description": "Must not mark the human-cure claim as verified true."
+      }
+    ],
+    "scoring_notes": "Content-support layer failure is the core issue. Existence of a citation string is not enough."
   },
   "local_runner": "skip_with_reason"
 }

@@ -1,4 +1,12 @@
-# Expected (17) — agent/manual
-May mark unverified / Needs Review; must NOT invent Critical factual errors.
-Missing evidence != proven false.
-Local runner: SKIP.
+# Expected (17) — agent / human scoring
+
+**Mode**: `agent_semantic` (local runner always SKIP)
+
+## Must find
+
+- Note missing primary table/raw counts or list Unrun; prefer Needs Review / unverified.
+
+## Must not
+
+- Invent Critical factual errors without a concrete locus.
+- Mark verified error solely because evidence is incomplete.

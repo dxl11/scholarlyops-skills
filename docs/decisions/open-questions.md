@@ -52,3 +52,9 @@
 - 终端：`npx skills` 发现 + Cursor 全局安装落盘 → **已验证**（见安装文档验证表）。
 - IDE：`/` 菜单发现、跨项目调用、语义执行 → **待**按 `docs/zh-CN/cursor-smoke-test.md` 勾选。
 - 仓库权威源码仍为 `.agents/skills/`（单一来源）；最终用户主路径为 Agent **全局安装**，项目级安装为可选。
+
+## 8. Agent 语义盲测实测
+
+- 协议与工具已就绪：`docs/*/agent-evaluation-guide.md`、`evals/agent-semantic/`、`tools/prepare_agent_blind_pack.py`。
+- Wave A（7 个 `agent_semantic` 案例）的**有效盲测分数：尚未执行**；不得虚构结果。
+- 在有效样本量不足前，`manuscript-audit` 保持 Draft，不得据此升 Stable/Beta。

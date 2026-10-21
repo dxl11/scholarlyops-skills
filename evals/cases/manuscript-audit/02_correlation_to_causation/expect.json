@@ -5,8 +5,33 @@
     "units": { "min_findings": 0, "max_findings": 0 }
   },
   "agent_expectations": {
-    "should_flag": ["causal_language_from_correlation", "unsupported_clinical_efficacy"],
-    "should_not": ["fabricate_or_alter_r_value"]
+    "must_find": [
+      {
+        "id": "causal_from_correlation",
+        "description": "Discussion claims compound X caused the activity increase based only on a reported correlation (r=0.42).",
+        "severity_band": ["Major", "Critical"],
+        "evidence_state_allowed": ["partially_supported", "verified", "conflicting"],
+        "locus_hint": "Discussion causal claim vs Results correlation sentence"
+      },
+      {
+        "id": "unsupported_clinical_efficacy",
+        "description": "Claim that correlation 'proves clinical efficacy' is unsupported by the provided excerpt.",
+        "severity_band": ["Major", "Critical", "Needs Review"],
+        "evidence_state_allowed": ["unsupported", "partially_supported", "unverified"],
+        "locus_hint": "Discussion clinical efficacy sentence"
+      }
+    ],
+    "must_not": [
+      {
+        "id": "alter_r_value",
+        "description": "Must not change, invent, or 'correct' the reported r=0.42."
+      },
+      {
+        "id": "critical_without_locus",
+        "description": "Must not mark Critical without citing the Discussion/Results loci."
+      }
+    ],
+    "scoring_notes": "Accept either Major or Critical for causal inflation if loci and reasoning are clear. Do not require a unique severity label."
   },
   "local_runner": "skip_with_reason"
 }

@@ -4,5 +4,27 @@
     "numeric": { "max_findings": 0 },
     "units": { "max_findings": 0 }
   },
+  "agent_expectations": {
+    "must_find": [
+      {
+        "id": "endpoint_term_drift",
+        "description": "Primary endpoint wording drifts across overall response rate, objective response rate, and overall remission rate while reusing ORR and the same 50% figure.",
+        "severity_band": ["Minor", "Major", "Needs Review"],
+        "evidence_state_allowed": ["partially_supported", "verified", "conflicting"],
+        "locus_hint": "Methods vs Results vs Discussion endpoint phrases"
+      }
+    ],
+    "must_not": [
+      {
+        "id": "invent_numeric_conflict",
+        "description": "Must not invent a numeric conflict: all stated rates are 50%."
+      },
+      {
+        "id": "auto_critical_for_synonym_alone",
+        "description": "Do not require Critical solely for terminology drift when the numeric value is identical; Minor/Major/Needs Review are acceptable."
+      }
+    ],
+    "scoring_notes": "Acceptable if Agent flags terminology inconsistency with loci. Severity is not unique—band Minor–Major–Needs Review. Fail only if drift is missed entirely or Critical is asserted without rationale."
+  },
   "local_runner": "skip_with_reason"
 }

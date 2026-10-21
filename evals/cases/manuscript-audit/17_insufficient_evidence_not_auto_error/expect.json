@@ -5,8 +5,26 @@
     "units": { "max_findings": 0 }
   },
   "agent_expectations": {
-    "allowed": ["Needs Review", "unverified"],
-    "forbidden": ["Critical without locus", "claiming verified error"]
+    "must_find": [
+      {
+        "id": "evidence_gap_noted",
+        "description": "Excerpt lacks primary endpoint table/raw counts; Agent should note missing evidence or Unrun rather than inventing a verified factual error.",
+        "severity_band": ["Needs Review", "Minor", "Major"],
+        "evidence_state_allowed": ["unverified", "partially_supported"],
+        "locus_hint": "Discussion hedging + missing table note"
+      }
+    ],
+    "must_not": [
+      {
+        "id": "critical_without_locus",
+        "description": "Must not invent Critical factual errors without a concrete locus in the excerpt."
+      },
+      {
+        "id": "claim_verified_error",
+        "description": "Must not mark a verified scientific error solely because evidence is incomplete."
+      }
+    ],
+    "scoring_notes": "Pass if cautious (Needs Review/unverified/Unrun). Fail if Agent fabricates Critical verified errors from absence of data."
   },
   "local_runner": "skip_with_reason"
 }

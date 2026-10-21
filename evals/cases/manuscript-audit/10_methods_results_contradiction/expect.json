@@ -4,5 +4,27 @@
     "numeric": { "max_findings": 0 },
     "units": { "max_findings": 0 }
   },
+  "agent_expectations": {
+    "must_find": [
+      {
+        "id": "knockout_methods_results_conflict",
+        "description": "Methods state only wild-type mice were used and knockout animals were excluded, but Results report knockout mice showed a 2-fold increase versus wild-type.",
+        "severity_band": ["Major", "Critical"],
+        "evidence_state_allowed": ["conflicting", "partially_supported", "verified"],
+        "locus_hint": "Methods exclusion sentence vs Results knockout sentence"
+      }
+    ],
+    "must_not": [
+      {
+        "id": "reinterpret_as_consistent",
+        "description": "Must not reconcile the conflict by inventing unstated cohorts or protocol amendments."
+      },
+      {
+        "id": "ignore_as_terminology_only",
+        "description": "Must not dismiss this as mere synonym drift."
+      }
+    ],
+    "scoring_notes": "This is a clear internal contradiction with loci in the same short excerpt. Missing it is a miss; fabricating extra animals is a false positive of a different kind."
+  },
   "local_runner": "skip_with_reason"
 }

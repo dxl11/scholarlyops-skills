@@ -24,6 +24,8 @@ Optional repo-local evals (independent of IDE load):
 python tools/run_evals.py
 ```
 
+Agent semantic blind testing (separate from script evals; do not pre-read expect in the same session): see [Agent semantic evaluation guide](agent-evaluation-guide.md).
+
 ## 1. Discovery after global install
 
 1. Open **any project that is not this repo** (cross-project reuse).

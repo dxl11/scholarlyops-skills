@@ -24,6 +24,8 @@ npx skills list -g -a cursor
 python tools/run_evals.py
 ```
 
+Agent 语义盲测（与程序评测分开；勿在同会话预读 expect）：见 [Agent 语义评测指南](agent-evaluation-guide.md)。
+
 ## 1. 确认 Cursor 是否发现全局 Skill
 
 1. 打开**任意非本仓库**的工作项目（验证跨项目复用）。

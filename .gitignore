@@ -87,6 +87,12 @@ evals/_case_count.txt
 evals/runs/
 !evals/runs/.gitkeep
 
+# Local Agent blind workspaces / raw outputs (keep scorecards intentional)
+evals/agent-semantic/workspaces/
+**/scholarlyops-blind/
+evals/agent-semantic/results/*.json
+!evals/agent-semantic/results/README.md
+
 # NOTE: Do NOT ignore .agents/skills/, docs/, evals/cases/, evals/expected/,
 # evals/results/ samples, tools/, tests/, README*, CONTRIBUTING.md,
 # SECURITY.md, CHANGELOG.md, .github/

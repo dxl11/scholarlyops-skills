@@ -16,6 +16,7 @@
 - 安全基线：`.gitignore`、`.env.example`、`SECURITY.md`。
 - Phase 2：`tools/run_evals.py` 可重复本地评测；案例扩展至 17 个；数值脚本区分格式/四舍五入/字面冲突。
 - Cursor 人工验收指南：`docs/zh-CN/cursor-smoke-test.md`、`docs/en/cursor-smoke-test.md`。
+- Agent 语义盲测协议：`docs/zh-CN/agent-evaluation-guide.md`、`docs/en/agent-evaluation-guide.md`；`evals/agent-semantic/`（blind-set、rubric、scorecard）；`tools/prepare_agent_blind_pack.py`（隔离输入、禁止复制 expect）。
 
 ### Changed
 

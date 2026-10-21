@@ -10,8 +10,9 @@ evals/
 ├── cases/manuscript-audit/<case_id>/
 │   ├── input.md       # 合成输入
 │   ├── case.yaml      # 元数据（含 mode）
-│   └── expect.json    # 机器可读期望（本地运行器用）
-├── expected/manuscript-audit/<case_id>.md  # 人工可读期望
+│   └── expect.json    # 机器可读期望（本地运行器用；Agent 盲测时不得预读）
+├── expected/manuscript-audit/<case_id>.md  # 人工可读期望（评分阶段再用）
+├── agent-semantic/    # Agent 盲测协议：blind-set / rubric / scorecard
 ├── results/           # 可选：抽查脚本输出样例（勿放私有全文）
 └── runs/              # 运行器输出（默认 gitignore；含 latest/）
 ```
@@ -77,4 +78,21 @@ python tools/run_evals.py --json
 - **误报**：干净/合法差异案例出现候选超限，或出现 `error_findings` / Critical → fail  
 - **语义**：仅人工/Agent；未执行不得写 pass
 
-在有限测试集上通过 ≠ 现实错误率为零。
+## Agent 语义盲测（与本地运行器分开）
+
+本地 `run_evals.py` **不会**执行 Agent。语义质量评估见：
+
+- [中文指南](../docs/zh-CN/agent-evaluation-guide.md)
+- [English guide](../docs/en/agent-evaluation-guide.md)
+- `evals/agent-semantic/rubric.md`、`scorecard-template.json`、`blind-set.json`
+
+准备隔离输入（不含答案）：
+
+```bash
+python tools/prepare_agent_blind_pack.py --wave wave_a_semantic_core --out %USERPROFILE%\scholarlyops-blind\run1
+```
+
+评分必须以未经改写的 `raw_agent_output.md` 为准；会话中若已打开 expect，则该次不得记为有效盲测。  
+**当前仓库未提交任何虚构的 Agent 实测分数**；`agent-semantic/results/` 在真实评分前为空。
+
+在有限测试集上通过 ≠ 现实错误率为零；Agent 有效样本量不足时不得宣称 Stable。

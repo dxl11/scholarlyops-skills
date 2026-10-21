@@ -5,9 +5,33 @@
     "units": { "max_findings": 0 }
   },
   "agent_expectations": {
-    "must_list_unrun_or_missing": true,
-    "must_not_fabricate_methods": true,
-    "must_not_mark_as_verified_error_without_source": true
+    "must_find": [
+      {
+        "id": "missing_rct_methods",
+        "description": "Conclusion asserts a randomized double-blind trial, but Methods provide no randomization, blinding, or sample-size content.",
+        "severity_band": ["Major", "Needs Review"],
+        "evidence_state_allowed": ["unverified", "partially_supported", "unsupported"],
+        "locus_hint": "Conclusion vs empty/insufficient Methods"
+      },
+      {
+        "id": "list_unrun_or_missing",
+        "description": "Report must list Unrun/missing checks for absent methods evidence.",
+        "severity_band": ["Needs Review", "Major", "Minor"],
+        "evidence_state_allowed": ["unverified", "partially_supported"],
+        "locus_hint": "Unrun checks section"
+      }
+    ],
+    "must_not": [
+      {
+        "id": "fabricate_methods",
+        "description": "Must not invent randomization/blinding procedures to fill the gap."
+      },
+      {
+        "id": "critical_proven_false",
+        "description": "Must not treat missing methods as proven scientific falsehood without evidence; insufficient evidence ≠ verified error."
+      }
+    ],
+    "scoring_notes": "Preferred outcome: Needs Review/Major + Unrun. Critical only if Agent clearly documents contradiction with available text, not invented facts."
   },
   "local_runner": "skip_with_reason"
 }

@@ -135,5 +135,5 @@ description: >-
 - 程序检查仅为启发式**候选**检测：不能证明同一估计量/同一物质，也不能替代作者判断。
 - **不**做缺信息的单位换算、完整统计复核或自动文献 API 核验；脚本不输出 Critical/`verified` 科学错误结论。
 - 语义审计依赖 Agent/人工；本地 `tools/run_evals.py` 对 `agent_semantic` 案例一律 skip，**不得**记为通过。
-- Draft：不得称为 Stable。
-- 本地评测：`python tools/run_evals.py`（详见 `evals/README.md`）。
+- Agent 盲测协议（防答案泄漏、人工 scorecard）：仓库 `docs/zh-CN/agent-evaluation-guide.md` / `docs/en/agent-evaluation-guide.md` 与 `evals/agent-semantic/`。未完成足够有效盲测前保持 Draft，不得称为 Stable。
+- 本地程序评测：`python tools/run_evals.py`（详见 `evals/README.md`）。

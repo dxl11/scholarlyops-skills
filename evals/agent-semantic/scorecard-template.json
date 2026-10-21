@@ -1,0 +1,60 @@
+{
+  "$schema_note": "Copy this file per run. Do not invent measured results. Leave judgment fields null until a real blind run is scored.",
+  "case_id": "",
+  "date": "",
+  "status": "skip",
+  "status_allowed": ["pass", "fail", "partial", "skip"],
+  "blind_valid": null,
+  "blind_invalid_reason": "",
+  "agent": {
+    "name": "",
+    "version": ""
+  },
+  "model": {
+    "name": "",
+    "version_or_build": ""
+  },
+  "skill": {
+    "name": "manuscript-audit",
+    "source": "",
+    "git_commit_or_install_path": "",
+    "maturity": "Draft"
+  },
+  "input": {
+    "blind_workspace_path": "",
+    "input_file": "input.md",
+    "task_file": "TASK.md"
+  },
+  "expected_findings_summary": "",
+  "actual_findings_summary": "",
+  "raw_agent_output_path": "",
+  "raw_output_preserved_unedited": null,
+  "true_issue_misses": [],
+  "unreasonable_false_positives": [],
+  "severity_reasonable": null,
+  "severity_notes": "",
+  "evidence_loci_correct": null,
+  "evidence_loci_notes": "",
+  "unsupported_factual_claims": [],
+  "candidate_over_upgraded_to_critical": null,
+  "verified_without_sufficient_evidence": null,
+  "suggestions_fit_materials": null,
+  "per_must_find": [
+    {
+      "expectation_id": "",
+      "detected": null,
+      "severity_observed": "",
+      "severity_in_band": null,
+      "evidence_state_observed": "",
+      "locus_found_in_source": null,
+      "notes": ""
+    }
+  ],
+  "human_review": {
+    "reviewer": "",
+    "result": "",
+    "notes": ""
+  },
+  "limits_and_remarks": "",
+  "counts_toward_stable_claim": false
+}
