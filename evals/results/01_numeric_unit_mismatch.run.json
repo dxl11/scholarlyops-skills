@@ -1,0 +1,15 @@
+{
+  "case_id": "01_numeric_unit_mismatch",
+  "skill": "manuscript-audit",
+  "skill_maturity": "Draft",
+  "input": "evals/cases/manuscript-audit/01_numeric_unit_mismatch/input.md",
+  "checks": {
+    "numeric_fidelity_script": "see_companion_script_json",
+    "unit_token_script": "see_companion_script_json",
+    "claim_fidelity": "not_run_agent_semantic",
+    "source_location": "not_run_agent_semantic"
+  },
+  "notes": "Regenerate via tools/run_evals.py. Semantic audit not executed in local runner.",
+  "critical_errors": [],
+  "human_review_required": true
+}

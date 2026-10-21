@@ -1,0 +1,8 @@
+{
+  "mode": "deterministic",
+  "scripts": {
+    "numeric": { "must_find_labels": [], "max_findings": 0 },
+    "units": { "max_findings": 0 }
+  },
+  "false_positive_rules": ["No Critical numeric conflicts."]
+}

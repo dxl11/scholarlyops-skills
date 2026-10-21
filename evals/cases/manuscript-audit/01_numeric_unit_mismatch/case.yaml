@@ -1,0 +1,6 @@
+id: 01_numeric_unit_mismatch
+skill: manuscript-audit
+title: 01_numeric_unit_mismatch
+mode: deterministic
+maturity_target: Draft
+notes: Synthetic evaluation case for ScholarlyOps.

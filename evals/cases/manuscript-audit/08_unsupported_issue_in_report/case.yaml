@@ -1,0 +1,6 @@
+id: 08_unsupported_issue_in_report
+skill: manuscript-audit
+title: 08_unsupported_issue_in_report
+mode: deterministic
+maturity_target: Draft
+notes: Synthetic evaluation case for ScholarlyOps.

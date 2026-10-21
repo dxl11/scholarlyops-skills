@@ -1,0 +1,23 @@
+{
+  "brand_name": "ScholarlyOps",
+  "repo_name_suggested": "scholarlyops-skills",
+  "display_name_zh": "学术研究工作流 Skills",
+  "tagline_en": "Evidence-grounded AI skills for the research lifecycle.",
+  "tagline_zh": "基于科研证据的可扩展 AI 工作流技能集。",
+  "skills_root": ".agents/skills",
+  "maturity_default": "Draft",
+  "license_status": "undetermined",
+  "python_min": "3.10",
+  "name_check": {
+    "checked_at": "2026-10-21T14:45:00+08:00",
+    "scope": [
+      "GitHub search for exact repo name scholarlyops-skills",
+      "Web search for brand string ScholarlyOps"
+    ],
+    "results": {
+      "scholarlyops-skills_exact_repo": "No exact match found in search results at check time.",
+      "ScholarlyOps_brand": "No exact ScholarlyOps skills project found. Near matches noted: OpenScholarOPS/OpenScholar (unrelated Solana platform), scholarly Python package, other academic skills repos with different names.",
+      "disclaimer": "This is a lightweight name-availability skim only. It is not a trademark legal clearance."
+    }
+  }
+}

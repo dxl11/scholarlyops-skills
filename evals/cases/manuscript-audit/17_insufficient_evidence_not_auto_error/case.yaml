@@ -1,0 +1,6 @@
+id: 17_insufficient_evidence_not_auto_error
+skill: manuscript-audit
+title: Insufficient evidence not auto-error
+mode: agent_semantic
+maturity_target: Draft
+notes: Synthetic evaluation case for ScholarlyOps.

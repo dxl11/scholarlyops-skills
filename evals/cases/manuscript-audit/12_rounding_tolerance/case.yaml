@@ -1,0 +1,6 @@
+id: 12_rounding_tolerance
+skill: manuscript-audit
+title: Rounding should not be Critical
+mode: deterministic
+maturity_target: Draft
+notes: Synthetic evaluation case for ScholarlyOps.

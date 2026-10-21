@@ -1,0 +1,6 @@
+id: 13_same_value_incompatible_units
+skill: manuscript-audit
+title: Same number incompatible units
+mode: deterministic
+maturity_target: Draft
+notes: Synthetic evaluation case for ScholarlyOps.

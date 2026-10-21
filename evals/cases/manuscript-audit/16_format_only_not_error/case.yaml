@@ -1,0 +1,6 @@
+id: 16_format_only_not_error
+skill: manuscript-audit
+title: Format-only numeric strings
+mode: deterministic
+maturity_target: Draft
+notes: Synthetic evaluation case for ScholarlyOps.

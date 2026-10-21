@@ -1,0 +1,33 @@
+name: validate
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate skills and docs
+        run: python tools/validate_skills.py
+
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+
+      - name: manuscript-audit script tests
+        run: python -m unittest discover -s .agents/skills/manuscript-audit/tests -v
+
+      - name: Local manuscript-audit evals (deterministic only)
+        run: python tools/run_evals.py

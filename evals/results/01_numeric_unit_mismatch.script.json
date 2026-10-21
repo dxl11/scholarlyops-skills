@@ -1,0 +1,32 @@
+﻿{
+  "tool": "check_numeric_consistency.py",
+  "timeout_model": "local_file_read",
+  "abs_tol": 0.051,
+  "rel_tol": 0.0,
+  "finding_count": 1,
+  "findings": [
+    {
+      "check": "numeric_consistency",
+      "label": "enrolled_n",
+      "values": [
+        "100",
+        "120"
+      ],
+      "unique_floats": [
+        100.0,
+        120.0
+      ],
+      "classification": "literal_conflict",
+      "severity": "Critical",
+      "evidence_state": "verified",
+      "note": "Same measure label matched with differing numeric literals beyond tolerance."
+    }
+  ],
+  "tolerated_differences": [],
+  "limits": [
+    "Heuristic regex only; may miss paraphrases.",
+    "Does not convert units or judge causality.",
+    "Rounding tolerance avoids scoring tiny format/rounding diffs as Critical.",
+    "Not a substitute for author review."
+  ]
+}

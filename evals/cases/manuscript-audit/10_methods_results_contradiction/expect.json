@@ -1,0 +1,8 @@
+{
+  "mode": "agent_semantic",
+  "scripts": {
+    "numeric": { "max_findings": 0 },
+    "units": { "max_findings": 0 }
+  },
+  "local_runner": "skip_with_reason"
+}

@@ -1,0 +1,10 @@
+{
+  "mode": "deterministic",
+  "scripts": {
+    "numeric": { "must_find_labels": [], "max_findings": 0 },
+    "units": {
+      "must_find_quantity_families": ["concentration"],
+      "min_findings": 1
+    }
+  }
+}

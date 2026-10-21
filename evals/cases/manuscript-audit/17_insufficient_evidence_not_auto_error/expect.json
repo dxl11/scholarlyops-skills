@@ -1,0 +1,12 @@
+{
+  "mode": "agent_semantic",
+  "scripts": {
+    "numeric": { "max_findings": 0 },
+    "units": { "max_findings": 0 }
+  },
+  "agent_expectations": {
+    "allowed": ["Needs Review", "unverified"],
+    "forbidden": ["Critical without locus", "claiming verified error"]
+  },
+  "local_runner": "skip_with_reason"
+}

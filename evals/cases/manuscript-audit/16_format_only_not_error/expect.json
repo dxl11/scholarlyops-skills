@@ -1,0 +1,11 @@
+{
+  "mode": "deterministic",
+  "scripts": {
+    "numeric": {
+      "must_find_labels": [],
+      "max_findings": 0,
+      "require_tolerated_classification": ["format_only"]
+    },
+    "units": { "max_findings": 0 }
+  }
+}

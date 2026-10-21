@@ -1,0 +1,12 @@
+{
+  "mode": "agent_semantic",
+  "scripts": {
+    "numeric": { "max_findings": 0 },
+    "units": { "max_findings": 0 }
+  },
+  "agent_expectations": {
+    "evidence_states": ["unsupported", "conflicting"],
+    "claim": "cures metastatic disease in humans"
+  },
+  "local_runner": "skip_with_reason"
+}

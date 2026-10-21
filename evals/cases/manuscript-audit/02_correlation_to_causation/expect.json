@@ -1,0 +1,12 @@
+{
+  "mode": "agent_semantic",
+  "scripts": {
+    "numeric": { "must_find_labels": [], "max_findings": 0 },
+    "units": { "min_findings": 0, "max_findings": 0 }
+  },
+  "agent_expectations": {
+    "should_flag": ["causal_language_from_correlation", "unsupported_clinical_efficacy"],
+    "should_not": ["fabricate_or_alter_r_value"]
+  },
+  "local_runner": "skip_with_reason"
+}

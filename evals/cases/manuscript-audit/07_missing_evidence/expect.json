@@ -1,0 +1,13 @@
+{
+  "mode": "agent_semantic",
+  "scripts": {
+    "numeric": { "max_findings": 0 },
+    "units": { "max_findings": 0 }
+  },
+  "agent_expectations": {
+    "must_list_unrun_or_missing": true,
+    "must_not_fabricate_methods": true,
+    "must_not_mark_as_verified_error_without_source": true
+  },
+  "local_runner": "skip_with_reason"
+}

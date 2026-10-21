@@ -1,0 +1,12 @@
+{
+  "mode": "agent_semantic",
+  "scripts": {
+    "numeric": { "max_findings": 0 },
+    "units": { "max_findings": 0 }
+  },
+  "agent_expectations": {
+    "evidence_states_allowed": ["unverified", "Needs Review"],
+    "forbidden_claims": ["doi_verified_online_without_check"]
+  },
+  "local_runner": "skip_with_reason"
+}

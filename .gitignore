@@ -1,0 +1,93 @@
+# --- Credentials & secrets ---
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+**/secrets/
+**/credentials/
+**/*credentials*.json
+**/token.json
+**/oauth_token.json
+**/service-account*.json
+
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+
+# --- Private research materials & generated outputs ---
+/private_data/
+/local_data/
+/data/private/
+/data/raw/
+/papers/private/
+/manuscripts/private/
+/outputs/
+/artifacts/
+/tmp/
+/temp/
+/logs/
+
+*.local.md
+*.local.txt
+drafts.local/
+
+# --- OS / editor junk ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+*.egg-info/
+dist/
+build/
+
+.venv/
+venv/
+ENV/
+
+# --- Node (if added later) ---
+node_modules/
+coverage/
+
+# --- Logs & swap ---
+*.log
+*.swp
+*~
+*.bak
+
+# --- IDE: ignore personal; keep optional shared examples ---
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json.example
+
+# Local probes (dev only)
+_write_probe.txt
+_probe_out.txt
+_audit_probe.txt
+_audit*.txt
+evals/_phase2_cases.txt
+evals/_case_count.txt
+
+# Eval runner outputs (regenerated; do not commit private pasted manuscripts)
+evals/runs/
+!evals/runs/.gitkeep
+
+# NOTE: Do NOT ignore .agents/skills/, docs/, evals/cases/, evals/expected/,
+# evals/results/ samples, tools/, tests/, README*, CONTRIBUTING.md,
+# SECURITY.md, CHANGELOG.md, .github/
+

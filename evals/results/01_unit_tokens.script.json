@@ -1,0 +1,21 @@
+﻿{
+  "tool": "check_unit_tokens.py",
+  "finding_count": 1,
+  "findings": [
+    {
+      "check": "unit_tokens",
+      "quantity_family": "concentration",
+      "units_seen": [
+        "mg/mL",
+        "uM"
+      ],
+      "severity": "Major",
+      "evidence_state": "partially_supported",
+      "note": "Multiple unit tokens for related numeric measures; confirm intentional vs error."
+    }
+  ],
+  "limits": [
+    "Does not convert units; alias collapsing is incomplete.",
+    "False positives possible when mixed units are intentional."
+  ]
+}

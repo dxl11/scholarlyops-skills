@@ -1,0 +1,11 @@
+{
+  "mode": "deterministic",
+  "scripts": {
+    "numeric": {
+      "must_find_labels": ["orr_pct"],
+      "max_findings": 3
+    },
+    "units": { "max_findings": 0 }
+  },
+  "agent_semantic": "optional_supplement"
+}
