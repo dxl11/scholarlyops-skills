@@ -1,124 +1,59 @@
-# Cursor smoke-test guide · manuscript-audit
+# Cursor smoke-test · manuscript-audit
 
 English | [简体中文](../zh-CN/cursor-smoke-test.md)
 
-> **Status**: This checklist must be executed **in the Cursor IDE UI**.  
-> Do **not** claim the skill is loaded until you record a real verification.  
-> Official reference: [Cursor Agent Skills](https://cursor.com/docs/skills) (project dirs include `.agents/skills/` and `.cursor/skills/`).
+> **Status**: Must be checked in the Cursor IDE. A successful terminal install ≠ loaded in the IDE.  
+> See [Agent Skills](https://cursor.com/docs/skills) · [Installation](installation.md)
 
-This repo’s **canonical source** is `.agents/skills/` (single source of truth). Do not permanently maintain a second full copy just for loading experiments; use a temporary alternate path only while debugging.
+**Prefer verifying global install** (primary end-user path). Only install into a test project when you are specifically checking project-level compatibility.
 
-## 0. Prerequisites
+Canonical sources remain `.agents/skills/` in this repo (single source of truth). Global install copies/links via `npx skills` — do not maintain a second SKILL.md tree here.
 
-- Open this repository (or a project that contains a copy of `manuscript-audit`) as the Cursor workspace root.
-- Confirm `.agents/skills/manuscript-audit/SKILL.md` exists.
-- Optional local script evals (independent of IDE discovery):
+## 0. Prerequisites (recommended: global)
+
+```bash
+npx skills add dxl11/scholarlyops-skills -g -a cursor -s manuscript-audit -y --copy
+npx skills list -g -a cursor
+```
+
+Note the printed `path` (maintainer env previously used `%USERPROFILE%\.agents\skills\manuscript-audit`).
+
+Optional repo-local evals (independent of IDE load):
 
 ```bash
 python tools/run_evals.py
 ```
 
-## 1. Confirm Cursor discovers `manuscript-audit`
+## 1. Discovery after global install
 
-In Agent chat:
+1. Open **any project that is not this repo** (cross-project reuse).
+2. Type `/` in Agent chat; search `manuscript-audit`.
+3. Or inspect Skills in Settings.
 
-1. Type `/` and search for `manuscript-audit`.
-2. Or inspect Cursor Settings panels related to Skills / Rules.
+**Pass**: skill appears and can be selected.
 
-**Pass**: the skill appears in `/` or the Skills list.  
-**Fail**: see section 9. Record discovered / not discovered below.
-
-> Community reports: some builds index `.agents/skills` but fail slash invocation, while `.cursor/skills` works more reliably. If only `/` fails, record version + symptom, then optionally **temporarily** copy one skill to `.cursor/skills/` for a controlled experiment (do not commit dual sources).
-
-## 2. Manual invocation
+## 2. Manual invoke
 
 ```text
-Follow the manuscript-audit skill strictly (read .agents/skills/manuscript-audit/SKILL.md).
-Audit the synthetic manuscript below. Run scripts under that skill directory when possible, then do semantic judgment.
-Output must use the report template: Summary, Deterministic checks, Issues (Severity / Location / Evidence / Evidence state / Suggested fix / Author confirmation), Unrun checks, Limits.
-Do not overwrite my input file. Do not mark guesses as Critical.
+Follow the installed manuscript-audit skill. If Python is available, run scripts under the installed skill directory first, then semantic judgment.
+Output Summary, Deterministic checks, Issues, Unrun checks, Limits.
+Do not overwrite inputs; do not mark guesses as Critical.
 ```
 
-You may also try `/manuscript-audit` if your Cursor build supports slash skills.
+## 3. Correct SKILL.md
 
-## 3. Verify the correct SKILL.md was read
+Ask the agent for the full skill path and the Critical / Needs Review rows verbatim.
 
-Ask:
+## 4–8. Cases, evidence, recording
 
-```text
-Quote the skill file path you are following and paste the Critical and Needs Review rows from its severity table verbatim.
-```
+Use synthetic text from cases `01` and `12`. Require loci/evidence. Record Cursor version, install path, discovery in a non-repo project, and pass/fail notes.
 
-**Pass**: path points at this repo’s (or your copy’s) `manuscript-audit/SKILL.md`, and the excerpt matches the file.
+## 9. If not discovered
 
-## 4. Synthetic input: numeric mismatch
+Check `npx skills list -g --json`, Frontmatter, restart, settings. Use project-level install **only** for compatibility tests (omit `-g`).
 
-Use `evals/cases/manuscript-audit/01_numeric_unit_mismatch/input.md`.
+## 10. Human checklist
 
-**Expect**:
-
-- Enrollment 120 vs 100 as Critical with locus (`verified` if based on text/script).
-- uM vs mg/mL mentioned (Major / Needs Review).
-- No extra Critical findings without evidence.
-
-Optional terminal check:
-
-```bash
-python .agents/skills/manuscript-audit/scripts/check_numeric_consistency.py --input evals/cases/manuscript-audit/01_numeric_unit_mismatch/input.md --json
-```
-
-## 5. Synthetic input: benign rounding
-
-Use `evals/cases/manuscript-audit/12_rounding_tolerance/input.md`.
-
-**Expect**: 7.14 vs 7.1 must **not** be scored as a Critical literal error. Treating rounding as Critical is a **false positive**.
-
-## 6. Every issue needs evidence
-
-| Field | Requirement |
-|------|-------------|
-| Location | Concrete section locus |
-| Evidence | Quote or script output |
-| Evidence state | Shared vocabulary |
-| Author confirmation | Usually yes for Critical/Major |
-
-Critical/Major without location/evidence → fail.
-
-## 7. Separate scripts vs semantic judgment
-
-Require the agent to split **Deterministic checks** (scripts) from **Semantic findings**. Local `tools/run_evals.py` only covers scripts. **Do not** claim semantic audit passed because local evals passed.
-
-## 8. Record the run
-
-Copy to private notes or gitignored `outputs/`:
-
-```text
-Date:
-Cursor version:
-Workspace root:
-Skill discovered (Y/N):
-Slash /manuscript-audit works (Y/N):
-SKILL.md path quoted by agent:
-Case IDs tested:
-Output saved as:
-Pass/Fail notes:
-```
-
-## 9. If the skill is not discovered
-
-1. Workspace root must contain `.agents/skills/`.
-2. Path must be `.agents/skills/manuscript-audit/SKILL.md`.
-3. Frontmatter: `name: manuscript-audit` matches folder; non-empty `description`.
-4. Skill not disabled in settings.
-5. Restart Cursor / reload window.
-6. Controlled experiment: copy **one** skill to `.cursor/skills/manuscript-audit/` and retest (record only; don’t dual-track sources in git).
-7. Log Cursor version + OS in `docs/decisions/open-questions.md`.
-
-## 10. Must be done in the IDE (terminal cannot replace)
-
-- [ ] Discovery via `/` or Settings
-- [ ] Correct SKILL.md quoted
-- [ ] Cases 01 and 12 report quality
-- [ ] Semantic items not falsely marked script-`verified`
-
-Until checked, docs must keep stating: **Cursor load verification pending user confirmation**.
+- [ ] Discovered in a **non-repo** project after global install
+- [ ] Correct SKILL.md path quoted
+- [ ] Cases 01 / 12 acceptable

@@ -4,11 +4,9 @@
 
 ## 1. 正式 GitHub 仓库地址
 
-- 建议仓库名：`scholarlyops-skills`（见 `project.json`）
-- 组织/个人账号归属：未定
-- 远程 URL：未定
-
-文档中的 `<YOUR_REPO_URL>` 为占位。
+- 当前本机 `git remote` 与 `npx skills add … --list` 已指向：`dxl11/scholarlyops-skills`（`https://github.com/dxl11/scholarlyops-skills`）
+- 是否为最终对外品牌账号 / 是否迁移组织：仍可由维护者确认
+- 文档安装命令已使用上述标识；若迁移仓库须同步替换
 
 ## 2. 许可证
 
@@ -44,15 +42,13 @@
 
 ## 6. 其他 Agent 专用安装插件
 
-Cursor 以 `.agents/skills/` 为仓库标准。其他 Agent 的真实路径与加载方式**未经本项目实测**；安装文档中仅可作为“待验证扩展”，不得写“已支持”。
+- 推荐安装器：`npx skills`（已验证可发现本仓库 4 个 Skills；支持 `-g`）。
+- Cursor 全局安装落盘：本环境实测为 `~/.agents/skills/`（以 CLI `list -g` 的 `path` 为准）。
+- Claude Code：命令已写，**加载未实测**。
+- 其他 Agent：仅计划支持。
 
-## 7. Cursor 加载实测
+## 7. Cursor IDE 加载实测
 
-是否在维护者本机 Cursor 中确认 Skills 被识别：待用户/维护者在 IDE 内验证。仓库结构符合公开文档所述路径约定，但**不等于**已完成加载实测。
-
-验收步骤见：
-
-- `docs/zh-CN/cursor-smoke-test.md`
-- `docs/en/cursor-smoke-test.md`
-
-官方文档同时列出 `.agents/skills/` 与 `.cursor/skills/`。本仓库以 `.agents/skills/` 为唯一源码树。社区曾报告部分版本 `/` 调用对 `.agents/skills` 不稳定——若复现，记录 Cursor 版本后再决定是否增加临时对照路径（仍避免双份源码长期并存）。
+- 终端：`npx skills` 发现 + Cursor 全局安装落盘 → **已验证**（见安装文档验证表）。
+- IDE：`/` 菜单发现、跨项目调用、语义执行 → **待**按 `docs/zh-CN/cursor-smoke-test.md` 勾选。
+- 仓库权威源码仍为 `.agents/skills/`（单一来源）；最终用户主路径为 Agent **全局安装**，项目级安装为可选。

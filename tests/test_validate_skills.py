@@ -65,6 +65,10 @@ class TestRepoValidation(unittest.TestCase):
         self.assertEqual(data["brand_name"], "ScholarlyOps")
         self.assertEqual(data["license_status"], "undetermined")
         self.assertEqual(data["skills_root"], ".agents/skills")
+        self.assertEqual(
+            data.get("distribution", {}).get("primary_end_user_path"),
+            "agent_global_install",
+        )
 
     def test_four_skills_present(self) -> None:
         skills = ROOT / ".agents" / "skills"

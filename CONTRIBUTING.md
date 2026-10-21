@@ -18,6 +18,7 @@
 ## 开发环境
 
 - Python 3.10+（验证与测试仅标准库）
+- Node.js 18+（可选；用于 `npx skills` 验证发现/安装）
 - Cursor 或其他兼容 Agent（可选）
 
 ```bash
@@ -25,9 +26,14 @@ python tools/validate_skills.py
 python -m unittest discover -s tests -v
 python -m unittest discover -s .agents/skills/manuscript-audit/tests -v
 python tools/run_evals.py
+npx skills add . --list
 ```
 
-说明：`run_evals.py` 对 `agent_semantic` 案例会 skip，不得把 skip 写成 pass。
+说明：
+
+- 最终用户主路径是 **Agent 全局安装**，见 [docs/zh-CN/installation.md](docs/zh-CN/installation.md)。
+- 权威 Skill 源只在 `.agents/skills/`；不要另维护一套需手工同步的副本。
+- `run_evals.py` 对 `agent_semantic` 案例会 skip，不得把 skip 写成 pass。
 
 ## 创建新 Skill
 

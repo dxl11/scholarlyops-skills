@@ -60,10 +60,19 @@ Keep README, installation, and architecture pairs aligned; validator checks crit
 
 Re-run validation after changes; CI via `.github/workflows/validate.yml` (no personal secrets); tracked secrets require maintainer remediation—do not rewrite history in this init task.
 
-## 11. Status
+## 11. Distribution
 
-**Done**: docs skeleton; four Draft skills; manuscript-audit demo scripts and cases; repo validator and CI entry.
+- **Canonical source**: `.agents/skills/` in this repo (single source; discoverable by `npx skills`).
+- **Primary end-user path**: Agent **global** install (`npx skills add <owner>/<repo> -g`).
+- **Project install**: optional team pin; not required.
+- **Maintainers**: clone this repo for validation/evals.
+
+See [installation.md](installation.md).
+
+## 12. Status
+
+**Done**: docs skeleton; four Draft skills; manuscript-audit demos; validator/CI; verified `npx skills` discovery and Cursor global on-disk install.
 
 **Planned**: Phases 3–6 in [ROADMAP.md](../ROADMAP.md).
 
-**Limits**: all Draft; limited frontmatter parsing; Cursor load must be verified in-environment; license undetermined.
+**Limits**: all Draft; limited frontmatter parsing; Cursor IDE `/` load and Claude Code still pending user confirmation; license undetermined.

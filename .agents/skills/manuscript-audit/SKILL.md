@@ -62,9 +62,10 @@ description: >-
 
 1. **材料清单**：记录收到什么、缺什么；不可读附件标为未执行检查。
 2. **程序优先**（可确定差异）：
-   - 在本 Skill 目录下运行：
+   - 在**本 Skill 安装目录**下运行（全局安装或项目级安装后的目录，不要依赖 ScholarlyOps 开发仓库路径）：
      - `python scripts/check_numeric_consistency.py --input <file>`
      - `python scripts/check_unit_tokens.py --input <file>`
+   - 需要 Python 3.10+；若不可用，将脚本检查记入 Unrun，仍可继续语义审计。
    - 将脚本 JSON/文本输出纳入报告的“Deterministic checks”节。
 3. **语义审计**（模型）：相关→因果、摘要 vs 正文、图注 vs 正文、方法 vs 结果、术语漂移、结论过度扩张、引用元数据异常、引文不支持主张。
 4. **引用分层**：存在性 / 元数据 / 内容支持 / 论证恰当性分开写；无法访问全文时声明限制。

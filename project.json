@@ -1,10 +1,18 @@
 {
   "brand_name": "ScholarlyOps",
   "repo_name_suggested": "scholarlyops-skills",
+  "github_repo": "dxl11/scholarlyops-skills",
+  "github_url": "https://github.com/dxl11/scholarlyops-skills",
   "display_name_zh": "学术研究工作流 Skills",
   "tagline_en": "Evidence-grounded AI skills for the research lifecycle.",
   "tagline_zh": "基于科研证据的可扩展 AI 工作流技能集。",
   "skills_root": ".agents/skills",
+  "distribution": {
+    "primary_end_user_path": "agent_global_install",
+    "installer": "npx skills",
+    "installer_verified_version": "1.7.4",
+    "project_install": "optional"
+  },
   "maturity_default": "Draft",
   "license_status": "undetermined",
   "python_min": "3.10",
@@ -19,5 +27,13 @@
       "ScholarlyOps_brand": "No exact ScholarlyOps skills project found. Near matches noted: OpenScholarOPS/OpenScholar (unrelated Solana platform), scholarly Python package, other academic skills repos with different names.",
       "disclaimer": "This is a lightweight name-availability skim only. It is not a trademark legal clearance."
     }
+  },
+  "install_verification": {
+    "checked_at": "2026-10-21",
+    "skills_list_local": "pass_4_skills",
+    "skills_list_github": "pass_4_skills",
+    "cursor_global_install_manuscript_audit": "pass_files_under_USERPROFILE/.agents/skills/manuscript-audit",
+    "cursor_ide_slash_discovery": "pending_user_smoke_test",
+    "claude_code_global_install": "pending"
   }
 }

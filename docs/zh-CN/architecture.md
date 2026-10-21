@@ -72,10 +72,19 @@
 - CI：`.github/workflows/validate.yml`（无外部密钥）。
 - 秘密扫描：人工检查 + 忽略规则；已跟踪秘密须维护者处置。
 
-## 11. 当前实现、规划与限制
+## 11. 分发与安装架构
 
-**已实现**：文档骨架；四 Skill Draft；`manuscript-audit` 示范脚本与合成案例；仓库验证器与 CI。
+- **权威源码**：仓库内 `.agents/skills/`（单一来源，可被 `npx skills` 发现）。
+- **最终用户主路径**：Agent **全局安装**（`npx skills add <owner>/<repo> -g`），跨项目复用。
+- **项目级安装**：可选，用于团队锁定版本；非使用前提。
+- **开发者**：克隆本仓库跑验证与评测。
+
+详见 [installation.md](installation.md)。
+
+## 12. 当前实现、规划与限制
+
+**已实现**：文档骨架；四 Skill Draft；`manuscript-audit` 示范脚本与合成案例；仓库验证器与 CI；`npx skills` 发现与 Cursor 全局落盘验证记录。
 
 **规划**：Phase 3–6 见 [ROADMAP.md](../ROADMAP.md)。
 
-**限制**：均为 Draft；无完整 YAML 解析；Cursor 加载需环境实测；许可证未定。
+**限制**：均为 Draft；无完整 YAML 解析；Cursor IDE `/` 加载与 Claude Code 仍待用户侧确认；许可证未定。

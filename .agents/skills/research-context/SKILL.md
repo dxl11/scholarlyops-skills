@@ -10,7 +10,7 @@ description: >-
 # research-context · 研究上下文整理
 
 **成熟度**：Draft（流程已定义；合成评测尚未充分）  
-**品牌**：ScholarlyOps（元数据见安装本 Skill 的仓库 `project.json`，若仅复制本目录则以本文件为准）
+**品牌**：ScholarlyOps（本 Skill 可独立安装；不依赖仓库其他文件）
 
 ## 何时使用
 

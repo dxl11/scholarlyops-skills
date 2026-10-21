@@ -76,38 +76,42 @@ Maturity levels are defined in the [Product Spec](docs/PRODUCT_SPEC.md): `Draft`
 
 `manuscript-audit` local scripts can detect some **literal numeric conflicts** and **unit-token conflicts**, and can tolerate format/rounding differences within configured bounds. That is **not** a full scientific semantic auditor and does not replace author or expert judgment.
 
-## Quick start
+## Quick start (recommended: Agent global install)
 
-1. Clone or download this repository (use a local checkout if the remote URL is not set yet).
-2. Copy the skill you need into your project:
+Primary path for end users: install skills into Cursor / Claude Code **user-global** skill directories and reuse them across projects.  
+You do **not** need to copy skills into every business repo.
 
-```text
-your-project/
-└── .agents/
-    └── skills/
-        └── manuscript-audit/
-```
-
-PowerShell example:
-
-```powershell
-New-Item -ItemType Directory -Force -Path ".agents\skills" | Out-Null
-Copy-Item -Recurse -Force `
-  "D:\path\to\scholarlyops-skills\.agents\skills\manuscript-audit" `
-  ".agents\skills\manuscript-audit"
-```
-
-3. Invoke the skill explicitly in Cursor Agent (for example, audit a synthetic manuscript copy).
-4. Optionally run local checks from the repo root:
+Requires Node.js 18+ (`npx`). Python 3.10+ is only needed to run `manuscript-audit` scripts.
 
 ```bash
+# List skills in this repo (verified: 4 skills discovered)
+npx skills add dxl11/scholarlyops-skills --list
+
+# Global install one skill into Cursor (recommended)
+npx skills add dxl11/scholarlyops-skills -g -a cursor -s manuscript-audit -y --copy
+
+# Or install all four
+npx skills add dxl11/scholarlyops-skills -g -a cursor --skill '*' -y --copy
+
+# Verify
+npx skills list -g -a cursor
+```
+
+Then open any working project and invoke via `/` search or by naming `manuscript-audit`.
+
+For Claude Code, use `-a claude-code` (Claude Code load verification is still pending on your machine).
+
+- Full guide (update / uninstall / troubleshooting / optional project install): [Installation (English)](docs/en/installation.md) · [安装指南（中文）](docs/zh-CN/installation.md)
+- Cursor UI checklist: [cursor-smoke-test.md](docs/en/cursor-smoke-test.md)
+- Maintainer local development (not the default end-user path):
+
+```bash
+git clone https://github.com/dxl11/scholarlyops-skills.git
+cd scholarlyops-skills
 python tools/validate_skills.py
 python -m unittest discover -s tests -v
 python tools/run_evals.py
 ```
-
-Full install / uninstall / troubleshooting: [Installation (English)](docs/en/installation.md) · [安装指南（中文）](docs/zh-CN/installation.md)  
-Cursor UI checklist: [cursor-smoke-test.md](docs/en/cursor-smoke-test.md)
 
 ### Example (`manuscript-audit`)
 
@@ -125,8 +129,9 @@ Synthetic cases: [`evals/cases/manuscript-audit/`](evals/cases/manuscript-audit/
 - **License is undetermined**; do not claim MIT, Apache-2.0, or any other license until a `LICENSE` file is added. See [open-questions.md](docs/decisions/open-questions.md).
 - Official GitHub remote, trademark, and brand legal clearance are still open; metadata lives in [`project.json`](project.json).
 - `run_evals.py` scores **deterministic script** cases only; agent/human semantic cases are skipped and **not** counted as passes.
-- Whether Cursor has discovered `.agents/skills/` **must be confirmed in the IDE**; this repo does not claim a completed load test in your environment.
-- Literature APIs, auto-submission, and cross-agent installers are **not implemented** (see [Roadmap](docs/ROADMAP.md)).
+- `npx skills` **discovery** of this repo and Cursor **global install on disk** were verified in the maintainer environment; **IDE `/` menu discovery and correct execution** still need the smoke-test checklist.
+- Claude Code and other agents: commands follow the CLI docs; **load verification is pending**. No claim of support for web/cloud agents.
+- Literature APIs and auto-submission are **not implemented** (see [Roadmap](docs/ROADMAP.md)).
 
 ## Layout
 

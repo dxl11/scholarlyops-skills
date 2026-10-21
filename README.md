@@ -76,38 +76,42 @@ ScholarlyOps 针对这些问题给出可检查的工作方式：
 
 `manuscript-audit` 的本地脚本可检出部分**字面数值冲突**与**单位 token 冲突**，并区分格式差与四舍五入容差；这不等于完整的科研语义审计，也不能替代作者与领域专家判断。
 
-## 快速开始
+## 快速开始（推荐：Agent 全局安装）
 
-1. 克隆或下载本仓库（远程地址确定前可直接使用本地目录）。
-2. 将需要的 Skill 复制到你的项目：
+面向最终用户的主要方式：把 Skills 装进 Cursor / Claude Code 的**个人全局**技能目录，在不同项目中复用。  
+**不必**先把 Skill 复制进每个业务仓库。
 
-```text
-你的项目/
-└── .agents/
-    └── skills/
-        └── manuscript-audit/
-```
-
-PowerShell 示例：
-
-```powershell
-New-Item -ItemType Directory -Force -Path ".agents\skills" | Out-Null
-Copy-Item -Recurse -Force `
-  "D:\path\to\scholarlyops-skills\.agents\skills\manuscript-audit" `
-  ".agents\skills\manuscript-audit"
-```
-
-3. 在 Cursor Agent 中明确调用该 Skill（例如审计一篇合成稿件副本）。
-4. （可选）在仓库根目录运行本地检查：
+前置：Node.js 18+（使用 `npx`）。需要跑 `manuscript-audit` 脚本时另需 Python 3.10+。
 
 ```bash
+# 查看仓库中可安装的 Skills（已验证可发现 4 个）
+npx skills add dxl11/scholarlyops-skills --list
+
+# 全局安装单个 Skill 到 Cursor（推荐）
+npx skills add dxl11/scholarlyops-skills -g -a cursor -s manuscript-audit -y --copy
+
+# 或一次装入全部四个 Skills
+npx skills add dxl11/scholarlyops-skills -g -a cursor --skill '*' -y --copy
+
+# 检查
+npx skills list -g -a cursor
+```
+
+然后打开任意工作项目，在 Agent 中用 `/` 搜索或点名 `manuscript-audit`。
+
+Claude Code 将 `-a cursor` 换成 `-a claude-code`（Claude Code 加载流程仍待你本机确认）。
+
+- 完整说明（更新 / 卸载 / 排障 / 可选的项目级安装）：[安装指南（中文）](docs/zh-CN/installation.md) · [Installation (English)](docs/en/installation.md)
+- Cursor 界面验收：[cursor-smoke-test.md](docs/zh-CN/cursor-smoke-test.md)
+- 维护者本地开发与评测（非最终用户默认路径）：
+
+```bash
+git clone https://github.com/dxl11/scholarlyops-skills.git
+cd scholarlyops-skills
 python tools/validate_skills.py
 python -m unittest discover -s tests -v
 python tools/run_evals.py
 ```
-
-完整安装、卸载与排障：[安装指南（中文）](docs/zh-CN/installation.md) · [Installation (English)](docs/en/installation.md)  
-Cursor 界面验收步骤：[cursor-smoke-test.md](docs/zh-CN/cursor-smoke-test.md)
 
 ### 使用示例（manuscript-audit）
 
@@ -125,8 +129,9 @@ Cursor 界面验收步骤：[cursor-smoke-test.md](docs/zh-CN/cursor-smoke-test.
 - **许可证尚未确定**；在添加 `LICENSE` 之前，不得宣称 MIT、Apache-2.0 或其他许可证。见 [open-questions.md](docs/decisions/open-questions.md)。
 - 正式 GitHub 远程地址、商标与品牌法律清核仍待确认；元数据见 [`project.json`](project.json)。
 - `run_evals.py` 仅自动评分**确定性脚本**案例；需 Agent/人工的语义案例会 skip，**不**记为通过。
-- Cursor 是否已发现并加载 `.agents/skills/` **需在 IDE 中确认**；仓库不声称已在你的环境完成加载实测。
-- 文献 API、自动投稿、跨 Agent 安装器等**未实现**，仅列于 [路线图](docs/ROADMAP.md)。
+- `npx skills` 对本仓库的 **Skill 发现**与 Cursor **全局安装落盘**已在维护环境验证；**IDE 内是否出现在 `/` 菜单并正确执行**仍需按 smoke-test 确认。
+- Claude Code 及其他 Agent：命令已按 CLI 文档给出，**加载实测仍待验证**；未宣称已支持网页版 / 云端 Agent。
+- 文献 API、自动投稿等**未实现**，仅列于 [路线图](docs/ROADMAP.md)。
 
 ## 目录结构
 
