@@ -1,10 +1,18 @@
 {
   "mode": "deterministic",
   "scripts": {
-    "numeric": { "must_find_labels": [], "max_findings": 0 },
+    "numeric": {
+      "must_find_labels": [],
+      "max_findings": 0,
+      "max_error_findings": 0
+    },
     "units": {
-      "must_find_quantity_families": ["concentration"],
-      "min_findings": 1
+      "must_find_quantity_families": [
+        "concentration"
+      ],
+      "min_findings": 1,
+      "max_error_findings": 0,
+      "require_loci": true
     }
   }
 }

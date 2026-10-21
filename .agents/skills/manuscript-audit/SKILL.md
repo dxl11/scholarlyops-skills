@@ -35,15 +35,23 @@ description: >-
 | `unsupported` | 现有证据不支持该主张 |
 | `conflicting` | 证据互相冲突 |
 
-## 数值差异分层（程序检查）
+## 数值 / 单位脚本（启发式候选检测）
 
-脚本 `scripts/check_numeric_consistency.py` 区分：
+脚本是**候选异常检测器**，不是完整科研事实验证系统。
 
-1. **字面冲突**（超出容差）→ 可报 Critical / `verified`
-2. **格式差异**（7.1 vs 7.10）→ **不**记为错误
-3. **四舍五入容差内**（默认 abs_tol≈0.051）→ **不**记为错误，写入 tolerated
-4. **单位问题** → 由 `check_unit_tokens.py` 处理（不做单位换算）
-5. **语义不一致**（相关→因果等）→ 仅模型/人工，不得伪称为脚本已验证
+`scripts/check_numeric_consistency.py`：
+
+1. 保留每次命中的原始数值、行号、上下文片段与标签。
+2. **格式差异**（7.1 vs 7.10）与**容差内差异** → tolerated，不报候选错误。
+3. 明显跨范围（如 treatment vs control、week 4 vs week 12）→ `cross_scope_difference`（tolerated），不自动当冲突。
+4. 同标签、超容差且范围提示不足 → `candidate_inconsistency`，默认 **Needs Review** + `partially_supported`，带 loci；**不得**由脚本标为 Critical / `verified`。
+5. 脚本的 `error_findings` 恒为空；是否升级为 Critical 只能由 Agent/作者在充分证据后决定。
+
+`scripts/check_unit_tokens.py`：
+
+1. 保留数值、单位、行号、上下文；规范化 μ / µ / u 等微符号别名。
+2. 别名-only → tolerated；不同量纲类别混用 → Needs Review 候选（不做缺信息换算）。
+3. 不同实验/物质合法使用不同单位时，脚本无法可靠区分，只能给候选并声明限制。
 
 每个重要问题尽量包含：问题标识、严重程度、原文位置、证据、判断理由、建议处理、是否需作者确认、证据状态。
 
@@ -124,8 +132,8 @@ description: >-
 
 ## 限制
 
-- 程序检查覆盖面有限（启发式数值/单位），不是完整科学证明。
-- **不**做单位换算、完整统计复核或自动文献 API 核验。
+- 程序检查仅为启发式**候选**检测：不能证明同一估计量/同一物质，也不能替代作者判断。
+- **不**做缺信息的单位换算、完整统计复核或自动文献 API 核验；脚本不输出 Critical/`verified` 科学错误结论。
 - 语义审计依赖 Agent/人工；本地 `tools/run_evals.py` 对 `agent_semantic` 案例一律 skip，**不得**记为通过。
 - Draft：不得称为 Stable。
 - 本地评测：`python tools/run_evals.py`（详见 `evals/README.md`）。

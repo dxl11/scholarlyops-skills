@@ -22,6 +22,7 @@
 - `manuscript-audit` 指令明确证据状态、严重程度与脚本能力边界；语义案例不得被本地运行器标为通过。
 - **安装主路径改为 Agent 全局安装**（`npx skills add … -g`）；项目级复制改为可选。README 与中英文安装/验收文档已同步。
 - 保留单一权威源 `.agents/skills/`（`npx skills --list` 已验证可发现 4 个 Skill）。
+- **数值/单位检测器改为候选异常报告**：保留行号与上下文；不再将字面差异自动标为 Critical/`verified`；跨组/时间点与 μ/µ/u 别名进入 tolerated；评测扩展至 24 案例。
 
 ### Notes
 

@@ -84,7 +84,7 @@ class TestRepoValidation(unittest.TestCase):
         cases = ROOT / "evals" / "cases" / "manuscript-audit"
         self.assertTrue(cases.is_dir())
         found = list(cases.glob("*/input.md"))
-        self.assertGreaterEqual(len(found), 17)
+        self.assertGreaterEqual(len(found), 24)
         for case_dir in cases.iterdir():
             if case_dir.is_dir():
                 self.assertTrue(

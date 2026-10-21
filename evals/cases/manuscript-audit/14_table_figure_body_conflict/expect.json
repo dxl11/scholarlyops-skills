@@ -2,9 +2,17 @@
   "mode": "deterministic",
   "scripts": {
     "numeric": {
-      "must_find_labels": ["orr_pct", "mean_tumor_reduction_pct"],
-      "min_findings": 2
+      "must_find_labels": [
+        "orr_pct",
+        "mean_tumor_reduction_pct"
+      ],
+      "min_findings": 2,
+      "max_error_findings": 0,
+      "require_loci": true
     },
-    "units": { "max_findings": 0 }
+    "units": {
+      "max_findings": 0,
+      "max_error_findings": 0
+    }
   }
 }

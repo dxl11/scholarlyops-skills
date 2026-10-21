@@ -1,0 +1,17 @@
+{
+  "mode": "deterministic",
+  "scripts": {
+    "numeric": {
+      "must_find_labels": [
+        "enrolled_n"
+      ],
+      "min_findings": 1,
+      "max_error_findings": 0,
+      "require_loci": true
+    },
+    "units": {
+      "max_findings": 0,
+      "max_error_findings": 0
+    }
+  }
+}

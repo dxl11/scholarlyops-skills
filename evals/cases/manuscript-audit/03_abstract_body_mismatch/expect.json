@@ -2,10 +2,16 @@
   "mode": "deterministic",
   "scripts": {
     "numeric": {
-      "must_find_labels": ["orr_pct"],
-      "max_findings": 3
+      "must_find_labels": [
+        "orr_pct"
+      ],
+      "max_findings": 3,
+      "max_error_findings": 0,
+      "require_loci": true
     },
-    "units": { "max_findings": 0 }
-  },
-  "agent_semantic": "optional_supplement"
+    "units": {
+      "max_findings": 0,
+      "max_error_findings": 0
+    }
+  }
 }

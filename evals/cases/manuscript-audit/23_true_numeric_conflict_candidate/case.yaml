@@ -1,0 +1,5 @@
+id: 23_true_numeric_conflict_candidate
+skill: manuscript-audit
+title: Same-scope numeric conflict candidate
+mode: deterministic
+maturity_target: Draft

@@ -2,9 +2,16 @@
   "mode": "deterministic",
   "scripts": {
     "numeric": {
-      "must_find_labels": ["mean_tumor_reduction_pct"],
-      "max_findings": 3
+      "must_find_labels": [
+        "mean_tumor_reduction_pct"
+      ],
+      "max_findings": 3,
+      "max_error_findings": 0,
+      "require_loci": true
     },
-    "units": { "max_findings": 0 }
+    "units": {
+      "max_findings": 0,
+      "max_error_findings": 0
+    }
   }
 }

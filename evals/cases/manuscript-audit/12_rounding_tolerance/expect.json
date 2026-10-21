@@ -4,8 +4,14 @@
     "numeric": {
       "must_find_labels": [],
       "max_findings": 0,
-      "require_tolerated_classification": ["within_rounding_tolerance"]
+      "max_error_findings": 0,
+      "require_tolerated_classification": [
+        "within_rounding_tolerance"
+      ]
     },
-    "units": { "max_findings": 0 }
+    "units": {
+      "max_findings": 0,
+      "max_error_findings": 0
+    }
   }
 }

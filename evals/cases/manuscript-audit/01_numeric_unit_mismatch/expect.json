@@ -2,17 +2,20 @@
   "mode": "deterministic",
   "scripts": {
     "numeric": {
-      "must_find_labels": ["enrolled_n"],
-      "must_not_find_labels": [],
-      "max_findings": 5
+      "must_find_labels": [
+        "enrolled_n"
+      ],
+      "max_findings": 5,
+      "max_error_findings": 0,
+      "require_loci": true
     },
     "units": {
-      "must_find_quantity_families": ["concentration"],
-      "min_findings": 1
+      "must_find_quantity_families": [
+        "concentration"
+      ],
+      "min_findings": 1,
+      "max_error_findings": 0,
+      "require_loci": true
     }
-  },
-  "false_positive_rules": [
-    "Do not invent Critical issues unrelated to enrollment or concentration units."
-  ],
-  "agent_semantic": "skip"
+  }
 }

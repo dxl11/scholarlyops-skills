@@ -55,11 +55,26 @@ python tools/run_evals.py --json
 | 15_abstract_results_conclusion_conflict | 摘要/结果/结论冲突 | deterministic |
 | 16_format_only_not_error | 格式差异非错误 | deterministic |
 | 17_insufficient_evidence_not_auto_error | 证据不足≠自动错误 | agent_semantic |
+| 18_treatment_control_ok | 治疗组 vs 对照组（合法差异） | deterministic |
+| 19_baseline_vs_analyzed_n_ok | 入组 vs 分析集 n | deterministic |
+| 20_timepoints_ok | 不同时间点 | deterministic |
+| 21_condition_units_mixed_candidate_not_error | 不同条件单位混用（候选≠错误） | deterministic |
+| 22_micro_symbol_alias_ok | μ/µ/u 别名 | deterministic |
+| 23_true_numeric_conflict_candidate | 同口径数值冲突候选 | deterministic |
+| 24_ambiguous_context_candidate | 缺上下文候选 | deterministic |
+
+## 脚本输出约定（重要）
+
+数值/单位脚本输出的是 **candidates（Needs Review）**，不是已证实 Critical 错误：
+
+- `max_error_findings`（默认 0）：禁止脚本级 `error_findings`
+- `require_loci`：候选必须含行号与上下文
+- 容差/跨范围/别名走 `tolerated`，不得计为候选冲突
 
 ## 误报 / 漏检判定
 
-- **漏检**：`expect.json` 要求的 `must_find_labels` / 单位族未出现 → fail  
-- **误报**：`max_findings` 超限，或对照/容差案例出现错误级 finding → fail  
+- **漏检**：`must_find_labels` / 单位族未出现 → fail  
+- **误报**：干净/合法差异案例出现候选超限，或出现 `error_findings` / Critical → fail  
 - **语义**：仅人工/Agent；未执行不得写 pass
 
 在有限测试集上通过 ≠ 现实错误率为零。

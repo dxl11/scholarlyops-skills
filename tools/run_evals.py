@@ -142,15 +142,24 @@ def evaluate_deterministic(
         return CaseResult(case_id, "deterministic", "fail", f"read_input:{exc}")
 
     analysis = numeric_mod.analyze_all(text)
-    numeric_findings = analysis["conflicts"]
-    unit_findings = unit_mod.find_unit_conflicts(text)
+    numeric_candidates = analysis.get("candidates") or analysis.get("conflicts") or []
+    numeric_errors = analysis.get("error_findings") or []
+    if hasattr(unit_mod, "analyze_units"):
+        unit_analysis = unit_mod.analyze_units(text)
+        unit_candidates = unit_analysis.get("candidates") or []
+        unit_errors = unit_analysis.get("error_findings") or []
+        unit_tolerated = unit_analysis.get("tolerated") or []
+    else:
+        unit_candidates = unit_mod.find_unit_conflicts(text)
+        unit_errors = []
+        unit_tolerated = []
 
     scripts = expect.get("scripts", {})
     num_exp = scripts.get("numeric", {})
     unit_exp = scripts.get("units", {})
     failures: list[str] = []
 
-    found_labels = {f["label"] for f in numeric_findings}
+    found_labels = {f["label"] for f in numeric_candidates}
     must_find = set(num_exp.get("must_find_labels", []))
     must_not = set(num_exp.get("must_not_find_labels", []))
     missing = sorted(must_find - found_labels)
@@ -161,20 +170,38 @@ def evaluate_deterministic(
         failures.append(f"numeric_forbidden_labels:{unexpected}")
 
     max_n = num_exp.get("max_findings")
-    if max_n is not None and len(numeric_findings) > int(max_n):
+    if max_n is not None and len(numeric_candidates) > int(max_n):
         failures.append(
-            f"numeric_too_many_findings:{len(numeric_findings)}>{max_n}"
+            f"numeric_too_many_candidates:{len(numeric_candidates)}>{max_n}"
         )
     min_n = num_exp.get("min_findings")
-    if min_n is not None and len(numeric_findings) < int(min_n):
+    if min_n is not None and len(numeric_candidates) < int(min_n):
         failures.append(
-            f"numeric_too_few_findings:{len(numeric_findings)}<{min_n}"
+            f"numeric_too_few_candidates:{len(numeric_candidates)}<{min_n}"
         )
+
+    max_err_n = num_exp.get("max_error_findings", 0)
+    if len(numeric_errors) > int(max_err_n):
+        failures.append(
+            f"numeric_error_findings:{len(numeric_errors)}>{max_err_n}"
+        )
+
+    # Heuristic scripts must not certify Critical/verified errors
+    for item in numeric_candidates:
+        if item.get("severity") == "Critical":
+            failures.append(f"numeric_forbidden_critical:{item.get('label')}")
+        if item.get("evidence_state") == "verified" and item.get(
+            "classification"
+        ) == "candidate_inconsistency":
+            failures.append(f"numeric_candidate_marked_verified:{item.get('label')}")
+        if num_exp.get("require_loci", True) and item.get("classification") == "candidate_inconsistency":
+            loci = item.get("loci") or []
+            if not loci or any("line" not in x or "context" not in x for x in loci):
+                failures.append(f"numeric_missing_loci:{item.get('label')}")
 
     required_tol = set(num_exp.get("require_tolerated_classification", []))
     if required_tol:
         seen = {t["classification"] for t in analysis.get("tolerated", [])}
-        # also accept observed_labels classifications
         seen |= {
             o["classification"]
             for o in analysis.get("observed_labels", [])
@@ -184,22 +211,56 @@ def evaluate_deterministic(
         if missing_tol:
             failures.append(f"missing_tolerated_classification:{missing_tol}")
 
-    unit_families = {f["quantity_family"] for f in unit_findings}
+    forbidden_tol = set(num_exp.get("forbid_tolerated_classification", []))
+    if forbidden_tol:
+        seen_tol = {t["classification"] for t in analysis.get("tolerated", [])}
+        bad = sorted(seen_tol & forbidden_tol)
+        if bad:
+            failures.append(f"unexpected_tolerated_classification:{bad}")
+
+    unit_families = {f["quantity_family"] for f in unit_candidates}
     must_families = set(unit_exp.get("must_find_quantity_families", []))
     miss_f = sorted(must_families - unit_families)
     if miss_f:
         failures.append(f"units_missed_families:{miss_f}")
+    must_not_families = set(unit_exp.get("must_not_find_quantity_families", []))
+    bad_f = sorted(unit_families & must_not_families)
+    if bad_f:
+        failures.append(f"units_forbidden_families:{bad_f}")
     max_u = unit_exp.get("max_findings")
-    if max_u is not None and len(unit_findings) > int(max_u):
-        failures.append(f"units_too_many:{len(unit_findings)}>{max_u}")
+    if max_u is not None and len(unit_candidates) > int(max_u):
+        failures.append(f"units_too_many_candidates:{len(unit_candidates)}>{max_u}")
     min_u = unit_exp.get("min_findings")
-    if min_u is not None and len(unit_findings) < int(min_u):
-        failures.append(f"units_too_few:{len(unit_findings)}<{min_u}")
+    if min_u is not None and len(unit_candidates) < int(min_u):
+        failures.append(f"units_too_few_candidates:{len(unit_candidates)}<{min_u}")
+    max_err_u = unit_exp.get("max_error_findings", 0)
+    if len(unit_errors) > int(max_err_u):
+        failures.append(f"units_error_findings:{len(unit_errors)}>{max_err_u}")
+
+    for item in unit_candidates:
+        if item.get("severity") == "Critical":
+            failures.append(f"units_forbidden_critical:{item.get('quantity_family')}")
+        if unit_exp.get("require_loci", True):
+            loci = item.get("loci") or []
+            if not loci or any("line" not in x or "context" not in x for x in loci):
+                failures.append(
+                    f"units_missing_loci:{item.get('quantity_family')}"
+                )
+
+    required_unit_tol = set(unit_exp.get("require_tolerated_classification", []))
+    if required_unit_tol:
+        seen_u = {t["classification"] for t in unit_tolerated}
+        missing_u = sorted(required_unit_tol - seen_u)
+        if missing_u:
+            failures.append(f"units_missing_tolerated:{missing_u}")
 
     details = {
-        "numeric_findings": numeric_findings,
-        "unit_findings": unit_findings,
-        "tolerated": analysis.get("tolerated", []),
+        "numeric_candidates": numeric_candidates,
+        "numeric_error_findings": numeric_errors,
+        "unit_candidates": unit_candidates,
+        "unit_error_findings": unit_errors,
+        "numeric_tolerated": analysis.get("tolerated", []),
+        "unit_tolerated": unit_tolerated,
         "failures": failures,
     }
     if failures:

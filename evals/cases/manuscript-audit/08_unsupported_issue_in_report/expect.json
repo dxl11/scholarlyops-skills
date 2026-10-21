@@ -1,12 +1,14 @@
 {
   "mode": "deterministic",
   "scripts": {
-    "numeric": { "must_find_labels": [], "max_findings": 0 },
-    "units": { "max_findings": 0 }
-  },
-  "false_positive_rules": [
-    "Zero Critical numeric findings required.",
-    "Inventing Critical issues is a fail."
-  ],
-  "agent_semantic": "optional_no_critical_without_evidence"
+    "numeric": {
+      "must_find_labels": [],
+      "max_findings": 0,
+      "max_error_findings": 0
+    },
+    "units": {
+      "max_findings": 0,
+      "max_error_findings": 0
+    }
+  }
 }
