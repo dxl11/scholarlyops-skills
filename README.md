@@ -72,39 +72,39 @@ ScholarlyOps 针对这些问题给出可检查的工作方式：
 
 ## 快速开始（推荐：Agent 全局安装）
 
-面向最终用户的主要方式：把 Skills 装进 Cursor / Claude Code 的**个人全局**技能目录，在不同项目中复用。  
-**不必**先把 Skill 复制进每个业务仓库。
+面向最终用户的主要方式：用官方 [`npx skills`](https://github.com/vercel-labs/skills) 把 Skills 装进 Cursor / Claude Code 的**个人全局**技能目录，跨项目复用。  
+**不必**克隆本仓库，也**不必**把 Skill 复制进每个业务项目。
 
-前置：Node.js 18+（使用 `npx`）。需要跑 `manuscript-audit` 脚本时另需 Python 3.10+。
+前置：Node.js 18+。需要跑 `manuscript-audit` 脚本时另需 Python 3.10+。
 
 ```bash
-# 查看仓库中可安装的 Skills（已验证可发现 4 个）
+# 查看可安装的 Skills（本环境对 GitHub 源 --list：已发现 4 个）
 npx skills add dxl11/scholarlyops-skills --list
 
-# 全局安装单个 Skill 到 Cursor（推荐）
-npx skills add dxl11/scholarlyops-skills -g -a cursor -s manuscript-audit -y --copy
+# 全局安装单个 Skill（Cursor + Claude Code）
+npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill manuscript-audit
 
-# 或一次装入全部四个 Skills
-npx skills add dxl11/scholarlyops-skills -g -a cursor --skill '*' -y --copy
+# 全局安装全部 Skills
+npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill '*'
 
-# 检查
-npx skills list -g -a cursor
+# 查看 / 更新 / 卸载（示例）
+npx skills list --global
+npx skills update --global -y
+npx skills remove manuscript-audit --global --agent cursor -y
 ```
 
-然后打开任意工作项目，在 Agent 中用 `/` 搜索或点名 `manuscript-audit`。
+仅 Cursor 或仅 Claude Code 时，把 `--agent` 改成单一目标即可。
 
-Claude Code 将 `-a cursor` 换成 `-a claude-code`（Claude Code 加载流程仍待你本机确认）。
+然后打开**任意**工作项目：在 Cursor Agent 用 `/` 搜索或点名 Skill。  
+**文件已安装 ≠ IDE 已加载**；Cursor 界面验收见 [cursor-smoke-test.md](docs/zh-CN/cursor-smoke-test.md)。Claude Code 加载仍**待你本机验证**。
 
-- 完整说明（更新 / 卸载 / 排障 / 可选的项目级安装）：[安装指南（中文）](docs/zh-CN/installation.md) · [Installation (English)](docs/en/installation.md)
-- Cursor 界面验收：[cursor-smoke-test.md](docs/zh-CN/cursor-smoke-test.md)
-- 维护者本地开发与评测（非最终用户默认路径）：
+- 完整说明（平台命令、项目级安装、排障）：[安装指南（中文）](docs/zh-CN/installation.md) · [Installation (English)](docs/en/installation.md)
+- 维护者本地开发（非最终用户默认路径）：
 
 ```bash
 git clone https://github.com/dxl11/scholarlyops-skills.git
 cd scholarlyops-skills
 python tools/validate_skills.py
-python -m unittest discover -s tests -v
-python tools/run_evals.py
 ```
 
 ### 使用示例（manuscript-audit）
@@ -123,9 +123,11 @@ python tools/run_evals.py
 - **许可证尚未确定**；在添加 `LICENSE` 之前，不得宣称 MIT、Apache-2.0 或其他许可证。见 [open-questions.md](docs/decisions/open-questions.md)。
 - 正式 GitHub 远程地址、商标与品牌法律清核仍待确认；元数据见 [`project.json`](project.json)。
 - `run_evals.py` 仅自动评分**确定性脚本**案例；需 Agent/人工的语义案例会 skip，**不**记为通过。
-- `npx skills` 对本仓库的 **Skill 发现**与 Cursor **全局安装落盘**已在维护环境验证；**IDE 内是否出现在 `/` 菜单并正确执行**仍需按 smoke-test 确认。
-- Claude Code 及其他 Agent：命令已按 CLI 文档给出，**加载实测仍待验证**；未宣称已支持网页版 / 云端 Agent。
+- `npx skills`（1.7.4）对本仓库的 **Skill 发现**（`--list` → 4 个）已验证；Cursor **全局安装落盘**曾在维护环境验证；**IDE `/` 菜单发现与调用**仍待按 smoke-test 确认。
+- Claude Code：安装命令已按 CLI 给出，**安装与加载均待本机实测**；未宣称已支持其他网页/云端 Agent。
+- 程序测试通过 ≠ 论文审计能力已充分验证；Agent 语义有效盲测不足时保持 Draft。见 [评测说明](evals/README.md)。
 - 文献 API、自动投稿等**未实现**，仅列于 [路线图](docs/ROADMAP.md)。
+- 安全披露途径见 [SECURITY.md](SECURITY.md)（GitHub 私密漏洞报告需维护者在网页端确认启用；**无**单独编造的安全邮箱）。
 
 ## 目录结构
 

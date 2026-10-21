@@ -20,6 +20,11 @@
 
 ### Changed
 
+- 发布准备：中英文 README / 安装指南统一为 `npx skills` 长参数全局安装示例（`--global --agent … --skill …`）；明确全局 / 项目级 / 源码三场景；核实 CLI 1.7.4 与 GitHub `--list` 发现 4 个 Skill。
+- `SECURITY.md`：不以编造邮箱为披露渠道；说明 GitHub 私密漏洞报告须维护者在网页端启用；补充发布前安全清单。
+- `docs/decisions/open-questions.md`：保留许可证待决及 MIT / Apache-2.0 决策对照；补充维护者发布待办。
+
+
 - `manuscript-audit` 指令明确证据状态、严重程度与脚本能力边界；语义案例不得被本地运行器标为通过。
 - **安装主路径改为 Agent 全局安装**（`npx skills add … -g`）；项目级复制改为可选。README 与中英文安装/验收文档已同步。
 - 保留单一权威源 `.agents/skills/`（`npx skills --list` 已验证可发现 4 个 Skill）。

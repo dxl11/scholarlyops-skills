@@ -12,8 +12,9 @@ Canonical sources remain `.agents/skills/` in this repo (single source of truth)
 ## 0. Prerequisites (recommended: global)
 
 ```bash
-npx skills add dxl11/scholarlyops-skills -g -a cursor -s manuscript-audit -y --copy
-npx skills list -g -a cursor
+npx skills add dxl11/scholarlyops-skills --global --agent cursor --skill manuscript-audit
+# optional: -y --copy (non-interactive + copy; used in maintainer verification)
+npx skills list --global --agent cursor
 ```
 
 Note the printed `path` (maintainer env previously used `%USERPROFILE%\.agents\skills\manuscript-audit`).

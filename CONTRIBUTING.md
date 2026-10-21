@@ -81,6 +81,12 @@ npx skills add . --list
 - 单一主题；附验证命令结果摘要。
 - 不跳过失败测试、不伪造通过。
 
+## 安全问题
+
+按 [SECURITY.md](SECURITY.md) 私下报告。不要在公开 Issue 中粘贴密钥或私有稿件。  
+GitHub 私密漏洞报告是否已启用，须由维护者在仓库网页设置中确认（贡献者无法从源码判定）。
+
 ## 许可证
 
-项目许可证尚未确定。详见开放问题文档。
+项目许可证**尚未确定**，根目录**没有** `LICENSE`。详见 [docs/decisions/open-questions.md](docs/decisions/open-questions.md)。  
+在许可证确定前，不要在文档或 PR 中宣称本项目已采用 MIT、Apache-2.0 或其他许可证。

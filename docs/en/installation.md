@@ -2,38 +2,38 @@
 
 English | [简体中文](../zh-CN/installation.md)
 
+> **CLI version**: Commands below were checked against `npx skills` (`skills` **1.7.4**) `--help`. If your CLI is newer, trust `npx skills --help`.  
+> **Files on disk ≠ skill loaded**: After install, confirm discovery/invocation inside Cursor / Claude Code.
+
 ## Three usage scenarios
 
 | Scenario | Who | Default? |
 |----------|-----|----------|
-| **Agent global install** | End users: install into Cursor / Claude Code personal skill dirs; reuse across projects | **Yes (primary)** |
-| Source development | Maintainers developing/testing in this repo | Maintainers only |
-| Project-level install | Teams that must pin the same skill set inside one repo | **Optional**, not required |
+| **Agent global install** | End users: personal agent skill dirs; reuse across projects | **Yes (primary)** |
+| Project-level install | Teams pinning skills inside one business repo | **Optional** |
+| Source development | Maintainers cloning this repo to edit skills and run tests | Maintainers only |
 
-Project-level install is **not** a prerequisite for using ScholarlyOps.
+**End users do not need to clone this repository** or copy skills into every business project.
 
 ## Prerequisites
 
 | Purpose | Requirement |
 |---------|-------------|
-| Recommended installer (`npx skills`) | Node.js 18+ (`npx` fetches the CLI; no need to install `skills` globally) |
-| Using installed skills | A compatible agent (Cursor or Claude Code) |
-| `manuscript-audit` deterministic scripts | Python 3.10+ (stdlib). Without Python, semantic audit can still follow `SKILL.md`, but scripts will not run |
+| Recommended installer (`npx skills`) | Node.js 18+ (`npx` fetches the CLI; no global `skills` install required) |
+| Using installed skills | Compatible agent (Cursor and/or Claude Code) |
+| `manuscript-audit` deterministic scripts | Python 3.10+ (stdlib). Without Python, follow `SKILL.md` for semantic audit; scripts will not run |
 | Repo development / local evals | Python 3.10+ |
 
 Security:
 
 - Do not put API keys in install commands.
 - Do not install as root/Administrator by default.
-- `npx skills` fetches from GitHub; only use trusted sources.
-- These skills do not require running custom remote scripts at install time; if the CLI behavior changes, follow its prompts.
+- `npx skills` fetches from GitHub; use `dxl11/scholarlyops-skills` (or a fork you trust).
 
-## Repository layout and discovery (verified)
+## Repository layout and discovery (checked)
 
-- Canonical skill source (single source of truth): `.agents/skills/<skill-name>/SKILL.md`
-- This layout **is discoverable** by `npx skills`; a second parallel `skills/` tree is **not** required.
-- Verified CLI: `skills` **1.7.4** via `npx skills`
-- Verified discovery (local and GitHub both listed 4 skills):
+- **Single source of truth**: `.agents/skills/<skill-name>/SKILL.md` (no second manually synced tree).
+- This layout is discoverable by `npx skills` (this environment: GitHub `--list` found **4 skills**).
 
 ```bash
 npx skills add dxl11/scholarlyops-skills --list
@@ -43,116 +43,152 @@ npx skills add . --list
 
 Discovered: `research-context`, `evidence-writing`, `manuscript-audit`, `review-response`.
 
-GitHub id (from local `git remote`, and `--list` succeeded): `dxl11/scholarlyops-skills`  
-If you fork/move the repo, replace `dxl11/scholarlyops-skills` with your `<owner>/<repo>`.
+References:
+
+- [vercel-labs/skills](https://github.com/vercel-labs/skills)
+- [Cursor Skills docs](https://cursor.com/docs/skills)
+- [Claude Agent Skills overview](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
 
 ---
 
 ## 1. Primary path: Agent global install (recommended)
 
-After a global install, skills can be reused across **many** working projects without copying them into each repo.
-
 ### 1.1 Install one skill (example: manuscript-audit)
 
-**Cursor:**
+**Cursor and Claude Code together** (when both are detected by the CLI):
+
+```bash
+npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill manuscript-audit
+```
+
+**Cursor only:**
+
+```bash
+npx skills add dxl11/scholarlyops-skills --global --agent cursor --skill manuscript-audit
+```
+
+**Claude Code only:**
+
+```bash
+npx skills add dxl11/scholarlyops-skills --global --agent claude-code --skill manuscript-audit
+```
+
+Short-flag equivalent (same meaning; maintainer Windows env previously verified Cursor landing with `--copy -y`):
 
 ```bash
 npx skills add dxl11/scholarlyops-skills -g -a cursor -s manuscript-audit -y --copy
 ```
 
-**Claude Code:**
+| Flag | Meaning |
+|------|---------|
+| `--global` / `-g` | User-level install (cross-project) |
+| `--agent` / `-a` | Target agent(s), e.g. `cursor claude-code` |
+| `--skill` / `-s` | Skill name |
+| `-y` | Skip prompts (omit the first time to review the summary) |
+| `--copy` | Copy files instead of symlinking |
+
+### 1.2 Install all skills
 
 ```bash
-npx skills add dxl11/scholarlyops-skills -g -a claude-code -s manuscript-audit -y --copy
+npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill '*'
 ```
 
-Notes:
+Use a single `--agent` value to target only Cursor or only Claude Code.
 
-- `-g` / `--global`: user-level install (cross-project).
-- `-a`: target agent.
-- `-s`: skill name.
-- `-y`: skip prompts (omit the first time if you want to review the summary).
-- `--copy`: copy files (used in our Windows verification; the CLI may also offer symlinks).
-
-### 1.2 Install all four skills
+Short-flag example:
 
 ```bash
-# Cursor
 npx skills add dxl11/scholarlyops-skills -g -a cursor --skill '*' -y --copy
-
-# Claude Code
-npx skills add dxl11/scholarlyops-skills -g -a claude-code --skill '*' -y --copy
 ```
 
-Or target multiple agents when both are present:
+CLI also offers `--all` (`--skill '*' --agent '*' -y`), which targets **every** agent the CLI detects. Prefer an explicit `--agent` list when you only want Cursor and/or Claude Code.
+
+### 1.3 List installed skills
 
 ```bash
-npx skills add dxl11/scholarlyops-skills -g -a cursor -a claude-code --skill '*' -y --copy
+npx skills list --global
+npx skills list --global --agent cursor
+npx skills list --global --agent claude-code
+npx skills list --global --json
 ```
 
-### 1.3 Verify installation
+Aliases: `npx skills ls -g`, `npx skills ls -g -a cursor`.
+
+### 1.4 Update
 
 ```bash
-npx skills list -g -a cursor
-npx skills list -g -a claude-code
-npx skills list -g --json
+npx skills update --global -y
+npx skills update manuscript-audit --global -y
 ```
 
-**Paths — document vs this machine:**
+Alias: `npx skills update -g -y`.
 
-| Agent | Common path in CLI docs | Verified here (2026-10-21) |
-|-------|-------------------------|----------------------------|
-| Cursor | `~/.cursor/skills/` | Install landed at `%USERPROFILE%\.agents\skills\<skill>\`, listed under Agent=`Cursor` |
-| Claude Code | `~/.claude/skills/` | **Not installed/verified in this environment** (commands follow CLI docs; trust the CLI’s printed path) |
-
-Always trust the `path` field from `npx skills list -g`.
-
-### 1.4 Invoke an installed skill
-
-1. Open **any** working project (ScholarlyOps repo not required).
-2. In Cursor Agent, type `/` and search the skill name, or ask explicitly to follow `manuscript-audit`.
-3. For Claude Code, enable/use skills per that product’s UX.
-
-Presence on disk ≠ loaded. Confirm in the IDE. See [cursor-smoke-test.md](cursor-smoke-test.md).
-
-### 1.5 Update
+### 1.5 Uninstall
 
 ```bash
-npx skills update -g -a cursor -y
-npx skills update manuscript-audit -g -a cursor -y
+npx skills remove manuscript-audit --global --agent cursor -y
+npx skills remove --global --agent cursor --skill '*' -y
 ```
 
-### 1.6 Uninstall
+Interactive: `npx skills remove`.
+
+Clearing everything managed by the CLI is destructive — prefer named removes or agent-scoped `--skill '*'`. Only use `npx skills remove --global --all` if you intentionally want to remove every installed skill.
+
+### 1.6 Platform notes
+
+The same `npx …` commands work on **Windows PowerShell, macOS, and Linux** (Node.js 18+).
+
+Inspect landing dirs (always prefer the `path` from `skills list --global`):
+
+**PowerShell:**
+
+```powershell
+Get-ChildItem "$env:USERPROFILE\.agents\skills" -ErrorAction SilentlyContinue
+Get-ChildItem "$env:USERPROFILE\.cursor\skills" -ErrorAction SilentlyContinue
+Get-ChildItem "$env:USERPROFILE\.claude\skills" -ErrorAction SilentlyContinue
+```
+
+**macOS / Linux:**
 
 ```bash
-npx skills remove manuscript-audit -g -a cursor -y
-npx skills remove -g -a cursor -s '*' -y
+ls -la ~/.agents/skills 2>/dev/null
+ls -la ~/.cursor/skills 2>/dev/null
+ls -la ~/.claude/skills 2>/dev/null
 ```
 
-Confirm with `npx skills list -g`.
+### 1.7 Cursor vs Claude Code: paths and limits
 
-### 1.7 Troubleshooting load failures
+| Agent | Paths often cited in docs | Maintainer-env note | Limit |
+|-------|---------------------------|---------------------|-------|
+| Cursor | Often `~/.cursor/skills/` | Global install previously landed under `%USERPROFILE%\.agents\skills\<skill>\` with Agent=Cursor in `list -g` | **IDE `/` discovery and semantic run still pending your checklist** ([cursor-smoke-test.md](cursor-smoke-test.md)) |
+| Claude Code | Often `~/.claude/skills/` | **Not installed/verified here** | Commands follow CLI docs; trust your CLI/product output |
 
-1. Check `npx skills list -g --json` for name + `path`.
-2. Ensure `SKILL.md` exists; Frontmatter has `name` / `description`; `name` matches folder.
-3. Restart the agent IDE; retry `/` search.
+### 1.8 Start using a skill
+
+1. After global install, open **any** working project (ScholarlyOps clone not required).
+2. **Cursor**: type `/` and search the skill name, or ask to follow `manuscript-audit`.
+3. **Claude Code**: follow that product’s Agent Skills UX (**not verified in this repo**).
+4. Prefer manuscript **copies**; do not overwrite originals by default.
+5. For deterministic scripts, run `scripts/` from the **installed skill directory** (Python 3.10+).
+
+### 1.9 Troubleshooting
+
+1. Check `npx skills list --global --json` for name + `path`.
+2. Ensure `SKILL.md` exists; Frontmatter `name` matches the folder.
+3. Restart the agent app; retry discovery.
 4. Ensure skills are not disabled in settings.
-5. For `manuscript-audit` scripts: need Python 3.10+; run scripts relative to the **installed skill directory**.
+5. For scripts: Python 3.10+; paths relative to the installed skill’s `scripts/`.
 
 ---
 
 ## 2. Optional: project-level install
 
-Use only when a team must pin skills inside a business repository. Scope is that repo only.
-
 ```bash
-# from the business project root (no -g)
-npx skills add dxl11/scholarlyops-skills -a cursor -s manuscript-audit -y --copy
+# from the business project root (no --global)
+npx skills add dxl11/scholarlyops-skills --agent cursor --skill manuscript-audit
 ```
 
-Typical landing path (confirm via CLI): `.agents/skills/<skill>/` inside the project.
-
-Manual copy remains a fallback, not the default end-user path.
+Typical landing path (confirm via CLI): `.agents/skills/<skill>/` inside that project only.
 
 ---
 
@@ -166,31 +202,28 @@ python -m unittest discover -s tests -v
 python tools/run_evals.py
 ```
 
-Edit only `.agents/skills/` in this repo — do not maintain a second divergent `SKILL.md` tree.
+Edit only `.agents/skills/` in this repo.
 
 ---
 
 ## 4. Standalone install boundaries
 
-Each skill ships its own `SKILL.md` plus needed `references/` / `scripts/` / `examples/`. After a single-skill global install:
-
-- Do **not** depend on other repo paths or absolute machine paths.
-- Example for `manuscript-audit` (cwd = installed skill dir):
+Each skill ships its own `SKILL.md` plus needed `references/` / `scripts/` / `examples/`. After a single-skill global install, do not depend on other repo paths.
 
 ```bash
 python scripts/check_numeric_consistency.py --input /path/to/copy.md --json
 ```
 
-- Without Python: install can still succeed; declare script checks as unrun in the audit report.
+---
 
-## 5. Verification log (factual)
+## 5. Verification log (factual; no reinstall this phase)
 
 | Check | Status |
 |-------|--------|
-| Discover 4 skills from local `.` | Passed |
-| Discover 4 skills from `dxl11/scholarlyops-skills` | Passed |
-| Global install `manuscript-audit` to Cursor (`-g -a cursor --copy`) | Passed: files under `~/.agents/skills/manuscript-audit` |
-| Cursor IDE `/` discovery + semantic run | **Pending IDE checklist** |
+| `skills` 1.7.4 `--help` flag check | Checked (this phase) |
+| `npx skills add dxl11/scholarlyops-skills --list` → 4 skills | **Verified** (this phase) |
+| Cursor global install landing (`-g -a cursor --copy`) | **Verified earlier** in maintainer env; **not re-run** this phase |
+| Cursor IDE `/` discovery + invoke | **Pending user IDE check** |
 | Claude Code global install + load | **Pending** |
 | Other agents | **Planned only** |
 
@@ -198,8 +231,8 @@ python scripts/check_numeric_consistency.py --input /path/to/copy.md --json
 
 | Mode | Scope |
 |------|-------|
-| Global `-g` | Current user’s agent skill dirs; visible across projects |
-| Project install | Current repository only |
+| Global `--global` | Current user’s agent skill dirs; cross-project |
+| Project (no `-g`) | Current repository only |
 | Source clone | Local development copy |
 
-License may still be undetermined; see [open-questions.md](../decisions/open-questions.md).
+License may still be undetermined; see [open-questions.md](../decisions/open-questions.md) and [SECURITY.md](../../SECURITY.md).

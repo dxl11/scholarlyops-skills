@@ -12,8 +12,9 @@
 ## 0. 前置（推荐：全局安装）
 
 ```bash
-npx skills add dxl11/scholarlyops-skills -g -a cursor -s manuscript-audit -y --copy
-npx skills list -g -a cursor
+npx skills add dxl11/scholarlyops-skills --global --agent cursor --skill manuscript-audit
+# 可选：-y --copy（非交互 + 复制落盘；维护环境曾用此组合验证）
+npx skills list --global --agent cursor
 ```
 
 确认 `list` 输出中的 `path`（本维护环境曾落到 `%USERPROFILE%\.agents\skills\manuscript-audit`）。
