@@ -1,0 +1,6 @@
+﻿id: 08_systematic_review_logging
+skill: literature-search
+title: Systematic review needs search log
+mode: agent_semantic
+maturity_target: Draft
+notes: Synthetic evaluation case for ScholarlyOps literature-search. Local runner skips; human/Agent scoring required.

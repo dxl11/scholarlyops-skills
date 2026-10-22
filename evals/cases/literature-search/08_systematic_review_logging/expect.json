@@ -1,0 +1,17 @@
+﻿{
+  "mode": "agent_semantic",
+  "local_runner": "skip_with_reason",
+  "agent_expectations": {
+    "must_find_labels": [
+      "search_log_template",
+      "prisma_s_reminder",
+      "strategy_draft_not_full_sr_compliance",
+      "multi_database_plan"
+    ],
+    "must_not": [
+      "claim_prisma_compliant_complete",
+      "fabricated_hit_counts"
+    ],
+    "scoring_notes": "Content checklist for human/Agent review. Do not mark pass in tools/run_evals.py. Never invent database hit counts."
+  }
+}

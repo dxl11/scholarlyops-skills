@@ -24,6 +24,7 @@
 **范围内（当前阶段）**
 
 - 研究上下文结构化
+- 文献检索策略规划（默认 Strategy Only）
 - 证据约束写作
 - 论文一致性审计（示范重点）
 - 审稿意见回复映射
@@ -34,14 +35,16 @@
 - 自动向期刊投稿
 - 保证查重通过或中稿
 - 无人复核的科学结论背书
+- 虚构数据库命中数 / 题名 / DOI
 - 未实测的多 Agent 一键安装器
-- 未选型的文献 API 付费集成
+- 未选型的文献 API 付费集成（可作为 Search Assisted 的未来选项，当前不声称已完成）
 
 ## 4. Skill 职责边界
 
 | Skill | 负责 | 不负责 |
 |-------|------|--------|
 | `research-context` | 结构化记录；区分事实/解释/推论/缺失/待核实 | 编造缺失实验或统计 |
+| `literature-search` | 问题框架、关键词矩阵、分库检索式、迭代与检索记录模板 | 编造命中/DOI；编造已核实 MeSH；宣称完整系统综述检索合规 |
 | `evidence-writing` | 主张—证据映射下的起草/改写 | 为文采夸大结论或虚构文献 |
 | `manuscript-audit` | 分级审计报告；程序可检项优先脚本化 | 擅自改写并覆盖原稿 |
 | `review-response` | 意见拆分与修改/证据/状态关联 | 声称未完成实验或修改已完成 |
@@ -89,14 +92,14 @@
 ## 8. 依赖关系
 
 ```text
-research-context ──► evidence-writing
-        │                    │
-        └──────────► manuscript-audit
+research-context ──► literature-search（可选）──► evidence-writing
+        │                                            │
+        └──────────► manuscript-audit ◄──────────────┘
                            │
                     review-response（可独立）
 ```
 
-各 Skill 可独立安装。推荐流水线：上下文 → 写作 → 审计 → 审稿回复。
+各 Skill 可独立安装。推荐流水线：上下文 →（检索策略）→ 写作 → 审计 → 审稿回复。
 
 ## 9. 成熟度
 
@@ -106,10 +109,10 @@ research-context ──► evidence-writing
 | Beta | 主路径已测；限制已公开 |
 | Stable | 公开评测、关键错误门槛与真实任务验证均有记录 |
 
-当前四 Skill 均为 **Draft**。
+当前五 Skill 均为 **Draft**。
 
 ## 10. 已完成 vs 未实现
 
-**已完成（骨架与示范级）**：中英文文档、四 Skill Draft、`manuscript-audit` 合成评测与检查脚本、仓库验证器与 CI 工作流入口。
+**已完成（骨架与示范级）**：中英文文档、五 Skill Draft（含 `literature-search`）、`manuscript-audit` 合成评测与检查脚本、`literature-search` 合成案例（语义待人工）、仓库验证器与 CI 工作流入口。
 
-**未实现**：正式许可证与公开发布、Beta/Stable 升级、真实稿件验证记录、文献 API、绘图/统计扩展 Skill。
+**未实现**：正式许可证与公开发布、Beta/Stable 升级、真实稿件验证记录、付费文献 API 集成、`literature-search` 有效盲测与大规模真实库执行记录、绘图/统计扩展 Skill。

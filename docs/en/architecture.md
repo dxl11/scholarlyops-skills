@@ -4,7 +4,7 @@ English | [简体中文](../zh-CN/architecture.md)
 
 ## 1. Goals and non-goals
 
-**Goals**: Evidence-grounded, installable, testable agent skills for research material structuring, evidence-constrained writing, manuscript audit, and review response.
+**Goals**: Evidence-grounded, installable, testable agent skills for research material structuring, literature search strategy planning, evidence-constrained writing, manuscript audit, and review response.
 
 **Non-goals**: Replacing scientific judgment; unsupervised auto-publication; fabricating results; republishing third-party skill repos as original work.
 
@@ -17,6 +17,7 @@ See [Product Spec](../PRODUCT_SPEC.md). Core scenarios: pre-submission self-chec
 | Skill | Trigger when | Do not trigger when |
 |-------|--------------|---------------------|
 | `research-context` | User needs a structured research record | User only wants polish of fixed prose |
+| `literature-search` | User needs keywords, database choice, or database-specific queries / strategy iteration | User demands fabricated hit counts, or only wants prose polish of an existing review |
 | `evidence-writing` | Draft/rewrite under known evidence | User asks to invent data for significance |
 | `manuscript-audit` | Cross-section consistency / evidence risks | User wants unrelated new sections only |
 | `review-response` | Handling reviewer comments | No reviewer comments provided |
@@ -71,7 +72,7 @@ See [installation.md](installation.md).
 
 ## 12. Status
 
-**Done**: docs skeleton; four Draft skills; manuscript-audit demos; validator/CI; verified `npx skills` discovery and Cursor global on-disk install.
+**Done**: docs skeleton; five Draft skills (including `literature-search`); manuscript-audit demos; literature-search synthetic cases; validator/CI; verified `npx skills` discovery and Cursor global on-disk install.
 
 **Planned**: Phases 3–6 in [ROADMAP.md](../ROADMAP.md).
 

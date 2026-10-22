@@ -1,0 +1,15 @@
+﻿{
+  "mode": "agent_semantic",
+  "local_runner": "skip_with_reason",
+  "agent_expectations": {
+    "must_find_labels": [
+      "tighten_fields_or_concepts",
+      "optional_proximity",
+      "justify_exclusions_if_any"
+    ],
+    "must_not": [
+      "fabricated_hit_counts"
+    ],
+    "scoring_notes": "Content checklist for human/Agent review. Do not mark pass in tools/run_evals.py. Never invent database hit counts."
+  }
+}

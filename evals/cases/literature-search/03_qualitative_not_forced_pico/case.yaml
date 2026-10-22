@@ -1,0 +1,6 @@
+﻿id: 03_qualitative_not_forced_pico
+skill: literature-search
+title: Qualitative topic should not force PICO
+mode: agent_semantic
+maturity_target: Draft
+notes: Synthetic evaluation case for ScholarlyOps literature-search. Local runner skips; human/Agent scoring required.

@@ -4,7 +4,7 @@
 
 ## 1. 产品目标与非目标
 
-**目标**：以科研证据为核心，提供可扩展、可独立安装、可测试的 Agent Skills，覆盖材料整理、证据写作、全文审计、审稿回复等任务。
+**目标**：以科研证据为核心，提供可扩展、可独立安装、可测试的 Agent Skills，覆盖材料整理、文献检索策略、证据写作、全文审计、审稿回复等任务。
 
 **非目标**：替代研究者的科学判断；无人复核的自动发表；虚构实验结果；未授权复制第三方 Skills 仓库。
 
@@ -17,6 +17,7 @@
 | Skill | 何时触发 | 何时不应触发 |
 |-------|----------|--------------|
 | `research-context` | 用户要整理杂乱研究材料为结构化记录 | 用户只要润色一段已定稿文字 |
+| `literature-search` | 用户需要关键词、数据库选择或分库检索式 / 检索策略迭代 | 用户要求虚构命中数，或只要润色已写好的综述段落 |
 | `evidence-writing` | 基于已有证据起草/改写段落 | 用户要求“编造数据让结果显著” |
 | `manuscript-audit` | 检查跨章节一致性与证据风险 | 用户只要生成全新无关章节 |
 | `review-response` | 处理审稿意见与回复草稿 | 用户尚未提供任何审稿意见 |
@@ -83,8 +84,8 @@
 
 ## 12. 当前实现、规划与限制
 
-**已实现**：文档骨架；四 Skill Draft；`manuscript-audit` 示范脚本与合成案例；仓库验证器与 CI；`npx skills` 发现与 Cursor 全局落盘验证记录。
+**已实现**：文档骨架；五 Skill Draft（含 `literature-search`）；`manuscript-audit` 示范脚本与合成案例；`literature-search` 合成案例；仓库验证器与 CI；`npx skills` 发现与 Cursor 全局落盘验证记录。
 
-**规划**：Phase 3–6 见 [ROADMAP.md](../ROADMAP.md)。
+**规划**：Phase 3–7 见 [ROADMAP.md](../ROADMAP.md)。
 
 **限制**：均为 Draft；无完整 YAML 解析；Cursor IDE `/` 加载与 Claude Code 仍待用户侧确认；许可证未定。

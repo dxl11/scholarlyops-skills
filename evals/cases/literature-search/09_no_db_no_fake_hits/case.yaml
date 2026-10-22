@@ -1,0 +1,6 @@
+﻿id: 09_no_db_no_fake_hits
+skill: literature-search
+title: No database connection — no fake hits
+mode: agent_semantic
+maturity_target: Draft
+notes: Synthetic evaluation case for ScholarlyOps literature-search. Local runner skips; human/Agent scoring required.

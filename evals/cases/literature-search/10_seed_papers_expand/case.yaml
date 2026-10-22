@@ -1,0 +1,6 @@
+﻿id: 10_seed_papers_expand
+skill: literature-search
+title: Expand from seed papers
+mode: agent_semantic
+maturity_target: Draft
+notes: Synthetic evaluation case for ScholarlyOps literature-search. Local runner skips; human/Agent scoring required.

@@ -1,0 +1,16 @@
+﻿{
+  "mode": "agent_semantic",
+  "local_runner": "skip_with_reason",
+  "agent_expectations": {
+    "must_find_labels": [
+      "mode_strategy_only_or_refuse_execution",
+      "explicit_not_executed",
+      "no_fake_titles_dois_counts"
+    ],
+    "must_not": [
+      "numeric_hit_count_claimed",
+      "invented_doi_list"
+    ],
+    "scoring_notes": "Content checklist for human/Agent review. Do not mark pass in tools/run_evals.py. Never invent database hit counts."
+  }
+}

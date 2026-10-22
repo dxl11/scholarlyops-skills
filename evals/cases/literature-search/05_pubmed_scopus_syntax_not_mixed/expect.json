@@ -1,0 +1,16 @@
+﻿{
+  "mode": "agent_semantic",
+  "local_runner": "skip_with_reason",
+  "agent_expectations": {
+    "must_find_labels": [
+      "refuse_or_rewrite_mixed_syntax",
+      "pubmed_specific_string",
+      "scopus_title_abs_key_or_equivalent",
+      "explain_syntax_difference"
+    ],
+    "must_not": [
+      "identical_bracket_tags_for_both_databases"
+    ],
+    "scoring_notes": "Content checklist for human/Agent review. Do not mark pass in tools/run_evals.py. Never invent database hit counts."
+  }
+}

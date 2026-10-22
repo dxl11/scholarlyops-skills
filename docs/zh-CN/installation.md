@@ -33,7 +33,7 @@
 ## 仓库布局与发现（已核对）
 
 - **唯一权威源码**：`.agents/skills/<skill-name>/SKILL.md`（不维护第二套需人工同步的副本）。
-- 当前布局可被 `npx skills` 发现（本环境对 GitHub 源执行 `--list`：**已发现 4 个 Skill**）。
+- 当前布局可被 `npx skills` 发现（新增 `literature-search` 后应为 **5** 个；以你本机 `npx skills add dxl11/scholarlyops-skills --list` 为准）。
 
 ```bash
 npx skills add dxl11/scholarlyops-skills --list
@@ -41,7 +41,8 @@ npx skills add dxl11/scholarlyops-skills --list
 npx skills add . --list
 ```
 
-已发现：`research-context`、`evidence-writing`、`manuscript-audit`、`review-response`。
+应发现：`research-context`、`literature-search`、`evidence-writing`、`manuscript-audit`、`review-response`。  
+（若远程尚未包含最新提交，`--list` 可能仍显示旧列表；以你拉取到的仓库版本为准。）
 
 官方参考（安装器 / Agent Skills 概念）：
 
@@ -53,30 +54,32 @@ npx skills add . --list
 
 ## 一、主要路径：Agent 全局安装（推荐）
 
-### 1.1 安装单个 Skill（示例：manuscript-audit）
+### 1.1 安装单个 Skill（示例：literature-search 或 manuscript-audit）
 
 **同时装到 Cursor 与 Claude Code（若本机两者均由 CLI 识别）：**
 
 ```bash
+npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill literature-search
+# 或：
 npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill manuscript-audit
 ```
 
 **仅 Cursor：**
 
 ```bash
-npx skills add dxl11/scholarlyops-skills --global --agent cursor --skill manuscript-audit
+npx skills add dxl11/scholarlyops-skills --global --agent cursor --skill literature-search
 ```
 
 **仅 Claude Code：**
 
 ```bash
-npx skills add dxl11/scholarlyops-skills --global --agent claude-code --skill manuscript-audit
+npx skills add dxl11/scholarlyops-skills --global --agent claude-code --skill literature-search
 ```
 
-等价短参数（与上相同语义；本仓库维护环境曾用 `--copy -y` 做过 Cursor 落盘验证）：
+等价短参数（与上相同语义；本仓库维护环境曾用 `--copy -y` 对 `manuscript-audit` 做过 Cursor 落盘验证）：
 
 ```bash
-npx skills add dxl11/scholarlyops-skills -g -a cursor -s manuscript-audit -y --copy
+npx skills add dxl11/scholarlyops-skills -g -a cursor -s literature-search -y --copy
 ```
 
 说明：
@@ -244,7 +247,7 @@ python scripts/check_numeric_consistency.py --input /path/to/copy.md --json
 | 项目 | 状态 |
 |------|------|
 | `npx skills` 1.7.4 `--help` 参数核对 | 已核对（本阶段） |
-| `npx skills add dxl11/scholarlyops-skills --list` 发现 4 个 Skill | **已验证**（本阶段） |
+| `npx skills add … --list` 发现本仓库 Skills | **本地布局含 5 个 Skill**；远程 `--list` 以已推送版本为准（本阶段未要求 push） |
 | Cursor 全局安装落盘（`-g -a cursor --copy`） | **此前维护环境已验证**；本阶段未重新执行安装 |
 | Cursor IDE `/` 发现与调用 | **待用户在 IDE 验证** |
 | Claude Code 全局安装与加载 | **待验证** |

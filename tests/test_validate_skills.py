@@ -70,13 +70,14 @@ class TestRepoValidation(unittest.TestCase):
             "agent_global_install",
         )
 
-    def test_four_skills_present(self) -> None:
+    def test_five_skills_present(self) -> None:
         skills = ROOT / ".agents" / "skills"
         for name in (
             "research-context",
             "evidence-writing",
             "manuscript-audit",
             "review-response",
+            "literature-search",
         ):
             self.assertTrue((skills / name / "SKILL.md").is_file(), name)
 
@@ -91,6 +92,25 @@ class TestRepoValidation(unittest.TestCase):
                     (case_dir / "expect.json").is_file(),
                     f"missing expect.json in {case_dir.name}",
                 )
+
+    def test_literature_search_eval_cases_exist(self) -> None:
+        cases = ROOT / "evals" / "cases" / "literature-search"
+        self.assertTrue(cases.is_dir())
+        found = list(cases.glob("*/input.md"))
+        self.assertGreaterEqual(len(found), 10)
+        skill = ROOT / ".agents" / "skills" / "literature-search" / "SKILL.md"
+        text = skill.read_text(encoding="utf-8")
+        self.assertIn("name: literature-search", text)
+        self.assertIn("Strategy Only", text)
+        self.assertIn("Search Assisted", text)
+        for case_dir in cases.iterdir():
+            if case_dir.is_dir():
+                self.assertTrue((case_dir / "expect.json").is_file(), case_dir.name)
+                expect = json.loads(
+                    (case_dir / "expect.json").read_text(encoding="utf-8-sig")
+                )
+                self.assertEqual(expect.get("mode"), "agent_semantic")
+                self.assertEqual(expect.get("local_runner"), "skip_with_reason")
 
 
 class TestBrokenSkillDetected(unittest.TestCase):

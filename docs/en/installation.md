@@ -33,7 +33,7 @@ Security:
 ## Repository layout and discovery (checked)
 
 - **Single source of truth**: `.agents/skills/<skill-name>/SKILL.md` (no second manually synced tree).
-- This layout is discoverable by `npx skills` (this environment: GitHub `--list` found **4 skills**).
+- This layout is discoverable by `npx skills` (after adding `literature-search`, expect **5** skills; confirm with `npx skills add dxl11/scholarlyops-skills --list` on the version you pull).
 
 ```bash
 npx skills add dxl11/scholarlyops-skills --list
@@ -41,7 +41,8 @@ npx skills add dxl11/scholarlyops-skills --list
 npx skills add . --list
 ```
 
-Discovered: `research-context`, `evidence-writing`, `manuscript-audit`, `review-response`.
+Expected: `research-context`, `literature-search`, `evidence-writing`, `manuscript-audit`, `review-response`.  
+(If the remote has not received the latest commit yet, `--list` may still show the older set.)
 
 References:
 
@@ -53,30 +54,32 @@ References:
 
 ## 1. Primary path: Agent global install (recommended)
 
-### 1.1 Install one skill (example: manuscript-audit)
+### 1.1 Install one skill (example: literature-search or manuscript-audit)
 
 **Cursor and Claude Code together** (when both are detected by the CLI):
 
 ```bash
+npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill literature-search
+# or:
 npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill manuscript-audit
 ```
 
 **Cursor only:**
 
 ```bash
-npx skills add dxl11/scholarlyops-skills --global --agent cursor --skill manuscript-audit
+npx skills add dxl11/scholarlyops-skills --global --agent cursor --skill literature-search
 ```
 
 **Claude Code only:**
 
 ```bash
-npx skills add dxl11/scholarlyops-skills --global --agent claude-code --skill manuscript-audit
+npx skills add dxl11/scholarlyops-skills --global --agent claude-code --skill literature-search
 ```
 
-Short-flag equivalent (same meaning; maintainer Windows env previously verified Cursor landing with `--copy -y`):
+Short-flag equivalent (same meaning; maintainer Windows env previously verified Cursor landing for `manuscript-audit` with `--copy -y`):
 
 ```bash
-npx skills add dxl11/scholarlyops-skills -g -a cursor -s manuscript-audit -y --copy
+npx skills add dxl11/scholarlyops-skills -g -a cursor -s literature-search -y --copy
 ```
 
 | Flag | Meaning |
@@ -221,7 +224,7 @@ python scripts/check_numeric_consistency.py --input /path/to/copy.md --json
 | Check | Status |
 |-------|--------|
 | `skills` 1.7.4 `--help` flag check | Checked (this phase) |
-| `npx skills add dxl11/scholarlyops-skills --list` → 4 skills | **Verified** (this phase) |
+| `npx skills add … --list` skill discovery | **Local tree has 5 skills**; remote `--list` depends on pushed revision (push not required in this phase) |
 | Cursor global install landing (`-g -a cursor --copy`) | **Verified earlier** in maintainer env; **not re-run** this phase |
 | Cursor IDE `/` discovery + invoke | **Pending user IDE check** |
 | Claude Code global install + load | **Pending** |

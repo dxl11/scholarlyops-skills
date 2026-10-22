@@ -1,0 +1,16 @@
+﻿{
+  "mode": "agent_semantic",
+  "local_runner": "skip_with_reason",
+  "agent_expectations": {
+    "must_find_labels": [
+      "non_pico_framework_or_concept_map",
+      "qualitative_terms_optional_not_mandatory_and",
+      "keyword_matrix"
+    ],
+    "must_not": [
+      "must_use_pico_only",
+      "fabricated_hit_counts"
+    ],
+    "scoring_notes": "Content checklist for human/Agent review. Do not mark pass in tools/run_evals.py. Never invent database hit counts."
+  }
+}

@@ -1,0 +1,17 @@
+﻿{
+  "mode": "agent_semantic",
+  "local_runner": "skip_with_reason",
+  "agent_expectations": {
+    "must_find_labels": [
+      "pico_or_picos",
+      "separate_concepts_or",
+      "pubmed_query_draft",
+      "syntax_status_labeled"
+    ],
+    "must_not": [
+      "force_spider_as_only_framework",
+      "fabricated_hit_counts"
+    ],
+    "scoring_notes": "Content checklist for human/Agent review. Do not mark pass in tools/run_evals.py. Never invent database hit counts."
+  }
+}

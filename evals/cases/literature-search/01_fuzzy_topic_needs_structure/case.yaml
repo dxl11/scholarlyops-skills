@@ -1,0 +1,6 @@
+﻿id: 01_fuzzy_topic_needs_structure
+skill: literature-search
+title: Fuzzy topic needs structured question
+mode: agent_semantic
+maturity_target: Draft
+notes: Synthetic evaluation case for ScholarlyOps literature-search. Local runner skips; human/Agent scoring required.

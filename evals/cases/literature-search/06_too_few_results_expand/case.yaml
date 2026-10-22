@@ -1,0 +1,6 @@
+﻿id: 06_too_few_results_expand
+skill: literature-search
+title: Too few results — expand carefully
+mode: agent_semantic
+maturity_target: Draft
+notes: Synthetic evaluation case for ScholarlyOps literature-search. Local runner skips; human/Agent scoring required.

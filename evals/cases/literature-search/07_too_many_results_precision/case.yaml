@@ -1,0 +1,6 @@
+﻿id: 07_too_many_results_precision
+skill: literature-search
+title: Too many results — raise precision
+mode: agent_semantic
+maturity_target: Draft
+notes: Synthetic evaluation case for ScholarlyOps literature-search. Local runner skips; human/Agent scoring required.

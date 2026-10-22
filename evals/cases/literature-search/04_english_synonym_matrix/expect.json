@@ -1,0 +1,16 @@
+﻿{
+  "mode": "agent_semantic",
+  "local_runner": "skip_with_reason",
+  "agent_expectations": {
+    "must_find_labels": [
+      "synonym_vs_related_distinction",
+      "spelling_or_variant_notes",
+      "matrix_table"
+    ],
+    "must_not": [
+      "all_related_marked_as_synonyms",
+      "invented_verified_mesh"
+    ],
+    "scoring_notes": "Content checklist for human/Agent review. Do not mark pass in tools/run_evals.py. Never invent database hit counts."
+  }
+}

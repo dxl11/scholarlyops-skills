@@ -30,10 +30,11 @@
   },
   "install_verification": {
     "checked_at": "2026-10-21",
-    "skills_list_local": "pass_4_skills",
-    "skills_list_github": "pass_4_skills",
+    "skills_list_local": "pass_4_skills_at_check_time_now_5_with_literature_search",
+    "skills_list_github": "pass_4_skills_pending_push_of_literature_search",
     "cursor_global_install_manuscript_audit": "pass_files_under_USERPROFILE/.agents/skills/manuscript-audit",
     "cursor_ide_slash_discovery": "pending_user_smoke_test",
-    "claude_code_global_install": "pending"
+    "claude_code_global_install": "pending",
+    "literature_search": "draft_added_local_docs_and_synthetic_evals"
   }
 }

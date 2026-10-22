@@ -8,13 +8,12 @@
 evals/
 ├── README.md
 ├── cases/manuscript-audit/<case_id>/
-│   ├── input.md       # 合成输入
-│   ├── case.yaml      # 元数据（含 mode）
-│   └── expect.json    # 机器可读期望（本地运行器用；Agent 盲测时不得预读）
-├── expected/manuscript-audit/<case_id>.md  # 人工可读期望（评分阶段再用）
-├── agent-semantic/    # Agent 盲测协议：blind-set / rubric / scorecard
-├── results/           # 可选：抽查脚本输出样例（勿放私有全文）
-└── runs/              # 运行器输出（默认 gitignore；含 latest/）
+├── cases/literature-search/<case_id>/   # 全部 agent_semantic（本地 skip）
+├── expected/manuscript-audit/<case_id>.md
+├── expected/literature-search/<case_id>.md
+├── agent-semantic/    # manuscript-audit Agent 盲测协议
+├── results/
+└── runs/              # tools/run_evals.py（当前仅 manuscript-audit）
 ```
 
 ## 案例 mode
@@ -34,6 +33,23 @@ python tools/run_evals.py --json
 输出写入 `evals/runs/<UTC时间戳>/summary.{json,md}`，并更新 `evals/runs/latest/`（不修改 cases/expected）。
 
 汇总字段：案例总数、已执行、通过、失败、跳过及原因、失败明细、已知限制。
+
+## 案例清单（literature-search）
+
+全部为 `agent_semantic`：本地 `run_evals.py` **不**执行这些案例；结构由 `tests/test_validate_skills.py` 检查存在性。人工/Agent 评分前不得记为 pass。
+
+| ID | 场景 |
+|----|------|
+| 01_fuzzy_topic_needs_structure | 模糊主题需结构化 |
+| 02_pico_intervention | 医学干预 / PICO |
+| 03_qualitative_not_forced_pico | 定性研究不强制 PICO |
+| 04_english_synonym_matrix | 英文同义词矩阵 |
+| 05_pubmed_scopus_syntax_not_mixed | PubMed/Scopus 语法不得混用 |
+| 06_too_few_results_expand | 结果太少需扩展 |
+| 07_too_many_results_precision | 结果太多需提高精度 |
+| 08_systematic_review_logging | 系统综述检索记录 |
+| 09_no_db_no_fake_hits | 无库连接不得虚构命中 |
+| 10_seed_papers_expand | 由种子论文扩展关键词 |
 
 ## 案例清单（manuscript-audit）
 

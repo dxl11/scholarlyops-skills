@@ -1,0 +1,6 @@
+﻿id: 02_pico_intervention
+skill: literature-search
+title: Medical intervention suitable for PICO
+mode: agent_semantic
+maturity_target: Draft
+notes: Synthetic evaluation case for ScholarlyOps literature-search. Local runner skips; human/Agent scoring required.

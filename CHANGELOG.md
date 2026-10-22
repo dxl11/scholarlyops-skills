@@ -8,6 +8,7 @@
 
 ### Added
 
+- 新 Skill（Draft）：`literature-search` — 文献检索策略规划（Stage 1–7、Strategy Only / Search Assisted、分库检索式参考、10 个合成评测案例）。
 - ScholarlyOps 项目初始化：品牌元数据 `project.json`、中英文 README。
 - 文档：安装与架构（中/英）、产品规格、路线图、开放问题、贡献与安全说明。
 - 第一批 Skills（均为 Draft）：`research-context`、`evidence-writing`、`manuscript-audit`、`review-response`。

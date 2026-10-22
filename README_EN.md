@@ -30,16 +30,17 @@ Academic Research Workflow Skills — an extensible set of evidence-grounded AI 
 
 ScholarlyOps is not a loose pile of prompts. It is an **Agent Skills** kit for the research lifecycle. It turns “make it sound more academic” into executable evidence constraints: link claims to materials when possible, keep edits traceable, report consistency issues with severity, and map reviewer comments to concrete actions.
 
-Four core workflows are available today:
+Five core workflows are available today:
 
 | Need | Skill | What it does |
 |------|-------|--------------|
 | Scattered notes; facts mixed with interpretation | [`research-context`](.agents/skills/research-context/) | Builds a structured research record; separates facts, interpretation, open questions, and gaps |
+| Fuzzy topic; unclear keywords or databases | [`literature-search`](.agents/skills/literature-search/) | Plans literature search strategies: frameworks, synonym matrices, database-specific queries, iteration logs |
 | Fluent prose with thin evidence | [`evidence-writing`](.agents/skills/evidence-writing/) | Drafts or rewrites under evidence constraints; avoids unsupported claim inflation |
 | Abstract, body, captions, and conclusions disagree | [`manuscript-audit`](.agents/skills/manuscript-audit/) | Consistency and evidence-risk audit (including runnable heuristic script checks) |
 | Review comments hard to track | [`review-response`](.agents/skills/review-response/) | Splits comments and links edits, evidence, and status |
 
-All four skills are currently **Draft**: workflows and boundaries are defined, with structural validation and synthetic evals. None are Beta/Stable, and **large-scale real-manuscript validation has not been completed**.
+All five skills are currently **Draft**: workflows and boundaries are defined, with structural validation and synthetic evals. None are Beta/Stable, and **large-scale real-manuscript / live-database validation has not been completed**.
 
 ## Problems it addresses
 
@@ -62,11 +63,14 @@ ScholarlyOps responds with checkable practice:
 | Skill | Role | Maturity |
 |-------|------|----------|
 | [`research-context`](.agents/skills/research-context/) | Structure goals, design, variables, results, limits, and open items | Draft |
+| [`literature-search`](.agents/skills/literature-search/) | Search strategy planner: frameworks, keyword matrices, per-database strings, iteration (Strategy Only by default) | Draft |
 | [`evidence-writing`](.agents/skills/evidence-writing/) | Draft/rewrite with claim–evidence mapping | Draft |
 | [`manuscript-audit`](.agents/skills/manuscript-audit/) | Cross-section consistency; heuristic numeric/unit checks plus semantic review guidance | Draft |
 | [`review-response`](.agents/skills/review-response/) | Split comments; map edits, evidence, status, and author decisions | Draft |
 
 Maturity levels are defined in the [Product Spec](docs/PRODUCT_SPEC.md): `Draft` / `Beta` / `Stable`. No skill is beyond Draft today.
+
+`literature-search` defaults to **strategy and query drafts** without inventing hit counts; Search Assisted only when real tools and access exist. PubMed / Scopus / WoS / Google Scholar notes are summary-level checks against official help—re-verify before formal review searches.
 
 `manuscript-audit` local scripts can detect some **literal numeric conflicts** and **unit-token conflicts**, and can tolerate format/rounding differences within configured bounds. That is **not** a full scientific semantic auditor and does not replace author or expert judgment.
 
@@ -81,7 +85,10 @@ Requires Node.js 18+. Python 3.10+ is only needed to run `manuscript-audit` scri
 # List installable skills (this environment: GitHub --list found 4)
 npx skills add dxl11/scholarlyops-skills --list
 
-# Global install one skill (Cursor + Claude Code)
+# Global install one skill (example: literature-search)
+npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill literature-search
+
+# Or install manuscript-audit
 npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill manuscript-audit
 
 # Global install all skills
@@ -119,7 +126,8 @@ Synthetic cases: [`evals/cases/manuscript-audit/`](evals/cases/manuscript-audit/
 
 > This project is **under development**. The notes below are not a formal release or certification claim.
 
-- All skills are **Draft**; no large-scale real-paper validation yet.
+- All skills are **Draft**; no large-scale real-paper / live-database validation yet.
+- `literature-search` synthetic cases: [`evals/cases/literature-search/`](evals/cases/literature-search/) (local runner skips semantic cases; not counted as pass).
 - **License is undetermined**; do not claim MIT, Apache-2.0, or any other license until a `LICENSE` file is added. See [open-questions.md](docs/decisions/open-questions.md).
 - Official GitHub remote, trademark, and brand legal clearance are still open; metadata lives in [`project.json`](project.json).
 - `run_evals.py` scores **deterministic script** cases only; agent/human semantic cases are skipped and **not** counted as passes.

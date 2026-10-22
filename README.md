@@ -30,16 +30,17 @@
 
 ScholarlyOps 不是零散提示词合集，而是面向科研生命周期的 **Agent Skills** 工具包。它把“写得像论文”收束为可执行的证据约束：重要主张尽量连回材料，改写可追溯，一致性问题可分级报告，审稿意见可逐条映射。
 
-它当前覆盖四条核心工作流：
+它当前覆盖五条核心工作流：
 
 | 场景 | Skill | 作用 |
 |------|-------|------|
 | 材料散乱、事实与解释混在一起 | [`research-context`](.agents/skills/research-context/) | 整理为结构化研究记录，区分事实、解释、待核实与缺失项 |
+| 只有模糊选题、不会选词建库 | [`literature-search`](.agents/skills/literature-search/) | 规划文献检索策略：问题框架、关键词矩阵、分库检索式与迭代记录 |
 | 段落流畅但证据稀薄 | [`evidence-writing`](.agents/skills/evidence-writing/) | 在证据约束下起草或改写，避免无据拔高结论 |
 | 摘要、正文、图注、结论对不上 | [`manuscript-audit`](.agents/skills/manuscript-audit/) | 做一致性与证据风险审计（含可运行的启发式脚本检查） |
 | 审稿意见多、修改难追踪 | [`review-response`](.agents/skills/review-response/) | 拆分意见并关联修改、证据与回复状态 |
 
-四个 Skill 目前均为 **Draft**：流程与边界已写清，并配有本地结构验证与合成评测；**尚未**达到 Beta/Stable，也**未**完成大规模真实稿件验证。
+五个 Skill 目前均为 **Draft**：流程与边界已写清，并配有本地结构验证与合成评测；**尚未**达到 Beta/Stable，也**未**完成大规模真实稿件 / 真实数据库执行验证。
 
 ## 它解决什么问题
 
@@ -62,11 +63,14 @@ ScholarlyOps 针对这些问题给出可检查的工作方式：
 | Skill | 中文名 | 职责摘要 | 成熟度 |
 |-------|--------|----------|--------|
 | [`research-context`](.agents/skills/research-context/) | 研究上下文整理 | 目标、设计、变量、结果、限制与待核实清单 | Draft |
+| [`literature-search`](.agents/skills/literature-search/) | 文献检索策略规划 | 问题结构化、关键词矩阵、分库检索式、迭代与检索记录（默认 Strategy Only） | Draft |
 | [`evidence-writing`](.agents/skills/evidence-writing/) | 证据约束写作 | 主张—证据映射下的起草与改写 | Draft |
 | [`manuscript-audit`](.agents/skills/manuscript-audit/) | 论文一致性审计 | 跨章节一致性；数值/单位等启发式程序检查 + 语义复核指引 | Draft |
 | [`review-response`](.agents/skills/review-response/) | 审稿意见回复 | 意见拆分、修改映射、状态与待作者决定项 | Draft |
 
 成熟度定义见 [产品规格](docs/PRODUCT_SPEC.md)：`Draft` / `Beta` / `Stable`。当前无一 Skill 超过 Draft。
+
+`literature-search` 默认只产出**策略与查询草案**，不虚构命中数；仅在具备真实检索工具与权限时进入 Search Assisted。PubMed / Scopus / WoS / Google Scholar 语法为基于官方帮助的摘要级核对，执行前仍须对照现行帮助页。
 
 `manuscript-audit` 的本地脚本可检出部分**字面数值冲突**与**单位 token 冲突**，并区分格式差与四舍五入容差；这不等于完整的科研语义审计，也不能替代作者与领域专家判断。
 
@@ -81,7 +85,10 @@ ScholarlyOps 针对这些问题给出可检查的工作方式：
 # 查看可安装的 Skills（本环境对 GitHub 源 --list：已发现 4 个）
 npx skills add dxl11/scholarlyops-skills --list
 
-# 全局安装单个 Skill（Cursor + Claude Code）
+# 全局安装单个 Skill（示例：literature-search）
+npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill literature-search
+
+# 或安装 manuscript-audit
 npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill manuscript-audit
 
 # 全局安装全部 Skills
@@ -119,7 +126,8 @@ python tools/validate_skills.py
 
 > 本项目处于**开发中**。请勿将下列信息理解为已正式发布或已获认证。
 
-- 全部 Skills 为 **Draft**；未做大规模真实论文验证。
+- 全部 Skills 为 **Draft**；未做大规模真实论文 / 真实库检索验证。
+- `literature-search` 合成案例见 [`evals/cases/literature-search/`](evals/cases/literature-search/)（本地运行器对语义案例 skip，不记为通过）。
 - **许可证尚未确定**；在添加 `LICENSE` 之前，不得宣称 MIT、Apache-2.0 或其他许可证。见 [open-questions.md](docs/decisions/open-questions.md)。
 - 正式 GitHub 远程地址、商标与品牌法律清核仍待确认；元数据见 [`project.json`](project.json)。
 - `run_evals.py` 仅自动评分**确定性脚本**案例；需 Agent/人工的语义案例会 skip，**不**记为通过。
