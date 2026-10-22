@@ -76,7 +76,8 @@
 ## 11. 分发与安装架构
 
 - **权威源码**：仓库内 `.agents/skills/`（单一来源，可被 `npx skills` 发现）。
-- **最终用户主路径**：Agent **全局安装**（`npx skills add <owner>/<repo> --global --agent cursor …`），跨项目复用；详见安装指南。
+- **最终用户主路径**：优先「让 Agent 帮你安装」到用户级全局目录；CLI `npx skills … --global` 为备用；详见安装指南。
+- **原生插件 Marketplace**：评估见 [plugin-distribution.md](../decisions/plugin-distribution.md)；当前未提交未验证 Manifest。
 - **项目级安装**：可选，用于团队锁定版本；非使用前提。
 - **开发者**：克隆本仓库跑验证与评测。
 

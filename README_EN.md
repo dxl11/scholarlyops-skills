@@ -74,39 +74,34 @@ Maturity levels are defined in the [Product Spec](docs/PRODUCT_SPEC.md): `Draft`
 
 `manuscript-audit` local scripts can detect some **literal numeric conflicts** and **unit-token conflicts**, and can tolerate format/rounding differences within configured bounds. That is **not** a full scientific semantic auditor and does not replace author or expert judgment.
 
-## Quick start (recommended: Agent global install)
+## Quick start (preferred: ask your Agent to install)
 
-Primary path for end users: use the official [`npx skills`](https://github.com/vercel-labs/skills) CLI to install into Cursor / Claude Code **user-global** skill directories and reuse them across projects.  
-You do **not** need to clone this repository or copy skills into every business repo.
+**Preferred**: paste the prompt below into Cursor / Claude Code / Codex and install into a **user-global** skills directory (reuse across projects).  
+You do **not** need to clone this repo first, and you should **not** default to installing into a business project.  
+One natural-language prompt is **not guaranteed** on every Agent—see the [installation guide](docs/en/installation.md) for verified paths and limits.
 
-Requires Node.js 18+. Python 3.10+ is only needed to run `manuscript-audit` scripts.
-
-```bash
-# List installable skills (this environment: GitHub --list found 4)
-npx skills add dxl11/scholarlyops-skills --list
-
-# Global install one skill (example: literature-search)
-npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill literature-search
-
-# Or install manuscript-audit
-npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill manuscript-audit
-
-# Global install all skills
-npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill '*'
-
-# List / update / remove (examples)
-npx skills list --global
-npx skills update --global -y
-npx skills remove manuscript-audit --global --agent cursor -y
+```text
+Please install ScholarlyOps skills.
+Repository: https://github.com/dxl11/scholarlyops-skills
+Canonical path: .agents/skills/
+Five skills: research-context, literature-search, evidence-writing, manuscript-audit, review-response.
+List them first and let me choose all or a subset; prefer this Agent’s official install path; install user-global; ask before overwriting; report paths and how to verify loading; if blocked, explain and point to CLI/docs alternatives.
 ```
 
-Use a single `--agent` value to target only Cursor or only Claude Code.
+**Next**: platform-native options (Codex `$skill-installer` GitHub directory URLs; Cursor/Claude global skill dirs; Marketplace plugins need extra manifests—**this repo does not yet ship a verified plugin package**). See installation guide §2.
 
-Then open **any** working project: in Cursor Agent, use `/` search or name the skill.  
-**Files on disk ≠ loaded in the IDE**; see [cursor-smoke-test.md](docs/en/cursor-smoke-test.md). Claude Code load remains **pending your local verification**.
+**CLI fallback** (Node.js 18+; [`npx skills`](https://github.com/vercel-labs/skills) 1.7.4):
 
-- Full guide (platforms, project install, troubleshooting): [Installation (English)](docs/en/installation.md) · [安装指南（中文）](docs/zh-CN/installation.md)
-- Maintainer local development (not the default end-user path):
+```bash
+npx skills add dxl11/scholarlyops-skills --list
+npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill '*'
+npx skills add dxl11/scholarlyops-skills --global --agent cursor --skill manuscript-audit
+npx skills list --global
+```
+
+Then open any project and invoke via `/` or by name. **On-disk ≠ loaded.** [Cursor smoke test](docs/en/cursor-smoke-test.md) · [Installation guide](docs/en/installation.md) · [中文安装](docs/zh-CN/installation.md)
+
+Maintainer development:
 
 ```bash
 git clone https://github.com/dxl11/scholarlyops-skills.git
@@ -131,8 +126,8 @@ Synthetic cases: [`evals/cases/manuscript-audit/`](evals/cases/manuscript-audit/
 - **License is undetermined**; do not claim MIT, Apache-2.0, or any other license until a `LICENSE` file is added. See [open-questions.md](docs/decisions/open-questions.md).
 - Official GitHub remote, trademark, and brand legal clearance are still open; metadata lives in [`project.json`](project.json).
 - `run_evals.py` scores **deterministic script** cases only; agent/human semantic cases are skipped and **not** counted as passes.
-- `npx skills` (1.7.4) **discovery** (`--list` → 4 skills) is verified; Cursor **global install on disk** was verified earlier in the maintainer environment; **IDE `/` discovery and invoke** still need the smoke-test checklist.
-- Claude Code: install commands follow the CLI; **install and load are pending local verification**. No claim of support for other web/cloud agents.
+- Preferred install entry is **ask your Agent**; CLI `npx skills` is the fallback. Cursor/Claude **official Marketplace plugin packages are not shipped yet** (see [plugin-distribution.md](docs/decisions/plugin-distribution.md)).
+- `npx skills` (1.7.4) local discovery and prior Cursor global landing were verified in the maintainer environment; **IDE `/` load** and **Codex / Claude Code end-to-end install** still need confirmation on your machine.
 - Passing programmatic tests ≠ fully validated manuscript auditing; keep Draft while valid Agent semantic blinds remain insufficient. See [evals/README.md](evals/README.md).
 - Literature APIs and auto-submission are **not implemented** (see [Roadmap](docs/ROADMAP.md)).
 - Security reporting: [SECURITY.md](SECURITY.md) (GitHub private vulnerability reporting must be confirmed/enabled by maintainers in the web UI; **no** invented security email).

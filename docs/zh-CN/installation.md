@@ -2,263 +2,212 @@
 
 [English](../en/installation.md) | 简体中文
 
-> **CLI 版本**：下文命令按 `npx skills`（`skills` **1.7.4**）的 `--help` 核对。若你本机 CLI 升级后参数变化，以 `npx skills --help` 为准。  
-> **文件安装 ≠ Agent 已加载**：磁盘上有 `SKILL.md` 后，仍须在 Cursor / Claude Code 中确认能否发现并调用。
+> **原则**：优先让当前 Agent 帮你装到**用户级全局**技能目录；`npx skills` 为备用。  
+> **文件落盘 ≠ 已加载**：安装后仍须在 Agent UI 中确认发现/调用。  
+> **一句自然语言不能保证对所有 Agent 都生效**——请按下方「已核实路径」选择。
 
-## 三种使用场景
+仓库：[`https://github.com/dxl11/scholarlyops-skills`](https://github.com/dxl11/scholarlyops-skills)  
+权威源码（单一来源）：`.agents/skills/<skill-name>/`（含 `SKILL.md`、`references/`、`scripts/`、`examples/` 等）
 
-| 场景 | 对象 | 是否默认推荐 |
-|------|------|--------------|
-| **Agent 全局安装** | 最终用户：装到个人 Agent 技能目录，跨项目复用 | **是（主要路径）** |
-| 项目级安装 | 团队希望在某一业务仓库内共享同一套 Skill | **可选** |
-| 源码开发 | 维护者克隆本仓库以修改 Skills、跑测试 | 维护者专用 |
-
-**普通用户不必克隆整个仓库**，也不必把 Skills 复制进每个业务项目。
-
-## 前置依赖
-
-| 用途 | 依赖 |
-|------|------|
-| 推荐安装（`npx skills`） | Node.js 18+（通过 `npx` 拉取 CLI，无需全局安装 `skills`） |
-| 调用已安装 Skill | Cursor 和/或 Claude Code 等兼容 Agent |
-| `manuscript-audit` 确定性脚本 | Python 3.10+（标准库）；无 Python 时仍可按 `SKILL.md` 做语义审计，但脚本不可用 |
-| 本仓库开发与本地评测 | Python 3.10+ |
-
-安全：
-
-- 不要把 API Key 写进安装命令。
-- 不要默认用管理员 / root 安装。
-- `npx skills` 会从 GitHub 拉取仓库；请确认来源为 `dxl11/scholarlyops-skills`（或你信任的 fork）。
-
-## 仓库布局与发现（已核对）
-
-- **唯一权威源码**：`.agents/skills/<skill-name>/SKILL.md`（不维护第二套需人工同步的副本）。
-- 当前布局可被 `npx skills` 发现（新增 `literature-search` 后应为 **5** 个；以你本机 `npx skills add dxl11/scholarlyops-skills --list` 为准）。
-
-```bash
-npx skills add dxl11/scholarlyops-skills --list
-# 或在本仓库根目录：
-npx skills add . --list
-```
-
-应发现：`research-context`、`literature-search`、`evidence-writing`、`manuscript-audit`、`review-response`。  
-（若远程尚未包含最新提交，`--list` 可能仍显示旧列表；以你拉取到的仓库版本为准。）
-
-官方参考（安装器 / Agent Skills 概念）：
-
-- [vercel-labs/skills](https://github.com/vercel-labs/skills)
-- [Cursor Skills 文档](https://cursor.com/docs/skills)
-- [Claude Agent Skills 概览](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
+五个 Skills：`research-context` · `literature-search` · `evidence-writing` · `manuscript-audit` · `review-response`（均为 **Draft**）
 
 ---
 
-## 一、主要路径：Agent 全局安装（推荐）
+## 1. 让 Agent 帮你安装（首选）
 
-### 1.1 安装单个 Skill（示例：literature-search 或 manuscript-audit）
+把下面整段复制到 **Cursor / Claude Code / Codex** 等当前会话中。Agent 应识别自身环境与操作系统，再选用该平台支持的官方方式安装到**全局**目录。
 
-**同时装到 Cursor 与 Claude Code（若本机两者均由 CLI 识别）：**
+### 可复制安装指令
 
-```bash
-npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill literature-search
-# 或：
-npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill manuscript-audit
+```text
+请帮我安装 ScholarlyOps Skills。
+
+仓库：https://github.com/dxl11/scholarlyops-skills
+权威路径：.agents/skills/
+
+五个 Skills（请先列出并让我选择全部或指定若干）：
+1. research-context
+2. literature-search
+3. evidence-writing
+4. manuscript-audit
+5. review-response
+
+要求：
+1. 识别当前 Agent 名称与操作系统（Windows / macOS / Linux）。
+2. 优先使用本 Agent 的官方/内置安装方式；若不可用，再使用经核实的全局目录复制或 CLI 备用方案。
+3. 安装到用户级全局技能目录，供多个项目复用；不要默认装进当前业务项目目录。
+4. 安装前检查目标目录；若同名 Skill 已存在，先说明冲突并征求确认，未经确认不得覆盖。
+5. 保留所选 Skill 的完整必要内容：SKILL.md、references/、scripts/、examples/ 等（不要只拷一个空壳）。
+6. 安装后报告实际文件路径，并说明如何在本 Agent 中验证是否已加载（例如 / 菜单搜索 Skill 名）。
+7. 若无法完成安装，清楚说明原因，并给出本仓库文档中的替代方式（原生插件路径 / CLI）。
+8. 不要执行未经审查的远程脚本；不要写入真实 API Key 或凭据；不要改写 Git 历史。
 ```
 
-**仅 Cursor：**
+### 预期行为（由 Agent 执行，非保证自动成功）
 
-```bash
-npx skills add dxl11/scholarlyops-skills --global --agent cursor --skill literature-search
-```
-
-**仅 Claude Code：**
-
-```bash
-npx skills add dxl11/scholarlyops-skills --global --agent claude-code --skill literature-search
-```
-
-等价短参数（与上相同语义；本仓库维护环境曾用 `--copy -y` 对 `manuscript-audit` 做过 Cursor 落盘验证）：
-
-```bash
-npx skills add dxl11/scholarlyops-skills -g -a cursor -s literature-search -y --copy
-```
-
-说明：
-
-| 参数 | 含义 |
+| 步骤 | 说明 |
 |------|------|
-| `--global` / `-g` | 安装到用户级目录（跨项目） |
-| `--agent` / `-a` | 目标 Agent；可写多个，如 `cursor claude-code` |
-| `--skill` / `-s` | Skill 名称 |
-| `-y` | 跳过确认（首次可去掉以便审阅摘要） |
-| `--copy` | 复制文件（相对符号链接更直观；Windows 维护环境曾用此方式） |
+| 列清单 | 展示 5 个 Skill，确认「全部」或子集 |
+| 选路径 | 按下方「各 Agent 已核实路径」选择 |
+| 防覆盖 | 目标已存在 → 询问后再决定跳过/备份/覆盖 |
+| 核实 | 报告落盘路径；提醒用户重启或重新打开会话后再测加载 |
 
-### 1.2 安装全部 Skills
+---
+
+## 2. 原生 / 平台安装路径（已核实摘要）
+
+下列内容依据公开官方文档核对（查阅日约 **2026-10-22**）。**本仓库尚未提交已验证的 Cursor/Claude 插件 Marketplace 包**；因此不宣称「一键插件市场上架已可用」。
+
+### 2.1 Codex（OpenAI）
+
+| 项 | 内容 |
+|----|------|
+| 内置安装器 | `$skill-installer`（见 [openai/skills skill-installer](https://github.com/openai/skills/blob/main/skills/.system/skill-installer/SKILL.md)） |
+| 全局目录 | `$CODEX_HOME/skills/`（默认 `~/.codex/skills/`） |
+| GitHub 目录 URL | 支持按路径安装第三方仓库中的 Skill 文件夹；目标已存在时**中止**（不静默覆盖） |
+| 示例（单个 Skill） | 在 Codex 中让 `$skill-installer` 安装类似：`https://github.com/dxl11/scholarlyops-skills/tree/main/.agents/skills/manuscript-audit` |
+| 多个 Skill | 对每个 `.agents/skills/<name>` 重复安装，或一次传入多个 `--path`（以安装器脚本能力为准） |
+| 安装后 | 按 Codex 提示重启/新回合后再发现 Skill |
+| 注意 | `openai/skills` 仓库本身已标记 deprecated、导向 Plugins；**`$skill-installer` 对 GitHub 路径安装的能力仍以该 SKILL 文档为准**。本环境未替你实际跑通 Codex 安装，请在 Codex 内验证。 |
+
+### 2.2 Cursor
+
+| 项 | 内容 |
+|----|------|
+| 官方 Skills 文档 | [cursor.com/docs/skills](https://cursor.com/docs/skills) |
+| 用户级全局目录 | `~/.agents/skills/`、`~/.cursor/skills/`（Windows：`%USERPROFILE%\.agents\skills\` 等） |
+| 项目级 | `.agents/skills/`、`.cursor/skills/`（**非**默认推荐给最终用户） |
+| 兼容加载 | 也可发现 `~/.claude/skills/`、`~/.codex/skills/` 等 |
+| 从 GitHub「原生导入 Skills」 | 文档写明：Skills **不会**单独从裸仓库导入；需打成 **Plugin**，经 Marketplace /「From GitHub Repository」导入，且仓库需含 `.cursor-plugin/marketplace.json` 等（见同站 Plugins 文档） |
+| 本仓库现状 | **未提供**已验证的 Cursor 插件 Marketplace 配置；请用「让 Agent 安装」复制到全局目录，或用下方 CLI |
+| Cloud Agents | 仅 `~/.cursor/skills/` 可按设置同步；`~/.agents/skills/` 默认不进 Cloud（以官方文档为准） |
+| UI 验收 | [cursor-smoke-test.md](cursor-smoke-test.md)（**待你本机勾选**） |
+
+### 2.3 Claude Code
+
+| 项 | 内容 |
+|----|------|
+| 官方 Skills 文档 | [code.claude.com/docs/en/skills](https://code.claude.com/docs/en/skills) |
+| 个人全局目录 | `~/.claude/skills/<name>/SKILL.md`（本机各项目可用；不等于云端/Cowork 全自动同步） |
+| 项目级 | `.claude/skills/`（可选，非最终用户默认） |
+| 插件 Marketplace | 需带 `.claude-plugin/marketplace.json` 的 marketplace 仓库；再 `/plugin marketplace add …` 与 `/plugin install …`（见 [Plugins](https://code.claude.com/docs/en/plugins/overview)） |
+| 本仓库现状 | **未提供**已验证的 Claude Code marketplace 插件包；请用 Agent 复制到 `~/.claude/skills/`，或 CLI |
+| 本环境 | Claude Code 安装与加载 **待实测** |
+
+### 2.4 原生插件分发评估（结论）
+
+在保持 `.agents/skills/` 为**唯一权威源**的前提下：
+
+- Cursor / Claude Code 的「官方插件市场体验」需要**额外**的 marketplace/plugin 清单与目录布局（技能常位于插件内的 `skills/`）。  
+- 若未来提供插件包，应使用**自动打包**（从 `.agents/skills/` 生成），避免人工维护两份 `SKILL.md`。  
+- **当前不提交未经验证的** `.cursor-plugin/*` / `.claude-plugin/*`，以免「有 JSON 却装不上」的误导。详见 [plugin-distribution.md](../decisions/plugin-distribution.md)。
+
+---
+
+## 3. 命令行安装（备用）
+
+适用：Agent 无法写用户目录、或你更习惯终端。需要 **Node.js 18+**。CLI：[`npx skills`](https://github.com/vercel-labs/skills)（核对版本：**1.7.4**；以 `npx skills --help` 为准）。
+
+### 3.1 列出仓库中的 Skills
+
+```bash
+npx skills add dxl11/scholarlyops-skills --list
+```
+
+### 3.2 全局安装全部 Skills
 
 ```bash
 npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill '*'
 ```
 
-仅 Cursor 或仅 Claude Code 时，把 `--agent` 改成单一目标即可。
-
-短参数示例：
+### 3.3 全局安装指定 Skill
 
 ```bash
-npx skills add dxl11/scholarlyops-skills -g -a cursor --skill '*' -y --copy
+npx skills add dxl11/scholarlyops-skills --global --agent cursor --skill manuscript-audit
+npx skills add dxl11/scholarlyops-skills --global --agent claude-code --skill literature-search
 ```
 
-CLI 另提供 `--all`（等价于 `--skill '*' --agent '*' -y`）：会尝试安装到 CLI 检测到的**全部** Agent。若你只想装 Cursor/Claude Code，请显式写 `--agent`，不要误用过宽的 `--all`。
+### 3.4 只安装到某一个 Agent
 
-### 1.3 查看已安装 Skills
+把 `--agent` 设为 `cursor`、`claude-code`，或 CLI 支持的其他标识（见 `--help`）。
+
+### 3.5 项目级安装（可选，非默认）
+
+在业务项目根目录执行（**不加** `--global`）：
 
 ```bash
-npx skills list --global
-npx skills list --global --agent cursor
-npx skills list --global --agent claude-code
-npx skills list --global --json
-```
-
-短参数：`npx skills ls -g`、`npx skills ls -g -a cursor`。
-
-### 1.4 更新
-
-```bash
-# 更新全部全局 Skills
-npx skills update --global -y
-
-# 更新单个 Skill（名称以 list 为准）
-npx skills update manuscript-audit --global -y
-```
-
-短参数：`npx skills update -g -y`。
-
-### 1.5 卸载
-
-```bash
-# 卸载单个 Skill（全局）
-npx skills remove manuscript-audit --global --agent cursor -y
-
-# 卸载某 Agent 下本套全部 Skill 名（按 CLI 支持的 '*'）
-npx skills remove --global --agent cursor --skill '*' -y
-```
-
-也可用交互式：`npx skills remove`（按提示选择）。
-
-卸载整套（危险：会移除该范围内已装技能；执行前先 `list` 确认）：
-
-```bash
-# 仅当确认要清空 CLI 管理的已装技能时使用；--all 会移除每一个已安装 Skill
-# npx skills remove --global --all
-```
-
-更稳妥的做法：按名称逐个 `remove`，或对 `--skill '*'` 限定 `--agent cursor` / `claude-code`。
-
-### 1.6 各平台命令提示
-
-上述 `npx …` 在 **Windows PowerShell、macOS、Linux** 上写法相同（需已安装 Node.js 18+）。
-
-手工查看落盘目录（路径以 `skills list --global` 打印的 `path` 为准）：
-
-**PowerShell：**
-
-```powershell
-Get-ChildItem "$env:USERPROFILE\.agents\skills" -ErrorAction SilentlyContinue
-Get-ChildItem "$env:USERPROFILE\.cursor\skills" -ErrorAction SilentlyContinue
-Get-ChildItem "$env:USERPROFILE\.claude\skills" -ErrorAction SilentlyContinue
-```
-
-**macOS / Linux（bash/zsh）：**
-
-```bash
-ls -la ~/.agents/skills 2>/dev/null
-ls -la ~/.cursor/skills 2>/dev/null
-ls -la ~/.claude/skills 2>/dev/null
-```
-
-### 1.7 Cursor 与 Claude Code：加载位置与限制
-
-| Agent | CLI 文档中常见路径 | 本仓库维护环境记录 | 限制 |
-|-------|-------------------|-------------------|------|
-| Cursor | 常提及 `~/.cursor/skills/` | 全局安装曾落到 `%USERPROFILE%\.agents\skills\<skill>\`，且 `list -g` 显示绑定 Cursor | **IDE `/` 菜单发现与语义执行仍待你本机勾选**（见 [cursor-smoke-test.md](cursor-smoke-test.md)） |
-| Claude Code | 常提及 `~/.claude/skills/` | **本环境未实测** Claude Code 安装与加载 | 命令已按 CLI 给出；路径与加载以你机器上 CLI/产品行为为准 |
-
-务必以 `npx skills list --global` 的 `path` 为准，不要假设固定目录。
-
-### 1.8 如何开始使用
-
-1. 完成全局安装后，打开**任意**工作项目（不必是 ScholarlyOps 仓库）。
-2. **Cursor**：Agent 输入 `/`，搜索 `manuscript-audit`（或其他 Skill 名），或直接说明“按 manuscript-audit Skill 审计以下文稿”。
-3. **Claude Code**：按该产品对 Agent Skills 的启用/调用方式操作（**本仓库未实测**）。
-4. 使用稿件**副本**；默认不要覆盖原稿。
-5. 需要跑确定性脚本时，在 **Skill 安装目录**下执行 `scripts/`（需 Python 3.10+）。
-
-### 1.9 加载失败排查
-
-1. `npx skills list --global --json` 是否仍列出该 Skill 及 `path`。
-2. 该路径下是否有 `SKILL.md`，且 Frontmatter `name` 与目录名一致。
-3. 重启 Cursor / Claude Code 后再试。
-4. 确认未在设置中禁用 Skills。
-5. 脚本失败：检查 Python；脚本相对安装目录下的 `scripts/`。
-
----
-
-## 二、可选：项目级安装
-
-团队需要把 Skill **锁进某个业务仓库**时使用（不加 `--global`）：
-
-```bash
-# 在业务项目根目录执行
 npx skills add dxl11/scholarlyops-skills --agent cursor --skill manuscript-audit
 ```
 
-典型落点（以 CLI 输出为准）：项目内 `.agents/skills/<skill>/` 等。  
-项目级安装**不会**自动作用于你的其他本地项目。
+仅影响该仓库；不会自动作用于你的其他项目。
+
+### 3.6 查看 / 更新 / 卸载
+
+```bash
+npx skills list --global
+npx skills update --global -y
+npx skills update manuscript-audit --global -y
+npx skills remove manuscript-audit --global --agent cursor -y
+```
+
+短参数等价：`-g`、`-a`、`-s`。可选 `--copy`（复制而非符号链接；Windows 维护环境曾用于 Cursor 落盘验证）。
+
+### 3.7 各平台提示
+
+`npx …` 在 Windows PowerShell、macOS、Linux 上写法相同。
+
+```powershell
+# Windows：查看常见落盘位置
+Get-ChildItem "$env:USERPROFILE\.agents\skills" -ErrorAction SilentlyContinue
+Get-ChildItem "$env:USERPROFILE\.cursor\skills" -ErrorAction SilentlyContinue
+Get-ChildItem "$env:USERPROFILE\.claude\skills" -ErrorAction SilentlyContinue
+Get-ChildItem "$env:USERPROFILE\.codex\skills" -ErrorAction SilentlyContinue
+```
+
+```bash
+# macOS / Linux
+ls -la ~/.agents/skills ~/.cursor/skills ~/.claude/skills ~/.codex/skills 2>/dev/null
+```
 
 ---
 
-## 三、源码开发（维护者）
+## 4. 常见问题（Troubleshooting）
+
+| 问题 | 建议 |
+|------|------|
+| 装了但 `/` 搜不到 | 重启 Agent/IDE；确认落在全局目录；Cursor 打开 Customize → Skills；见 smoke-test |
+| 装进了当前项目而不是全局 | 重新用 `--global` 或复制到用户级目录；项目级仅可选 |
+| 同名 Skill 已存在 | 先备份再覆盖；Codex `$skill-installer` 默认遇已存在会中止 |
+| 权限不足 | 勿用管理员盲目提权；检查主目录写权限；改用用户可写路径 |
+| CLI 拉取不到 5 个 Skill | 确认 GitHub 已包含最新提交；或 `npx skills add . --list` 在本地克隆上验证 |
+| 更新 | `npx skills update --global`；或让 Agent 按防覆盖规则重新同步 |
+| 卸载 | `npx skills remove …`；或手动删除对应用户级 Skill 文件夹（先确认路径） |
+| manuscript-audit 脚本 | 需 Python 3.10+；在**安装目录**下运行 `scripts/` |
+| 安全 | 不把密钥写入 Skill 文件；不运行来路不明的安装脚本；`npx`/`git` 仅指向你信任的仓库 |
+
+---
+
+## 5. 源码开发（维护者）
 
 ```bash
 git clone https://github.com/dxl11/scholarlyops-skills.git
 cd scholarlyops-skills
 python tools/validate_skills.py
-python -m unittest discover -s tests -v
-python tools/run_evals.py
 ```
 
-只编辑仓库内 `.agents/skills/`。不要另建需手工同步的第二套 `SKILL.md` 树。
+只编辑 `.agents/skills/`。不要另建需手工同步的第二套 Skill 树。
 
 ---
 
-## 四、独立安装边界
-
-每个 Skill 自带 `SKILL.md` 与所需 `references/` / `scripts/` / `examples/`。单独全局安装后：
-
-- **不得**依赖未安装的其他仓库路径或本机绝对路径。
-- 示例（cwd = Skill 安装目录）：
-
-```bash
-python scripts/check_numeric_consistency.py --input /path/to/copy.md --json
-```
-
----
-
-## 五、验证状态（如实；本阶段未重装）
+## 6. 验证状态（如实）
 
 | 项目 | 状态 |
 |------|------|
-| `npx skills` 1.7.4 `--help` 参数核对 | 已核对（本阶段） |
-| `npx skills add … --list` 发现本仓库 Skills | **本地布局含 5 个 Skill**；远程 `--list` 以已推送版本为准（本阶段未要求 push） |
-| Cursor 全局安装落盘（`-g -a cursor --copy`） | **此前维护环境已验证**；本阶段未重新执行安装 |
-| Cursor IDE `/` 发现与调用 | **待用户在 IDE 验证** |
-| Claude Code 全局安装与加载 | **待验证** |
-| 其他 Agent | **仅计划**，未宣称已支持 |
+| 本地 `.agents/skills/` 含 5 个 Skill；`npx skills add . --list` | 维护环境曾验证 |
+| Cursor 全局落盘（CLI `--copy`） | 此前对 `manuscript-audit` 验证过；非本阶段重测 |
+| Cursor IDE `/` 加载 | **待用户** smoke-test |
+| Codex `$skill-installer` + 本仓库 URL | **文档已核对**；**本环境未实测** |
+| Claude Code 全局目录 / 插件市场 | **文档已核对**；**安装与加载未实测** |
+| Cursor/Claude 官方 Marketplace 上架包 | **未提供**（见插件分发决策） |
 
-## 六、安全与范围
-
-| 方式 | 影响范围 |
-|------|----------|
-| 全局 `--global` | 当前用户 Agent 技能目录；跨项目可见 |
-| 项目级（无 `-g`） | 仅当前仓库 |
-| 源码克隆 | 仅本地开发副本 |
-
-许可证仍可能未最终确定；见 [open-questions.md](../decisions/open-questions.md) 与 [SECURITY.md](../../SECURITY.md)。
+许可证仍可能未定：见 [open-questions.md](../decisions/open-questions.md)。

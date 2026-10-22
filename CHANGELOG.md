@@ -21,7 +21,8 @@
 
 ### Changed
 
-- 发布准备：中英文 README / 安装指南统一为 `npx skills` 长参数全局安装示例（`--global --agent … --skill …`）；明确全局 / 项目级 / 源码三场景；核实 CLI 1.7.4 与 GitHub `--list` 发现 4 个 Skill。
+- 安装体验：README / 安装指南改为 **「让 Agent 帮你安装」优先**，其次原生平台路径，CLI `npx skills` 为备用；新增可复制安装指令；记录 Codex `$skill-installer`、Cursor/Claude 全局目录与 Marketplace 要求；暂缓未验证插件 Manifest（见 `docs/decisions/plugin-distribution.md`）。
+- 发布准备：中英文 README / 安装指南统一全局安装示例；核实 CLI 1.7.4。
 - `SECURITY.md`：不以编造邮箱为披露渠道；说明 GitHub 私密漏洞报告须维护者在网页端启用；补充发布前安全清单。
 - `docs/decisions/open-questions.md`：保留许可证待决及 MIT / Apache-2.0 决策对照；补充维护者发布待办。
 

@@ -74,39 +74,34 @@ ScholarlyOps 针对这些问题给出可检查的工作方式：
 
 `manuscript-audit` 的本地脚本可检出部分**字面数值冲突**与**单位 token 冲突**，并区分格式差与四舍五入容差；这不等于完整的科研语义审计，也不能替代作者与领域专家判断。
 
-## 快速开始（推荐：Agent 全局安装）
+## 快速开始（推荐：让 Agent 帮你安装）
 
-面向最终用户的主要方式：用官方 [`npx skills`](https://github.com/vercel-labs/skills) 把 Skills 装进 Cursor / Claude Code 的**个人全局**技能目录，跨项目复用。  
-**不必**克隆本仓库，也**不必**把 Skill 复制进每个业务项目。
+**首选**：把下面指令粘贴到 Cursor / Claude Code / Codex 等当前 Agent，让它装到**用户级全局**技能目录（跨项目复用）。  
+**不必**先克隆本仓库，也**不必**默认装进业务项目。  
+一句自然语言**不能保证**对所有 Agent 都自动成功——完整路径与限制见 [安装指南](docs/zh-CN/installation.md)。
 
-前置：Node.js 18+。需要跑 `manuscript-audit` 脚本时另需 Python 3.10+。
-
-```bash
-# 查看可安装的 Skills（本环境对 GitHub 源 --list：已发现 4 个）
-npx skills add dxl11/scholarlyops-skills --list
-
-# 全局安装单个 Skill（示例：literature-search）
-npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill literature-search
-
-# 或安装 manuscript-audit
-npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill manuscript-audit
-
-# 全局安装全部 Skills
-npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill '*'
-
-# 查看 / 更新 / 卸载（示例）
-npx skills list --global
-npx skills update --global -y
-npx skills remove manuscript-audit --global --agent cursor -y
+```text
+请帮我安装 ScholarlyOps Skills。
+仓库：https://github.com/dxl11/scholarlyops-skills
+权威路径：.agents/skills/
+五个 Skills：research-context、literature-search、evidence-writing、manuscript-audit、review-response。
+请先列出并让我选择全部或指定几个；优先用本 Agent 官方安装方式；装到用户全局目录；目标已存在须先确认再覆盖；装完报告路径与如何验证加载；失败则说明原因与 CLI/文档替代方案。
 ```
 
-仅 Cursor 或仅 Claude Code 时，把 `--agent` 改成单一目标即可。
+**其次**：各平台原生能力（Codex `$skill-installer` 的 GitHub 目录 URL；Cursor / Claude 的全局技能目录；插件 Marketplace 需额外 Manifest——**本仓库尚未提供已验证插件包**）。详见安装指南第 2 节。
 
-然后打开**任意**工作项目：在 Cursor Agent 用 `/` 搜索或点名 Skill。  
-**文件已安装 ≠ IDE 已加载**；Cursor 界面验收见 [cursor-smoke-test.md](docs/zh-CN/cursor-smoke-test.md)。Claude Code 加载仍**待你本机验证**。
+**备用 CLI**（需 Node.js 18+；[`npx skills`](https://github.com/vercel-labs/skills) 1.7.4）：
 
-- 完整说明（平台命令、项目级安装、排障）：[安装指南（中文）](docs/zh-CN/installation.md) · [Installation (English)](docs/en/installation.md)
-- 维护者本地开发（非最终用户默认路径）：
+```bash
+npx skills add dxl11/scholarlyops-skills --list
+npx skills add dxl11/scholarlyops-skills --global --agent cursor claude-code --skill '*'
+npx skills add dxl11/scholarlyops-skills --global --agent cursor --skill manuscript-audit
+npx skills list --global
+```
+
+安装后打开任意工作项目，用 `/` 搜索或点名 Skill。**文件落盘 ≠ 已加载**。[Cursor 验收](docs/zh-CN/cursor-smoke-test.md) · [完整安装说明](docs/zh-CN/installation.md) · [Installation (EN)](docs/en/installation.md)
+
+维护者开发：
 
 ```bash
 git clone https://github.com/dxl11/scholarlyops-skills.git
@@ -131,8 +126,8 @@ python tools/validate_skills.py
 - **许可证尚未确定**；在添加 `LICENSE` 之前，不得宣称 MIT、Apache-2.0 或其他许可证。见 [open-questions.md](docs/decisions/open-questions.md)。
 - 正式 GitHub 远程地址、商标与品牌法律清核仍待确认；元数据见 [`project.json`](project.json)。
 - `run_evals.py` 仅自动评分**确定性脚本**案例；需 Agent/人工的语义案例会 skip，**不**记为通过。
-- `npx skills`（1.7.4）对本仓库的 **Skill 发现**（`--list` → 4 个）已验证；Cursor **全局安装落盘**曾在维护环境验证；**IDE `/` 菜单发现与调用**仍待按 smoke-test 确认。
-- Claude Code：安装命令已按 CLI 给出，**安装与加载均待本机实测**；未宣称已支持其他网页/云端 Agent。
+- 安装入口优先为 **让 Agent 安装**；CLI `npx skills` 为备用。Cursor / Claude **官方 Marketplace 插件包尚未提供**（见 [plugin-distribution.md](docs/decisions/plugin-distribution.md)）。
+- `npx skills`（1.7.4）本地发现与 Cursor 全局落盘曾在维护环境验证；**IDE `/` 加载**与 **Codex / Claude Code 端到端安装**仍待本机确认。
 - 程序测试通过 ≠ 论文审计能力已充分验证；Agent 语义有效盲测不足时保持 Draft。见 [评测说明](evals/README.md)。
 - 文献 API、自动投稿等**未实现**，仅列于 [路线图](docs/ROADMAP.md)。
 - 安全披露途径见 [SECURITY.md](SECURITY.md)（GitHub 私密漏洞报告需维护者在网页端确认启用；**无**单独编造的安全邮箱）。

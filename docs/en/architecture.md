@@ -64,7 +64,8 @@ Re-run validation after changes; CI via `.github/workflows/validate.yml` (no per
 ## 11. Distribution
 
 - **Canonical source**: `.agents/skills/` in this repo (single source; discoverable by `npx skills`).
-- **Primary end-user path**: Agent **global** install (`npx skills add <owner>/<repo> --global --agent cursor …`); see the installation guide.
+- **Primary end-user path**: Prefer “ask your Agent to install” into user-global dirs; CLI `npx skills … --global` is the fallback; see the installation guide.
+- **Native Marketplace plugins**: evaluated in [plugin-distribution.md](../decisions/plugin-distribution.md); no unverified manifests committed yet.
 - **Project install**: optional team pin; not required.
 - **Maintainers**: clone this repo for validation/evals.
 

@@ -70,5 +70,7 @@
 - [ ] GitHub：启用/确认私密漏洞报告
 - [ ] Cursor IDE smoke-test 勾选（`docs/zh-CN/cursor-smoke-test.md`）
 - [ ] Claude Code 安装与加载实测并回写安装文档验证表
+- [ ] Codex `$skill-installer` + 本仓库 Skill 目录 URL 实测
+- [ ] （可选）按 [plugin-distribution.md](plugin-distribution.md) 自动打包并实测后再提交插件 Manifest
 - [ ] 商标/品牌法律清核（如需对外运营品牌）
 - [ ] 有效 Agent 语义盲测达到可辩护样本量后再考虑升成熟度

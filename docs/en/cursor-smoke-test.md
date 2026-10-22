@@ -11,6 +11,10 @@ Canonical sources remain `.agents/skills/` in this repo (single source of truth)
 
 ## 0. Prerequisites (recommended: global)
 
+Preferred: paste the “Install with your Agent” prompt from the [installation guide](installation.md) §1 into Cursor Agent.
+
+CLI fallback:
+
 ```bash
 npx skills add dxl11/scholarlyops-skills --global --agent cursor --skill manuscript-audit
 # optional: -y --copy (non-interactive + copy; used in maintainer verification)

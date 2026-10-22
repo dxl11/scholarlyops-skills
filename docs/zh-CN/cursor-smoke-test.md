@@ -11,6 +11,10 @@
 
 ## 0. 前置（推荐：全局安装）
 
+首选：在 Cursor Agent 粘贴 [安装指南](installation.md) 第 1 节的「让 Agent 帮你安装」指令。
+
+备用 CLI：
+
 ```bash
 npx skills add dxl11/scholarlyops-skills --global --agent cursor --skill manuscript-audit
 # 可选：-y --copy（非交互 + 复制落盘；维护环境曾用此组合验证）
